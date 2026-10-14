@@ -8,13 +8,14 @@ Forsiden og menusiderne til Makkerne (Next.js 16, Tailwind 4, Paper Shaders).
 
 ## Eksempelsiderne
 
-Eksempelsiderne (`/examples/cafe/`, `/examples/frisor/`, `/examples/restaurant/`) ligger stadig i den gamle
-makkerne.tech-udrulning. Alle stier, som denne app ikke selv har, hentes derfra (se `next.config.ts`), så
-de virker på samme domæne og kan vises live i boksene på forsiden.
+Tre interaktive eksempelsider til håndværkere ligger i appen selv og vises live i boksene på forsiden:
 
-Når denne app flyttes over på makkerne.tech-domænet, skal `LEGACY_SITE_URL` i Vercel sættes til den gamle
-udrulnings egen adresse (fx `https://<gammelt-projekt>.vercel.app`). Ellers peger den tilbage på sig selv.
-Alternativt kan den gamle sides `examples/`-mappe lægges i `public/examples/`, så er der ikke brug for den.
+- `/examples/vvs/` – Holm VVS (`components/examples/vvs.tsx`)
+- `/examples/tomrer/` – Egholm Tømrer & Snedker (`components/examples/tomrer.tsx`)
+- `/examples/maler/` – Malerfirmaet Kulør (`components/examples/maler.tsx`)
+
+Fælles byggeklodser (før/efter-slider, tilbudsformular, tjek af område) ligger i `components/examples/shared.tsx`.
+Billederne er Unsplash-fotos, der hentes direkte fra images.unsplash.com.
 
 ## Kør lokalt
 
