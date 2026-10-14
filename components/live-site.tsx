@@ -20,10 +20,22 @@ const PHONE_WIDTH = 390;
  * desktop (or phone) size and scaled down. While the box passes through the
  * viewport, the site inside scrolls along with the landing page.
  */
-export function LiveSite({ src, title, liveLabel }: { src: string; title: string; liveLabel: string }) {
+export function LiveSite({
+  src,
+  title,
+  liveLabel,
+  tryLabel,
+}: {
+  src: string;
+  title: string;
+  liveLabel: string;
+  tryLabel: string;
+}) {
   const boxRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
   const [size, setSize] = useState({ w: DESKTOP_WIDTH, h: 800, scale: 0.5 });
+  // Until clicked, the site scrolls along with the page. After a click it is a normal, usable site.
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     const box = boxRef.current;
@@ -40,6 +52,7 @@ export function LiveSite({ src, title, liveLabel }: { src: string; title: string
   }, []);
 
   useEffect(() => {
+    if (active) return;
     let raf = 0;
     const sync = () => {
       raf = 0;
@@ -66,26 +79,26 @@ export function LiveSite({ src, title, liveLabel }: { src: string; title: string
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [active]);
 
   const path = src.replace(/^\//, "makkerne.tech/").replace(/\/$/, "");
 
   return (
-    <a
-      href={src}
-      target="_blank"
-      rel="noopener"
-      className="group block overflow-hidden rounded-2xl border border-ink/10 bg-card shadow-[0_30px_80px_-30px_rgba(22,24,29,0.35)] transition-transform duration-500 hover:-translate-y-1"
-    >
+    <div className="group overflow-hidden rounded-2xl border border-ink/10 bg-card shadow-[0_30px_80px_-30px_rgba(22,24,29,0.35)]">
       <div className="flex items-center gap-3 border-b border-ink/10 bg-paper-2/70 px-4 py-2.5">
         <span className="flex gap-1.5" aria-hidden>
           <span className="size-2.5 rounded-full bg-ink/15" />
           <span className="size-2.5 rounded-full bg-ink/15" />
           <span className="size-2.5 rounded-full bg-ink/15" />
         </span>
-        <span className="min-w-0 flex-1 truncate rounded-full bg-paper px-3 py-1 text-center text-[11px] text-ink/55">
-          {path}
-        </span>
+        <a
+          href={src}
+          target="_blank"
+          rel="noopener"
+          className="min-w-0 flex-1 truncate rounded-full bg-paper px-3 py-1 text-center text-[11px] text-ink/55 transition hover:text-ink"
+        >
+          {path} ↗
+        </a>
         <span className="flex items-center gap-1.5 text-[11px] font-medium text-ink/60">
           <span className="relative flex size-2">
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500/60" />
@@ -100,12 +113,21 @@ export function LiveSite({ src, title, liveLabel }: { src: string; title: string
           src={src}
           title={title}
           loading="lazy"
-          tabIndex={-1}
+          tabIndex={active ? 0 : -1}
           onLoad={hideScrollbar}
-          className="pointer-events-none absolute left-0 top-0 origin-top-left border-0 bg-white"
+          className={`absolute left-0 top-0 origin-top-left border-0 bg-paper ${active ? "" : "pointer-events-none"}`}
           style={{ width: size.w, height: size.h, transform: `scale(${size.scale})` }}
         />
+        {!active && (
+          <button
+            type="button"
+            onClick={() => setActive(true)}
+            className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-ink/25 to-transparent to-40% pb-6 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100"
+          >
+            <span className="rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper shadow-lg">{tryLabel}</span>
+          </button>
+        )}
       </div>
-    </a>
+    </div>
   );
 }

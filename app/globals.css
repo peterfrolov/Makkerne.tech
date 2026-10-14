@@ -2,6 +2,8 @@
 
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Display face of each example site, set per page with next/font. */
+  --font-display: var(--font-example-display), ui-serif, Georgia, serif;
   /* Toned-down whites instead of pure #fff */
   --color-paper: #f3f2ee;
   --color-paper-2: #e9e7e1;

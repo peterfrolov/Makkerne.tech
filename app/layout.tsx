@@ -1,8 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { LangProvider } from "@/components/lang";
-import { Header } from "@/components/header";
-import { ShaderFilters } from "@/components/shader-backdrop";
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
@@ -28,11 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="da" className={`${inter.variable} antialiased`}>
       <body className="min-h-dvh bg-paper font-sans text-ink">
-        <ShaderFilters />
-        <LangProvider>
-          <Header />
-          {children}
-        </LangProvider>
+        {children}
       </body>
     </html>
   );

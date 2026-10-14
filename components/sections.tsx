@@ -54,7 +54,7 @@ export function LiveExamples() {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className={`lg:col-span-8 ${i % 2 ? "lg:order-2" : ""}`}
             >
-              <LiveSite src={item.href} title={item.name} liveLabel={e.live} />
+              <LiveSite src={item.href} title={item.name} liveLabel={e.live} tryLabel={e.try} />
             </motion.div>
             <motion.div {...reveal} className={`lg:col-span-4 ${i % 2 ? "lg:order-1" : ""}`}>
               <p className="text-xs font-medium uppercase tracking-[0.25em] text-brand">
@@ -130,7 +130,7 @@ export function ExamplesByIndustry() {
             </div>
           </div>
           <div className="lg:col-span-8">
-            <LiveSite src={item.href} title={item.name} liveLabel={e.live} />
+            <LiveSite src={item.href} title={item.name} liveLabel={e.live} tryLabel={e.try} />
           </div>
         </motion.article>
       ))}
