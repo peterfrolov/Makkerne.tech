@@ -4,7 +4,7 @@ export const EMAIL = "blond.nikolaj@gmail.com";
 export const PRICE = "599,-";
 
 export type Example = {
-  slug: "vvs" | "tomrer" | "maler";
+  slug: "vvs" | "tomrer" | "maler" | "tag";
   href: string;
   name: string;
   place: string;
@@ -35,6 +35,49 @@ const da = {
     seeExamples: "Se eksempler",
     write: "Skriv til os",
     ring: "Makkerne • Hjemmesider til håndværkere • 599,- • ",
+    sticker: "Fast pris",
+    phone: "Sådan ser en af vores sider ud på telefonen",
+    tryIt: "Prøv den selv",
+  },
+  usp: ["Ingen binding", "Du ejer siden", "Fast pris: 599,-", "Svar samme dag"],
+  trades: {
+    title: "Til alle fag",
+    lead: "Vi kender det, dine kunder leder efter. Er dit fag ikke på listen, så skriv alligevel.",
+    example: "Se eksempel",
+    soon: "Skriv til os",
+    items: [
+      { name: "VVS", href: "/examples/vvs/" },
+      { name: "Tømrer", href: "/examples/tomrer/" },
+      { name: "Maler", href: "/examples/maler/" },
+      { name: "Tagdækker", href: "/examples/tag/" },
+      { name: "Murer" },
+      { name: "Elektriker" },
+      { name: "Anlægsgartner" },
+      { name: "Snedker" },
+    ],
+  },
+  tech: {
+    title: "Det tekniske klarer vi",
+    lead: "Du passer dit arbejde. Vi passer din hjemmeside. Du skal ikke vide, hvad et SSL-certifikat er.",
+    items: ["Domæne sat op", "Hosting", "SSL (hængelåsen)", "Hurtig at loade", "Virker på telefonen", "Klar til Google", "Cookie-banner efter reglerne", "Formular der sender til din mail"],
+    ownTitle: "Siden er din",
+    own: ["Ingen binding og intet abonnement til os", "Du ejer domæne, tekster og billeder", "Vil du flytte siden, får du det hele med"],
+  },
+  callback: {
+    title: "Bliv ringet op",
+    lead: "Skriv navn og nummer, så ringer vi dig op. Det tager to minutter.",
+    name: "Navn",
+    phone: "Telefon",
+    trade: "Dit fag",
+    send: "Ring mig op",
+    note: "Knappen åbner din mail med beskeden skrevet færdig. Du trykker bare send.",
+    subject: "Ring mig op",
+  },
+  audit: {
+    title: "Har du allerede en hjemmeside?",
+    text: "Send os linket, så kigger vi den gratis igennem og fortæller ærligt, om den skaffer kunder, eller om den skal laves om.",
+    cta: "Få et gratis tjek",
+    subject: "Gratis tjek af min hjemmeside",
   },
   stats: [
     { value: PRICE, label: "Fast pris, alt inkluderet" },
@@ -43,7 +86,7 @@ const da = {
   ],
   examples: {
     title: "Sådan kunne din side se ud",
-    lead: "Tre rigtige, levende sider til en VVS'er, en tømrer og en maler. Før og efter-billeder, anmeldelser, prisberegner og en tilbudsformular, der virker. Klik og prøv selv. Din side bliver lavet til netop dit firma.",
+    lead: "Fire rigtige, levende sider til en VVS'er, en tømrer, en maler og et tagfirma. Før og efter-billeder, anmeldelser, prisberegner og en tilbudsformular, der virker. Klik og prøv selv. Din side bliver lavet til netop dit firma.",
     live: "Live",
     try: "Klik og prøv siden",
     open: "Åbn siden",
@@ -88,6 +131,17 @@ const da = {
         tags: ["Prisberegner", "Farveguide", "Før og efter", "Tilbudsformular"],
         features: ["Prisberegner med m² og spartling", "Farveguide med rigtige rum", "Før og efter, man kan trække i", "Anmeldelser fra Google", "Tilbudsformular med prisen udfyldt"],
       },
+      {
+        slug: "tag",
+        href: "/examples/tag/",
+        name: "Tagværk",
+        place: "Rødovre",
+        industry: "Tagdækker & tømrer",
+        short: "Mørk og solid side til et tag- og tømrerfirma: tilbudsformular lige i toppen, rentefri afbetaling, vælg din tagtype, før og efter, ydelser, anmeldelser og spørgsmål.",
+        long: "Mørk, rolig side til tagdækker og tømrer med formular i toppen, menuer for hvert fag, tagvælger, galleri og anmeldelser.",
+        tags: ["Tilbud i toppen", "Afbetaling", "Vælg tagtype", "Før og efter"],
+        features: ["Tilbudsformular lige i toppen", "Rentefri afbetaling", "Vælg tagtype med pris og levetid", "Før og efter-galleri", "Anmeldelser og ofte stillede spørgsmål"],
+      },
     ] as Example[],
   },
   pricing: {
@@ -119,6 +173,8 @@ const da = {
     title: "Det bliver vi tit spurgt om",
     items: [
       { q: "Hvordan er det så billigt?", a: "Vi er to mand uden kontor, sælgere eller mellemled. Siderne er enkle og fokuserede, så vi kan lave dem hurtigt og holde prisen nede." },
+      { q: "Er der binding?", a: "Nej. Du betaler 599,- én gang, og så er siden din. Der er intet abonnement til os." },
+      { q: "Hvem taler jeg med?", a: "Med os, dem der bygger siden. Der er ingen sælger eller kontaktperson imellem." },
       { q: "Jeg har ikke tid til at skrive tekster", a: "Det skal du heller ikke. Fortæl os i telefonen, hvad du laver, så skriver vi det. Billederne tager du med telefonen på næste opgave." },
       { q: "Hvor kommer forespørgslerne hen?", a: "Direkte i din mail, så du kan ringe kunden op, når du har en pause. Og knappen 'Ring nu' ringer bare op til dig." },
       { q: "Jeg har allerede en hjemmeside", a: "Så laver vi en ny, der er hurtigere og nemmere at ringe fra, og flytter dit domæne over, så du beholder din adresse." },
@@ -157,6 +213,49 @@ const en: Dict = {
     seeExamples: "See examples",
     write: "Write to us",
     ring: "Makkerne • Websites for tradespeople • 599 DKK • ",
+    sticker: "Fixed price",
+    phone: "What one of our sites looks like on a phone",
+    tryIt: "Try it yourself",
+  },
+  usp: ["No lock-in", "You own the site", "Fixed price: 599 DKK", "Reply the same day"],
+  trades: {
+    title: "For every trade",
+    lead: "We know what your customers look for. If your trade is not on the list, write to us anyway.",
+    example: "See example",
+    soon: "Write to us",
+    items: [
+      { name: "Plumber", href: "/examples/vvs/" },
+      { name: "Carpenter", href: "/examples/tomrer/" },
+      { name: "Painter", href: "/examples/maler/" },
+      { name: "Roofer", href: "/examples/tag/" },
+      { name: "Bricklayer" },
+      { name: "Electrician" },
+      { name: "Landscaper" },
+      { name: "Joiner" },
+    ],
+  },
+  tech: {
+    title: "We handle the technical stuff",
+    lead: "You look after your work. We look after your website. You don't need to know what an SSL certificate is.",
+    items: ["Domain set up", "Hosting", "SSL (the padlock)", "Fast to load", "Works on phones", "Ready for Google", "Cookie banner by the rules", "Form that sends to your email"],
+    ownTitle: "The site is yours",
+    own: ["No lock-in and no subscription to us", "You own the domain, texts and photos", "If you want to move the site, you take it all with you"],
+  },
+  callback: {
+    title: "Get a call back",
+    lead: "Leave your name and number and we will call you. It takes two minutes.",
+    name: "Name",
+    phone: "Phone",
+    trade: "Your trade",
+    send: "Call me",
+    note: "The button opens your email with the message written. Just press send.",
+    subject: "Call me back",
+  },
+  audit: {
+    title: "Already have a website?",
+    text: "Send us the link and we will look it over for free and tell you honestly whether it brings in customers or needs redoing.",
+    cta: "Get a free check",
+    subject: "Free check of my website",
   },
   stats: [
     { value: "599 DKK", label: "Fixed price, everything included" },
@@ -165,7 +264,7 @@ const en: Dict = {
   ],
   examples: {
     title: "This is what your site could look like",
-    lead: "Three real, living sites for a plumber, a carpenter and a painter. Before and after photos, reviews, a price calculator and a quote form that works. Click and try them. Yours is made for your business.",
+    lead: "Four real, living sites for a plumber, a carpenter, a painter and a roofer. Before and after photos, reviews, a price calculator and a quote form that works. Click and try them. Yours is made for your business.",
     live: "Live",
     try: "Click to try the site",
     open: "Open the site",
@@ -201,6 +300,14 @@ const en: Dict = {
         tags: ["Price calculator", "Colour guide", "Before & after", "Quote form"],
         features: ["Price calculator with m² and filling", "Colour guide with real rooms", "Before and after you can drag", "Reviews from Google", "Quote form with the price filled in"],
       },
+      {
+        ...da.examples.items[3],
+        industry: "Roofer & carpenter",
+        short: "A dark, solid site for a roofing and carpentry firm: quote form right at the top, interest-free instalments, pick your roof type, before and after, services, reviews and FAQ.",
+        long: "A dark, calm roofer and carpenter site with the form at the top, menus for each trade, a roof picker, a gallery and reviews.",
+        tags: ["Quote at the top", "Instalments", "Pick a roof", "Before & after"],
+        features: ["Quote form right at the top", "Interest-free instalments", "Roof picker with price and lifetime", "Before and after gallery", "Reviews and FAQ"],
+      },
     ],
   },
   pricing: {
@@ -232,6 +339,8 @@ const en: Dict = {
     title: "What people often ask us",
     items: [
       { q: "How is it so cheap?", a: "We are two people with no office, salespeople or middlemen. The sites are simple and focused, so we can make them quickly and keep the price down." },
+      { q: "Is there a lock-in?", a: "No. You pay 599 DKK once and the site is yours. There is no subscription to us." },
+      { q: "Who do I talk to?", a: "To us, the people building the site. There is no salesperson or account manager in between." },
       { q: "I don't have time to write texts", a: "You don't have to. Tell us on the phone what you do and we write it. Take the photos with your phone on your next job." },
       { q: "Where do the requests go?", a: "Straight to your email, so you can call the customer back on your break. And the 'Call now' button simply calls you." },
       { q: "I already have a website", a: "Then we make a new one that is faster and easier to call from, and move your domain over so you keep your address." },

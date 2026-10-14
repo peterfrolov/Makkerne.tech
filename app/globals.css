@@ -2,26 +2,48 @@
 
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Makkerne's own headings: heavy, condensed, workshop-sign style. */
+  --font-cond: var(--font-barlow), "Arial Narrow", ui-sans-serif, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
   /* Display face of each example site, set per page with next/font. */
   --font-display: var(--font-example-display), ui-serif, Georgia, serif;
-  /* Toned-down whites instead of pure #fff */
-  --color-paper: #f3f2ee;
-  --color-paper-2: #e9e7e1;
-  --color-card: #f8f7f4;
-  --color-ink: #16181d;
-  --color-brand: #1f6bff;
-  --color-brand-dark: #1555d1;
-  --color-peach: #f29a6b;
+  /* Raw workshop palette: concrete, ink and tape-measure yellow */
+  --color-paper: #ebe7de;
+  --color-paper-2: #ded9cd;
+  --color-card: #f5f2eb;
+  --color-ink: #161513;
+  --color-brand: #f5c518;
+  --color-brand-dark: #d9a90b;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
+  scroll-padding-top: 7.5rem;
 }
 
 body {
   background: var(--color-paper);
   color: var(--color-ink);
+}
+
+/* Tape-measure strip: yellow with tick marks every centimetre and a longer one every fifth. */
+.tape {
+  background-color: var(--color-brand);
+  background-image:
+    repeating-linear-gradient(90deg, var(--color-ink) 0 2px, transparent 2px 60px),
+    repeating-linear-gradient(90deg, var(--color-ink) 0 1px, transparent 1px 12px);
+  background-size:
+    100% 55%,
+    100% 28%;
+  background-repeat: repeat-x;
+  background-position:
+    0 0,
+    0 0;
+}
+
+/* Hard offset shadow, like a sign cut from plywood. */
+.hard {
+  box-shadow: 6px 6px 0 var(--color-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {
