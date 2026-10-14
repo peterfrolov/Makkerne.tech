@@ -17,8 +17,7 @@ const PHONE_WIDTH = 390;
 
 /**
  * A real, running example site in a browser-style box. The page is rendered at
- * desktop (or phone) size and scaled down. While the box passes through the
- * viewport, the site inside scrolls along with the landing page.
+ * desktop (or phone) size and scaled down, and stays still until it is clicked.
  */
 export function LiveSite({
   src,
@@ -32,9 +31,8 @@ export function LiveSite({
   tryLabel: string;
 }) {
   const boxRef = useRef<HTMLDivElement>(null);
-  const frameRef = useRef<HTMLIFrameElement>(null);
   const [size, setSize] = useState({ w: DESKTOP_WIDTH, h: 800, scale: 0.5 });
-  // Until clicked, the site scrolls along with the page. After a click it is a normal, usable site.
+  // Until clicked, the preview can't be interacted with, so it never steals the page's scroll.
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -51,35 +49,6 @@ export function LiveSite({
     return () => ro.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (active) return;
-    let raf = 0;
-    const sync = () => {
-      raf = 0;
-      const box = boxRef.current;
-      const win = frameRef.current?.contentWindow;
-      if (!box || !win) return;
-      const rect = box.getBoundingClientRect();
-      const vh = window.innerHeight;
-      if (rect.bottom < 0 || rect.top > vh) return;
-      const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height)));
-      try {
-        // Same-origin only (the example sites are served from this domain).
-        const max = win.document.documentElement.scrollHeight - win.innerHeight;
-        win.scrollTo({ top: progress * max, behavior: "instant" });
-      } catch {
-        // Cross-origin preview: leave it static.
-      }
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(sync);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, [active]);
 
   const path = src.replace(/^\//, "makkerne.tech/").replace(/\/$/, "");
 
@@ -109,7 +78,6 @@ export function LiveSite({
       </div>
       <div ref={boxRef} className="relative aspect-[9/14] overflow-hidden bg-paper sm:aspect-[16/10]">
         <iframe
-          ref={frameRef}
           src={src}
           title={title}
           loading="lazy"

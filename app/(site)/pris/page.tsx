@@ -3,7 +3,7 @@ import { PricePage } from "@/components/pages";
 
 export const metadata: Metadata = {
   title: "Pris",
-  description: "Gratis hjemmeside til de første 5 virksomheder, normalt 599,-. Til gengæld må vi vise siden frem som reference.",
+  description: "Én fast pris på 599,- for hele hjemmesiden. Ingen pakker, ingen timepris og intet månedligt abonnement.",
 };
 
 export default function Page() {

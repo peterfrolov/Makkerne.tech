@@ -8,10 +8,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://makkerne.tech"),
   title: { default: "Makkerne", template: "%s · Makkerne" },
   description:
-    "Makkerne: en ny, moderne hjemmeside til din café, frisørsalon eller restaurant – gratis for de første 5 virksomheder (normalt 599,-).",
+    "Makkerne: en ny, moderne hjemmeside til din café, frisørsalon eller restaurant – til en fast pris på 599,-.",
   openGraph: {
     title: "Makkerne – en helt ny hjemmeside til din forretning",
-    description: "Moderne, hurtige hjemmesider til caféer, frisører og restauranter. Gratis for de første 5 (normalt 599,-).",
+    description: "Moderne, hurtige hjemmesider til caféer, frisører og restauranter. Fast pris: 599,-.",
     locale: "da_DK",
     type: "website",
   },
