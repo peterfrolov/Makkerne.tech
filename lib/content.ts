@@ -51,7 +51,7 @@ const da = {
     want: "Jeg vil have en som denne",
     all: "Se alle design-eksempler",
     disclaimer: "Navnene ovenfor er opdigtede. Siderne er eksempler på stilen, ikke rigtige kundeprojekter.",
-    scrollHint: "Siderne kører live. Scroll, så scroller de med, eller klik og prøv dem.",
+    scrollHint: "Siderne kører live. Klik og prøv dem.",
     pageTitle: "Se hvad vi kan lave til din forretning",
     pageLead: `Eksempler på hjemmesider, sorteret efter branche. Alle sider er bygget fra bunden, virker på telefonen og koster ${PRICE} – navnene er opdigtede.`,
     items: [
@@ -171,7 +171,7 @@ const en: Dict = {
     want: "I want one like this",
     all: "See all design examples",
     disclaimer: "The names above are made up. The sites show the style, they are not real client projects.",
-    scrollHint: "These sites are running live. Scroll and they scroll along, or click to try them.",
+    scrollHint: "These sites are running live. Click to try them.",
     pageTitle: "See what we can make for your business",
     pageLead: `Example websites, sorted by industry. Every site is built from scratch, works on phones and costs 599 DKK. The names are made up.`,
     items: [
