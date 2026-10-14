@@ -18,7 +18,7 @@ export function PhonePreview({ src, title, cta }: { src: string; title: string; 
   const scale = (FRAME_WIDTH - 20) / PHONE_WIDTH;
   return (
     <div className="flex flex-col items-center">
-      <div className="hard relative overflow-hidden rounded-[2.4rem] border-[10px] border-ink bg-ink" style={{ width: FRAME_WIDTH, height: 600 }}>
+      <div className="relative overflow-hidden rounded-[2.4rem] border-[10px] border-ink bg-ink shadow-[0_30px_60px_-30px_rgba(22,21,19,0.45)]" style={{ width: FRAME_WIDTH, height: 600 }}>
         <iframe
           src={src}
           title={title}
@@ -29,7 +29,7 @@ export function PhonePreview({ src, title, cta }: { src: string; title: string; 
           style={{ width: PHONE_WIDTH, height: 580 / scale, transform: `scale(${scale})` }}
         />
       </div>
-      <a href={src} target="_blank" rel="noopener" className="mt-6 border-b-2 border-ink font-cond text-lg font-extrabold uppercase transition hover:bg-brand">
+      <a href={src} target="_blank" rel="noopener" className="mt-5 text-sm font-medium text-ink/70 underline underline-offset-4 transition hover:text-ink">
         {cta} ↗
       </a>
     </div>

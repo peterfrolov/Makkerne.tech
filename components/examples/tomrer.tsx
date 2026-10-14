@@ -133,7 +133,7 @@ export function TomrerSite() {
             <a href={TEL} className="hidden items-center gap-2 text-sm font-semibold sm:flex">
               <Icon name="phone" className="size-4 text-[#a2582a]" /> {PHONE}
             </a>
-            <a href="#besigtigelse" className="rounded-full bg-[#221c15] px-5 py-2.5 text-sm font-semibold text-[#f4efe6] transition hover:bg-[#a2582a]">
+            <a href="#besigtigelse" className="rounded-md bg-[#221c15] px-5 py-2.5 text-sm font-semibold text-[#f4efe6] transition hover:bg-[#a2582a]">
               Book besigtigelse
             </a>
           </div>
@@ -143,31 +143,28 @@ export function TomrerSite() {
       {/* Hero */}
       <section id="top" className="px-3 sm:px-5">
         <div className="relative mx-auto min-h-[78svh] max-w-[90rem] overflow-hidden rounded-[2rem]">
-          <motion.div initial={{ scale: 1.12 }} animate={{ scale: 1 }} transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0">
+          <motion.div className="absolute inset-0">
             <Img id="1676802037786-3697d60497ae" w={2200} alt="Hus under opførelse med træskelet" className="size-full object-cover" />
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a150f]/90 via-[#1a150f]/35 to-[#1a150f]/10" />
           <div className="relative flex min-h-[78svh] flex-col justify-end p-7 text-[#fbf8f2] sm:p-14">
-            <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="text-xs font-semibold uppercase tracking-[0.3em] text-[#e9b98f]">
+            <motion.p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#e9b98f]">
               Tømrermester i Roskilde siden 2003
             </motion.p>
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
               className="mt-4 max-w-4xl font-display text-6xl leading-[0.95] sm:text-8xl"
             >
               Bygget ordentligt. <em className="text-[#e9b98f]">Første gang.</em>
             </motion.h1>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <motion.div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
               <p className="max-w-md text-lg leading-relaxed text-[#fbf8f2]/80">
                 Tage, tilbygninger, terrasser og køkkener til private i Roskilde og omegn. Fast pris og 5 års garanti.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="#besigtigelse" className="rounded-full bg-[#fbf8f2] px-7 py-4 text-sm font-semibold text-[#221c15] transition hover:bg-[#e9b98f]">
+                <a href="#besigtigelse" className="rounded-md bg-[#fbf8f2] px-7 py-4 text-sm font-semibold text-[#221c15] transition hover:bg-[#e9b98f]">
                   Book gratis besigtigelse
                 </a>
-                <a href="#projekter" className="rounded-full border border-[#fbf8f2]/40 px-7 py-4 text-sm font-semibold backdrop-blur transition hover:bg-[#fbf8f2]/10">
+                <a href="#projekter" className="rounded-md border border-[#fbf8f2]/40 px-7 py-4 text-sm font-semibold backdrop-blur transition hover:bg-[#fbf8f2]/10">
                   Se projekter
                 </a>
               </div>
@@ -194,7 +191,6 @@ export function TomrerSite() {
       {/* Services in tabs */}
       <section id="ydelser" className="scroll-mt-24 bg-[#26302a] py-20 text-[#f4efe6] sm:py-28">
         <div className="mx-auto max-w-6xl px-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#e9b98f]">Ydelser</p>
           <h2 className="mt-3 font-display text-5xl sm:text-6xl">Hvad skal bygges?</h2>
           <div className="mt-10 flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none]">
             {SERVICES.map((sv, i) => (
@@ -217,7 +213,7 @@ export function TomrerSite() {
               transition={{ duration: 0.3 }}
               className="mt-8 grid items-center gap-10 lg:grid-cols-2"
             >
-              <div className="aspect-[4/3] overflow-hidden rounded-3xl">
+              <div className="aspect-[4/3] overflow-hidden rounded-lg">
                 <Img id={s.id} w={1100} alt={s.name} className="size-full object-cover" />
               </div>
               <div>
@@ -236,7 +232,7 @@ export function TomrerSite() {
                 <p className="mt-6 flex items-center gap-2 text-sm text-[#f4efe6]/60">
                   <Icon name="clock" className="size-4" /> Typisk tidsramme: {s.time}
                 </p>
-                <button type="button" onClick={() => order(s.name)} className="mt-8 rounded-full bg-[#e9b98f] px-7 py-3.5 text-sm font-semibold text-[#221c15] transition hover:bg-[#f4efe6]">
+                <button type="button" onClick={() => order(s.name)} className="mt-8 rounded-md bg-[#e9b98f] px-7 py-3.5 text-sm font-semibold text-[#221c15] transition hover:bg-[#f4efe6]">
                   Få et tilbud på {s.name.toLowerCase()}
                 </button>
               </div>
@@ -249,14 +245,13 @@ export function TomrerSite() {
       <section className="mx-auto max-w-6xl px-5 py-20 sm:py-28">
         <div className="grid items-end gap-6 lg:grid-cols-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#a2582a]">Før og efter</p>
             <h2 className="mt-3 font-display text-5xl">Tilbygning i Himmelev</h2>
             <p className="mt-4 leading-relaxed text-[#221c15]/65">
               Familien manglede plads til et køkken-alrum. Vi byggede 32 m² på bagsiden af huset, med højt til loftet og store vinduer mod haven.
             </p>
             <p className="mt-4 text-sm text-[#221c15]/50">Træk i billedet →</p>
           </div>
-          <BeforeAfter before="1768321917661-d4f1a89d2185" after="1648475236583-2e25a6cbf3bd" alt="Tilbygning i Himmelev" className="aspect-[4/3] rounded-3xl lg:col-span-2" />
+          <BeforeAfter before="1768321917661-d4f1a89d2185" after="1648475236583-2e25a6cbf3bd" alt="Tilbygning i Himmelev" className="aspect-[4/3] rounded-lg lg:col-span-2" />
         </div>
       </section>
 
@@ -290,7 +285,7 @@ export function TomrerSite() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
-                  className="group relative aspect-square overflow-hidden rounded-2xl text-left"
+                  className="group relative aspect-square overflow-hidden rounded-md text-left"
                 >
                   <Img id={g.id} w={700} alt={g.title} className="size-full object-cover transition duration-700 group-hover:scale-105" />
                   <span className="absolute inset-0 bg-gradient-to-t from-[#1a150f]/80 to-transparent to-50% opacity-90" />
@@ -324,8 +319,8 @@ export function TomrerSite() {
       {/* Master + reviews */}
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 sm:py-28 lg:grid-cols-2">
         <div className="relative">
-          <Img id="1595844730298-b960ff98fee0" w={1000} alt="Mads Egholm med værktøjsbælte" className="aspect-[4/5] w-full rounded-3xl object-cover" />
-          <div className="absolute -bottom-6 left-6 right-6 rounded-2xl bg-[#fbf8f2] p-5 shadow-xl sm:left-auto sm:w-72">
+          <Img id="1595844730298-b960ff98fee0" w={1000} alt="Mads Egholm med værktøjsbælte" className="aspect-[4/5] w-full rounded-lg object-cover" />
+          <div className="absolute -bottom-6 left-6 right-6 rounded-md bg-[#fbf8f2] p-5 shadow-xl sm:left-auto sm:w-72">
             <p className="font-display text-xl">Mads Egholm</p>
             <p className="text-sm text-[#221c15]/60">Tømrermester. Det er mig, der kommer ud og ser på opgaven.</p>
           </div>
@@ -333,7 +328,7 @@ export function TomrerSite() {
         <div className="space-y-6 pt-8 lg:pt-0">
           <h2 className="font-display text-5xl">Det siger kunderne</h2>
           {REVIEWS.map((r) => (
-            <figure key={r.name} className="rounded-2xl border border-[#221c15]/10 bg-[#fbf8f2] p-6">
+            <figure key={r.name} className="rounded-md border border-[#221c15]/10 bg-[#fbf8f2] p-6">
               <Stars className="text-sm text-[#a2582a]" />
               <blockquote className="mt-3 leading-relaxed">“{r.text}”</blockquote>
               <figcaption className="mt-3 text-sm text-[#221c15]/55">
@@ -356,7 +351,7 @@ export function TomrerSite() {
               </span>
               {PHONE}
             </a>
-            <div className="mt-10 max-w-md rounded-2xl bg-[#f4efe6] p-6 text-[#221c15]">
+            <div className="mt-10 max-w-md rounded-md bg-[#f4efe6] p-6 text-[#221c15]">
               <AreaCheck areas={AREAS} base="Roskilde" />
             </div>
           </div>
@@ -396,7 +391,7 @@ export function TomrerSite() {
               className="w-full max-w-4xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <Img id={GALLERY[open].id} w={1600} alt={GALLERY[open].title} className="max-h-[75dvh] w-full rounded-2xl object-cover" />
+              <Img id={GALLERY[open].id} w={1600} alt={GALLERY[open].title} className="max-h-[75dvh] w-full rounded-md object-cover" />
               <figcaption className="mt-4 flex items-center justify-between gap-4 text-[#fbf8f2]">
                 <span>
                   <span className="block font-display text-2xl">{GALLERY[open].title}</span>

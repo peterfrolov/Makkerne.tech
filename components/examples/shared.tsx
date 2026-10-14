@@ -277,7 +277,7 @@ export function QuoteWizard({
   const field = "w-full rounded-xl border border-current/15 bg-(--ex-paper) px-4 py-3 text-sm outline-none transition focus:border-(--ex-accent)";
 
   return (
-    <div className="rounded-3xl bg-(--ex-paper) p-6 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.35)] sm:p-8">
+    <div className="rounded-lg bg-(--ex-paper) p-6 shadow-sm sm:p-8">
       {step < 3 && (
         <div className="grid grid-cols-3 gap-2">
           {steps.map((s, i) => (
@@ -384,7 +384,7 @@ export function QuoteWizard({
               </motion.div>
               <p className="mt-5 font-display text-3xl font-bold">Tak, {name.split(" ")[0]}!</p>
               <p className="mx-auto mt-2 max-w-xs opacity-65">{reply}</p>
-              <dl className="mx-auto mt-6 max-w-xs divide-y divide-current/10 rounded-2xl bg-current/5 px-4 text-left text-sm">
+              <dl className="mx-auto mt-6 max-w-xs divide-y divide-current/10 rounded-md bg-current/5 px-4 text-left text-sm">
                 {[
                   ["Opgave", service],
                   ["Hvornår", when],
