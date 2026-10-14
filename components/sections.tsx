@@ -154,7 +154,17 @@ export function Pricing({ hideHead = false }: { hideHead?: boolean }) {
           <div className="relative">
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-ink/55">{p.label}</p>
             <p className="mt-3 text-7xl font-black tracking-tight sm:text-8xl">{t.stats[0].value}</p>
+            <p className="mt-2 text-lg text-ink/50 line-through decoration-ink/40">{p.normal}</p>
             <p className="mt-4 max-w-xs text-ink/65">{p.once}</p>
+            <p className="mt-6 text-sm font-semibold">{p.dealTitle}</p>
+            <ul className="mt-2 space-y-1.5 text-sm text-ink/65">
+              {p.deal.map((d) => (
+                <li key={d} className="flex gap-2">
+                  <span aria-hidden className="text-brand">✓</span>
+                  {d}
+                </li>
+              ))}
+            </ul>
             <a
               href="#kontakt"
               className="mt-8 inline-flex rounded-full bg-gradient-to-r from-brand to-peach px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand/20 transition hover:shadow-xl"

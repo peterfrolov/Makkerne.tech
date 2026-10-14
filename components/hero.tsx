@@ -53,7 +53,10 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            {t.hero.price}
+            {t.hero.price}{" "}
+            <span className="whitespace-nowrap text-lg font-normal text-ink/50 line-through decoration-ink/40 md:text-xl">
+              {t.hero.normal}
+            </span>
           </motion.p>
 
           <motion.p
