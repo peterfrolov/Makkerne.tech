@@ -41,14 +41,14 @@ export const useLang = () => useContext(LangContext);
 export function LangToggle({ className = "" }: { className?: string }) {
   const { lang, setLang } = useLang();
   return (
-    <div className={`flex items-center rounded-full border border-ink/10 bg-paper/60 p-0.5 text-[11px] font-medium ${className}`}>
+    <div className={`flex items-center border-2 border-ink font-mono text-[11px] font-medium ${className}`}>
       {(["da", "en"] as const).map((l) => (
         <button
           key={l}
           type="button"
           onClick={() => setLang(l)}
           aria-pressed={lang === l}
-          className={`rounded-full px-2.5 py-1 uppercase transition ${
+          className={`px-2.5 py-1 uppercase transition ${
             lang === l ? "bg-ink text-paper" : "text-ink/60 hover:text-ink"
           }`}
         >

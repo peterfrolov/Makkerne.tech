@@ -53,22 +53,22 @@ export function LiveSite({
   const path = src.replace(/^\//, "makkerne.tech/").replace(/\/$/, "");
 
   return (
-    <div className="group overflow-hidden rounded-2xl border border-ink/10 bg-card shadow-[0_30px_80px_-30px_rgba(22,24,29,0.35)]">
-      <div className="flex items-center gap-3 border-b border-ink/10 bg-paper-2/70 px-4 py-2.5">
+    <div className="group hard overflow-hidden border-2 border-ink bg-card">
+      <div className="flex items-center gap-3 border-b-2 border-ink bg-ink px-4 py-2.5">
         <span className="flex gap-1.5" aria-hidden>
-          <span className="size-2.5 rounded-full bg-ink/15" />
-          <span className="size-2.5 rounded-full bg-ink/15" />
-          <span className="size-2.5 rounded-full bg-ink/15" />
+          <span className="size-2.5 bg-paper/25" />
+          <span className="size-2.5 bg-paper/25" />
+          <span className="size-2.5 bg-paper/25" />
         </span>
         <a
           href={src}
           target="_blank"
           rel="noopener"
-          className="min-w-0 flex-1 truncate rounded-full bg-paper px-3 py-1 text-center text-[11px] text-ink/55 transition hover:text-ink"
+          className="min-w-0 flex-1 truncate bg-paper/10 px-3 py-1 text-center font-mono text-[11px] text-paper/70 transition hover:text-paper"
         >
           {path} ↗
         </a>
-        <span className="flex items-center gap-1.5 text-[11px] font-medium text-ink/60">
+        <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase text-brand">
           <span className="relative flex size-2">
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500/60" />
             <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
@@ -92,7 +92,7 @@ export function LiveSite({
             onClick={() => setActive(true)}
             className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-ink/25 to-transparent to-40% pb-6 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100"
           >
-            <span className="rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper shadow-lg">{tryLabel}</span>
+            <span className="border-2 border-ink bg-brand px-5 py-2.5 font-cond text-lg font-extrabold uppercase text-ink shadow-[4px_4px_0_var(--color-ink)]">{tryLabel}</span>
           </button>
         )}
       </div>

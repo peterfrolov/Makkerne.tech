@@ -4,7 +4,7 @@ export const EMAIL = "blond.nikolaj@gmail.com";
 export const PRICE = "599,-";
 
 export type Example = {
-  slug: "vvs" | "tomrer" | "maler";
+  slug: "vvs" | "tomrer" | "maler" | "tag";
   href: string;
   name: string;
   place: string;
@@ -35,7 +35,10 @@ const da = {
     seeExamples: "Se eksempler",
     write: "Skriv til os",
     ring: "Makkerne • Hjemmesider til håndværkere • 599,- • ",
+    sticker: "Fast pris",
+    photo: "Tømrer på et tag i gang med arbejdet",
   },
+  trades: ["VVS", "Tømrer", "Maler", "Tagdækker", "Murer", "Elektriker", "Snedker", "Anlægsgartner", "Kloakmester", "Smed"],
   stats: [
     { value: PRICE, label: "Fast pris, alt inkluderet" },
     { value: "0 kr.", label: "Månedligt abonnement" },
@@ -43,7 +46,7 @@ const da = {
   ],
   examples: {
     title: "Sådan kunne din side se ud",
-    lead: "Tre rigtige, levende sider til en VVS'er, en tømrer og en maler. Før og efter-billeder, anmeldelser, prisberegner og en tilbudsformular, der virker. Klik og prøv selv. Din side bliver lavet til netop dit firma.",
+    lead: "Fire rigtige, levende sider til en VVS'er, en tømrer, en maler og et tagfirma. Før og efter-billeder, anmeldelser, prisberegner og en tilbudsformular, der virker. Klik og prøv selv. Din side bliver lavet til netop dit firma.",
     live: "Live",
     try: "Klik og prøv siden",
     open: "Åbn siden",
@@ -87,6 +90,17 @@ const da = {
         long: "Lys malerside, hvor kunden selv kan regne en pris ud og klikke sig igennem farver vist i rigtige rum.",
         tags: ["Prisberegner", "Farveguide", "Før og efter", "Tilbudsformular"],
         features: ["Prisberegner med m² og spartling", "Farveguide med rigtige rum", "Før og efter, man kan trække i", "Anmeldelser fra Google", "Tilbudsformular med prisen udfyldt"],
+      },
+      {
+        slug: "tag",
+        href: "/examples/tag/",
+        name: "Tagværk",
+        place: "Rødovre",
+        industry: "Tagdækker & tømrer",
+        short: "Mørk og solid side til et tag- og tømrerfirma: tilbudsformular lige i toppen, rentefri afbetaling, vælg din tagtype, før og efter, ydelser, anmeldelser og spørgsmål.",
+        long: "Mørk, rolig side til tagdækker og tømrer med formular i toppen, menuer for hvert fag, tagvælger, galleri og anmeldelser.",
+        tags: ["Tilbud i toppen", "Afbetaling", "Vælg tagtype", "Før og efter"],
+        features: ["Tilbudsformular lige i toppen", "Rentefri afbetaling", "Vælg tagtype med pris og levetid", "Før og efter-galleri", "Anmeldelser og ofte stillede spørgsmål"],
       },
     ] as Example[],
   },
@@ -157,7 +171,10 @@ const en: Dict = {
     seeExamples: "See examples",
     write: "Write to us",
     ring: "Makkerne • Websites for tradespeople • 599 DKK • ",
+    sticker: "Fixed price",
+    photo: "Roofer at work on a roof",
   },
+  trades: ["Plumber", "Carpenter", "Painter", "Roofer", "Bricklayer", "Electrician", "Joiner", "Landscaper", "Drainage", "Smith"],
   stats: [
     { value: "599 DKK", label: "Fixed price, everything included" },
     { value: "0 kr.", label: "Monthly subscription" },
@@ -165,7 +182,7 @@ const en: Dict = {
   ],
   examples: {
     title: "This is what your site could look like",
-    lead: "Three real, living sites for a plumber, a carpenter and a painter. Before and after photos, reviews, a price calculator and a quote form that works. Click and try them. Yours is made for your business.",
+    lead: "Four real, living sites for a plumber, a carpenter, a painter and a roofer. Before and after photos, reviews, a price calculator and a quote form that works. Click and try them. Yours is made for your business.",
     live: "Live",
     try: "Click to try the site",
     open: "Open the site",
@@ -200,6 +217,14 @@ const en: Dict = {
         long: "A light painter site where customers work out a price themselves and click through colours shown in real rooms.",
         tags: ["Price calculator", "Colour guide", "Before & after", "Quote form"],
         features: ["Price calculator with m² and filling", "Colour guide with real rooms", "Before and after you can drag", "Reviews from Google", "Quote form with the price filled in"],
+      },
+      {
+        ...da.examples.items[3],
+        industry: "Roofer & carpenter",
+        short: "A dark, solid site for a roofing and carpentry firm: quote form right at the top, interest-free instalments, pick your roof type, before and after, services, reviews and FAQ.",
+        long: "A dark, calm roofer and carpenter site with the form at the top, menus for each trade, a roof picker, a gallery and reviews.",
+        tags: ["Quote at the top", "Instalments", "Pick a roof", "Before & after"],
+        features: ["Quote form right at the top", "Interest-free instalments", "Roof picker with price and lifetime", "Before and after gallery", "Reviews and FAQ"],
       },
     ],
   },

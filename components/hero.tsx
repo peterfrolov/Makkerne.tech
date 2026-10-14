@@ -1,147 +1,114 @@
 "use client";
 
-import { PulsingBorder } from "@paper-design/shaders-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { PRICE } from "@/lib/content";
 import { useLang } from "./lang";
-import { ShaderBackdrop } from "./shader-backdrop";
+
+const HERO_PHOTO = "https://images.unsplash.com/photo-1635424824800-692767998d07?auto=format&fit=crop&w=1400&q=75";
 
 export function Hero() {
   const { t } = useLang();
-  const reduce = useReducedMotion();
 
   return (
-    <section className="relative flex min-h-svh flex-col overflow-hidden">
-      <ShaderBackdrop />
-
-      <div className="relative z-20 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-4 pb-10 pt-28 sm:px-8 sm:pb-12">
-        <div className="max-w-3xl">
-          <motion.div
-            className="relative mb-6 inline-flex items-center rounded-full border border-ink/10 bg-paper/50 px-4 py-2 backdrop-blur-sm"
-            style={{ filter: "url(#glass-effect)" }}
-            initial={{ opacity: 0, y: 20 }}
+    <section className="relative flex min-h-svh flex-col pt-18">
+      <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-4 py-12 sm:px-8 lg:grid-cols-12 lg:py-16">
+        <div className="lg:col-span-7">
+          <motion.p
+            className="mb-6 inline-block border-2 border-ink bg-card px-3 py-1.5 font-mono text-xs uppercase tracking-wider"
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.4 }}
           >
-            <div className="absolute left-1 right-1 top-0 h-px rounded-full bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
-            <span className="relative z-10 text-sm font-medium tracking-wide text-ink/80">✨ {t.hero.badge}</span>
-          </motion.div>
+            {t.hero.badge}
+          </motion.p>
 
           <motion.h1
-            className="mb-6 text-5xl font-bold leading-none tracking-tight text-ink sm:text-7xl lg:text-8xl"
-            initial={{ opacity: 0, y: 30 }}
+            className="font-cond font-black uppercase leading-[0.88] tracking-tight"
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <motion.span
-              className="mb-2 block bg-clip-text text-3xl font-light tracking-wider text-transparent sm:text-5xl lg:text-6xl"
-              style={{
-                backgroundImage: "linear-gradient(135deg, #16181d 0%, #1f6bff 35%, #f29a6b 70%, #16181d 100%)",
-                backgroundSize: "200% 200%",
-              }}
-              animate={reduce ? undefined : { backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-            >
-              {t.hero.line1}
-            </motion.span>
-            <span className="block font-black">{t.hero.line2}</span>
-            <span className="block text-3xl font-light italic text-ink/75 sm:text-5xl lg:text-6xl">{t.hero.line3}</span>
+            <span className="block text-4xl text-ink/55 sm:text-6xl">{t.hero.line1}</span>
+            <span className="mt-1 block text-6xl sm:text-8xl lg:text-[7.5rem]">
+              <span className="box-decoration-clone bg-brand px-2">{t.hero.line2}</span>
+            </span>
+            <span className="mt-3 block text-3xl sm:text-5xl">{t.hero.line3}</span>
           </motion.h1>
 
           <motion.p
-            className="mb-3 text-2xl font-semibold text-brand md:text-3xl"
-            initial={{ opacity: 0, y: 20 }}
+            className="mt-8 max-w-xl text-lg leading-relaxed text-ink/75"
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-          >
-            {t.hero.price}
-          </motion.p>
-
-          <motion.p
-            className="mb-8 max-w-xl text-lg font-light leading-relaxed text-ink/70"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
           >
             {t.hero.lead}
           </motion.p>
 
           <motion.div
-            className="flex flex-wrap items-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
+            className="mt-9 flex flex-wrap items-center gap-4"
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
           >
-            <motion.a
+            <a
+              href="#kontakt"
+              className="border-2 border-ink bg-ink px-7 py-3.5 font-cond text-xl font-extrabold uppercase tracking-wide text-paper shadow-[5px_5px_0_var(--color-brand)] transition hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[3px_3px_0_var(--color-brand)]"
+            >
+              {t.hero.write} →
+            </a>
+            <a
               href="#eksempler"
-              className="rounded-full border-2 border-ink/20 bg-paper/30 px-8 py-3.5 text-sm font-medium text-ink backdrop-blur-sm transition-colors hover:border-brand/50 hover:bg-paper/60"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="border-2 border-ink px-7 py-3.5 font-cond text-xl font-extrabold uppercase tracking-wide transition hover:bg-brand"
             >
               {t.hero.seeExamples}
-            </motion.a>
-            <motion.a
-              href="#kontakt"
-              className="rounded-full bg-gradient-to-r from-brand to-peach px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand/20 transition-shadow hover:shadow-xl"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {t.hero.write}
-            </motion.a>
+            </a>
           </motion.div>
         </div>
 
-        <motion.dl
-          className="mt-12 grid max-w-3xl grid-cols-3 gap-3 sm:gap-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
+        <motion.div
+          className="relative lg:col-span-5"
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
-          {t.stats.map((s) => (
-            <div key={s.label} className="border-l border-ink/15 pl-3 sm:pl-4">
-              <dt className="text-lg font-semibold tracking-tight sm:text-2xl">{s.value}</dt>
-              <dd className="mt-1 text-xs text-ink/60 sm:text-sm">{s.label}</dd>
-            </div>
-          ))}
-        </motion.dl>
+          <div className="hard border-2 border-ink bg-ink">
+            {/* eslint-disable-next-line @next/next/no-img-element -- remote stock photo, sized via the URL */}
+            <img src={HERO_PHOTO} alt={t.hero.photo} className="aspect-[4/5] w-full object-cover grayscale-[20%] contrast-110" />
+          </div>
+          <div className="absolute -left-4 bottom-10 -rotate-6 border-2 border-ink bg-brand px-5 py-3 shadow-[4px_4px_0_var(--color-ink)] sm:-left-8">
+            <p className="font-mono text-[11px] uppercase tracking-widest">{t.hero.sticker}</p>
+            <p className="font-cond text-6xl font-black leading-none">{PRICE}</p>
+          </div>
+        </motion.div>
       </div>
 
-      {/* Pulsing ring with rotating text */}
-      <div className="absolute bottom-10 right-8 z-30 hidden lg:block">
-        <div className="relative flex size-28 items-center justify-center">
-          <PulsingBorder
-            colors={["#1f6bff", "#7fa3ff", "#f29a6b", "#16181d"]}
-            colorBack="#00000000"
-            speed={reduce ? 0 : 1.5}
-            roundness={1}
-            thickness={0.1}
-            softness={0.2}
-            intensity={5}
-            spots={5}
-            spotSize={0.1}
-            pulse={0.1}
-            smoke={0.5}
-            smokeSize={4}
-            scale={0.65}
-            aspectRatio="square"
-            style={{ width: 80, height: 80, borderRadius: "50%" }}
-          />
-          <motion.svg
-            className="absolute inset-0 h-full w-full"
-            viewBox="0 0 100 100"
-            animate={reduce ? undefined : { rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            aria-hidden
-          >
-            <defs>
-              <path id="hero-ring" d="M 50, 50 m -44, 0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
-            </defs>
-            <text className="fill-ink/70 text-[8px] font-medium uppercase tracking-wider">
-              <textPath href="#hero-ring" textLength="272" lengthAdjust="spacing">
-                {t.hero.ring}
-              </textPath>
-            </text>
-          </motion.svg>
-        </div>
+      <dl className="mx-auto grid w-full max-w-7xl grid-cols-3 border-y-2 border-ink sm:border-x-2">
+        {t.stats.map((s, i) => (
+          <div key={s.label} className={`px-4 py-5 sm:px-8 ${i ? "border-l-2 border-ink" : ""}`}>
+            <dt className="font-cond text-3xl font-black uppercase sm:text-5xl">{s.value}</dt>
+            <dd className="mt-1 font-mono text-[11px] uppercase tracking-wide text-ink/60 sm:text-xs">{s.label}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="tape mt-10 h-7 border-y-2 border-ink" aria-hidden />
+
+      <div className="overflow-hidden bg-ink py-4 text-paper">
+        <motion.div
+          className="flex w-max gap-8 whitespace-nowrap font-cond text-3xl font-extrabold uppercase sm:text-4xl"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        >
+          {[0, 1].map((k) => (
+            <span key={k} className="flex gap-8" aria-hidden={k === 1}>
+              {t.trades.map((w) => (
+                <span key={w} className="flex items-center gap-8">
+                  {w} <span className="text-brand">■</span>
+                </span>
+              ))}
+            </span>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
