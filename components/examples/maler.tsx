@@ -213,7 +213,7 @@ export function MalerSite() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1d1b19]/50">Vejledende pris</p>
             {base > 0 ? (
               <>
-                <motion.p key={`${low}-${high}`} initial={{ opacity: 0.4, y: 6 }} animate={{ opacity: 1, y: 0 }} className="mt-3 font-display text-5xl font-bold tabular-nums tracking-tight sm:text-6xl">
+                <motion.p key={`${low}-${high}`} initial={{ opacity: 0.4, y: 6 }} animate={{ opacity: 1, y: 0 }} className="mt-3 whitespace-nowrap font-display text-4xl font-bold tabular-nums tracking-tight sm:text-5xl">
                   {kr(low)}–{kr(high)} kr.
                 </motion.p>
                 <p className="mt-2 text-[#1d1b19]/60">inkl. moms, maling, afdækning og oprydning</p>

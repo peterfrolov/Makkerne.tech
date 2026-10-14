@@ -26,7 +26,7 @@ const da = {
     menuClose: "Luk menu",
   },
   hero: {
-    badge: "Hjemmesider til VVS'ere, tømrere, malere og andre håndværkere",
+    badge: "Til VVS'ere, tømrere, malere og andre håndværkere",
     line1: "Du klarer håndværket.",
     line2: "Vi klarer siden.",
     line3: "Så ringer kunderne.",
@@ -148,7 +148,7 @@ const en: Dict = {
     menuClose: "Close menu",
   },
   hero: {
-    badge: "Websites for plumbers, carpenters, painters and other trades",
+    badge: "For plumbers, carpenters, painters and other trades",
     line1: "You do the work.",
     line2: "We do the site.",
     line3: "So customers call.",
