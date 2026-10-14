@@ -253,7 +253,7 @@ export function Footer() {
 export function PageIntro({ title, lead }: { title: string; lead?: string }) {
   return (
     <section className="border-b-2 border-ink">
-      <div className="mx-auto max-w-7xl px-4 pb-14 pt-36 sm:px-8 sm:pb-20 sm:pt-44">
+      <div className="mx-auto max-w-7xl px-4 pb-14 pt-40 sm:px-8 sm:pb-20 sm:pt-48">
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -269,6 +269,113 @@ export function PageIntro({ title, lead }: { title: string; lead?: string }) {
         )}
       </div>
       <div className="tape h-6 border-t-2 border-ink" aria-hidden />
+    </section>
+  );
+}
+
+/** Every trade we build for; the ones with an example link straight to it. */
+export function Trades() {
+  const { t } = useLang();
+  const tr = t.trades;
+  return (
+    <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-8 sm:pb-32">
+      <SectionHead title={tr.title} lead={tr.lead} />
+      <ul className="grid grid-cols-2 border-l-2 border-t-2 border-ink md:grid-cols-4">
+        {tr.items.map((it: { name: string; href?: string }) => (
+          <li key={it.name} className="border-b-2 border-r-2 border-ink">
+            <a
+              href={it.href ?? "#kontakt"}
+              target={it.href ? "_blank" : undefined}
+              rel={it.href ? "noopener" : undefined}
+              className="group flex h-full flex-col justify-between gap-6 p-5 transition hover:bg-brand sm:p-6"
+            >
+              <span className="font-cond text-3xl font-black uppercase sm:text-4xl">{it.name}</span>
+              <span className="font-mono text-[11px] uppercase tracking-wide text-ink/60 group-hover:text-ink">
+                {it.href ? `${tr.example} ↗` : `${tr.soon} →`}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** What we take care of, and the promise that the site is theirs. */
+export function Tech() {
+  const { t } = useLang();
+  const te = t.tech;
+  return (
+    <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-8 sm:pb-32">
+      <SectionHead title={te.title} lead={te.lead} />
+      <div className="grid gap-8 lg:grid-cols-12">
+        <ul className="grid gap-x-8 sm:grid-cols-2 lg:col-span-7">
+          {te.items.map((it) => (
+            <motion.li key={it} {...reveal} className="flex items-center gap-3 border-b-2 border-ink/15 py-3.5 text-lg font-medium">
+              <span className="grid size-6 shrink-0 place-items-center bg-ink font-mono text-xs text-brand">✓</span>
+              {it}
+            </motion.li>
+          ))}
+        </ul>
+        <motion.div {...reveal} className="border-2 border-ink bg-card p-7 lg:col-span-5">
+          <h3 className="font-cond text-4xl font-black uppercase">{te.ownTitle}</h3>
+          <ul className="mt-5 space-y-3">
+            {te.own.map((o) => (
+              <li key={o} className="flex gap-3">
+                <span className="mt-2 size-2.5 shrink-0 bg-brand ring-2 ring-ink" />
+                {o}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/** Call-back form and free check. With no server behind the site, both open a ready-written email. */
+export function Callback() {
+  const { t } = useLang();
+  const c = t.callback;
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [trade, setTrade] = useState("");
+  const field = "w-full border-2 border-ink bg-card px-4 py-3 outline-none focus:bg-paper";
+  return (
+    <section className="mx-auto grid max-w-7xl gap-8 px-4 pb-24 sm:px-8 lg:grid-cols-12">
+      <motion.form
+        {...reveal}
+        className="border-2 border-ink p-7 sm:p-9 lg:col-span-7"
+        onSubmit={(e) => {
+          e.preventDefault();
+          const body = `${c.name}: ${name}\n${c.phone}: ${phone}\n${c.trade}: ${trade}`;
+          window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(c.subject)}&body=${encodeURIComponent(body)}`;
+        }}
+      >
+        <h2 className="font-cond text-5xl font-black uppercase leading-none">{c.title}</h2>
+        <p className="mt-3 text-ink/70">{c.lead}</p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-3">
+          <input required value={name} onChange={(e) => setName(e.target.value)} placeholder={c.name} autoComplete="name" className={field} />
+          <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={c.phone} type="tel" autoComplete="tel" className={field} />
+          <input value={trade} onChange={(e) => setTrade(e.target.value)} placeholder={c.trade} className={field} />
+        </div>
+        <button type="submit" className="mt-4 border-2 border-ink bg-ink px-7 py-3.5 font-cond text-xl font-extrabold uppercase text-paper transition hover:bg-ink/85">
+          {c.send} →
+        </button>
+        <p className="mt-3 font-mono text-[11px] text-ink/55">{c.note}</p>
+      </motion.form>
+      <motion.div {...reveal} className="flex flex-col justify-between border-2 border-ink bg-ink p-7 text-paper sm:p-9 lg:col-span-5">
+        <div>
+          <h2 className="font-cond text-4xl font-black uppercase leading-none">{t.audit.title}</h2>
+          <p className="mt-4 text-paper/75">{t.audit.text}</p>
+        </div>
+        <a
+          href={`mailto:${EMAIL}?subject=${encodeURIComponent(t.audit.subject)}`}
+          className="mt-8 self-start border-2 border-brand bg-brand px-6 py-3 font-cond text-xl font-extrabold uppercase text-ink transition hover:bg-paper"
+        >
+          {t.audit.cta} →
+        </a>
+      </motion.div>
     </section>
   );
 }

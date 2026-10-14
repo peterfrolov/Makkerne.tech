@@ -1,5 +1,5 @@
 import { Hero } from "@/components/hero";
-import { Contact, Faq, Footer, LiveExamples, Pricing, Process } from "@/components/sections";
+import { Callback, Contact, Faq, Footer, LiveExamples, Pricing, Process, Tech, Trades } from "@/components/sections";
 
 export default function Home() {
   return (
@@ -7,9 +7,12 @@ export default function Home() {
       <main>
         <Hero />
         <LiveExamples />
+        <Trades />
         <Pricing />
+        <Tech />
         <Process />
         <Faq />
+        <Callback />
         <Contact />
       </main>
       <Footer />

@@ -36,6 +36,13 @@ export function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b-2 border-ink bg-paper">
+      <ul className="flex h-8 items-center justify-center gap-x-6 overflow-hidden bg-ink px-4 font-mono text-[11px] uppercase tracking-wide text-paper sm:gap-x-10">
+        {t.usp.map((u, i) => (
+          <li key={u} className={`items-center gap-2 ${i > 1 ? "hidden sm:flex" : "flex"}`}>
+            <span className="text-brand">✓</span> {u}
+          </li>
+        ))}
+      </ul>
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
         <Logo />
 

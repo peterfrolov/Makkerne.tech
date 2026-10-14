@@ -3,15 +3,14 @@
 import { motion } from "framer-motion";
 import { PRICE } from "@/lib/content";
 import { useLang } from "./lang";
-
-const HERO_PHOTO = "https://images.unsplash.com/photo-1635424824800-692767998d07?auto=format&fit=crop&w=1400&q=75";
+import { PhonePreview } from "./phone-preview";
 
 export function Hero() {
   const { t } = useLang();
 
   return (
-    <section className="relative flex min-h-svh flex-col pt-18">
-      <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-4 py-12 sm:px-8 lg:grid-cols-12 lg:py-16">
+    <section className="relative pt-26">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-4 py-14 sm:px-8 lg:grid-cols-12 lg:py-20">
         <div className="lg:col-span-7">
           <motion.p
             className="mb-6 inline-block border-2 border-ink bg-card px-3 py-1.5 font-mono text-xs uppercase tracking-wider"
@@ -56,29 +55,22 @@ export function Hero() {
             >
               {t.hero.write} →
             </a>
-            <a
-              href="#eksempler"
-              className="border-2 border-ink px-7 py-3.5 font-cond text-xl font-extrabold uppercase tracking-wide transition hover:bg-brand"
-            >
+            <a href="#eksempler" className="border-2 border-ink px-7 py-3.5 font-cond text-xl font-extrabold uppercase tracking-wide transition hover:bg-brand">
               {t.hero.seeExamples}
             </a>
+            <p className="font-cond text-3xl font-black">
+              {PRICE} <span className="font-mono text-xs font-normal uppercase text-ink/60">{t.hero.sticker}</span>
+            </p>
           </motion.div>
         </div>
 
         <motion.div
-          className="relative lg:col-span-5"
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
+          className="hidden justify-center lg:col-span-5 lg:flex"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="hard border-2 border-ink bg-ink">
-            {/* eslint-disable-next-line @next/next/no-img-element -- remote stock photo, sized via the URL */}
-            <img src={HERO_PHOTO} alt={t.hero.photo} className="aspect-[4/5] w-full object-cover grayscale-[20%] contrast-110" />
-          </div>
-          <div className="absolute -left-4 bottom-10 -rotate-6 border-2 border-ink bg-brand px-5 py-3 shadow-[4px_4px_0_var(--color-ink)] sm:-left-8">
-            <p className="font-mono text-[11px] uppercase tracking-widest">{t.hero.sticker}</p>
-            <p className="font-cond text-6xl font-black leading-none">{PRICE}</p>
-          </div>
+          <PhonePreview src={t.examples.items[0].href} title={t.hero.phone} cta={t.hero.tryIt} />
         </motion.div>
       </div>
 
@@ -90,26 +82,6 @@ export function Hero() {
           </div>
         ))}
       </dl>
-
-      <div className="tape mt-10 h-7 border-y-2 border-ink" aria-hidden />
-
-      <div className="overflow-hidden bg-ink py-4 text-paper">
-        <motion.div
-          className="flex w-max gap-8 whitespace-nowrap font-cond text-3xl font-extrabold uppercase sm:text-4xl"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        >
-          {[0, 1].map((k) => (
-            <span key={k} className="flex gap-8" aria-hidden={k === 1}>
-              {t.trades.map((w) => (
-                <span key={w} className="flex items-center gap-8">
-                  {w} <span className="text-brand">■</span>
-                </span>
-              ))}
-            </span>
-          ))}
-        </motion.div>
-      </div>
     </section>
   );
 }
