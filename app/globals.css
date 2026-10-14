@@ -18,32 +18,12 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 7.5rem;
+  scroll-padding-top: 5rem;
 }
 
 body {
   background: var(--color-paper);
   color: var(--color-ink);
-}
-
-/* Tape-measure strip: yellow with tick marks every centimetre and a longer one every fifth. */
-.tape {
-  background-color: var(--color-brand);
-  background-image:
-    repeating-linear-gradient(90deg, var(--color-ink) 0 2px, transparent 2px 60px),
-    repeating-linear-gradient(90deg, var(--color-ink) 0 1px, transparent 1px 12px);
-  background-size:
-    100% 55%,
-    100% 28%;
-  background-repeat: repeat-x;
-  background-position:
-    0 0,
-    0 0;
-}
-
-/* Hard offset shadow, like a sign cut from plywood. */
-.hard {
-  box-shadow: 6px 6px 0 var(--color-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {

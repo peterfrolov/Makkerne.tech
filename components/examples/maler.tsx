@@ -101,7 +101,7 @@ export function MalerSite() {
               <Icon name="phone" className="size-4" />
             </a>
             <a href={TEL} className="hidden text-sm font-semibold sm:block">{PHONE}</a>
-            <a href="#tilbud" className="rounded-full bg-[#2f5d50] px-5 py-2.5 text-sm font-semibold text-[#fffdf9] transition hover:bg-[#244a40]">
+            <a href="#tilbud" className="rounded-md bg-[#2f5d50] px-5 py-2.5 text-sm font-semibold text-[#fffdf9] transition hover:bg-[#244a40]">
               Få et tilbud
             </a>
           </div>
@@ -111,27 +111,24 @@ export function MalerSite() {
       {/* Hero */}
       <section id="top" className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-20 pt-8 sm:pt-14 lg:grid-cols-12">
         <div className="lg:col-span-6">
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="inline-flex items-center gap-2 rounded-full bg-[#2f5d50]/10 px-4 py-1.5 text-xs font-semibold text-[#2f5d50]">
+          <motion.p className="inline-flex items-center gap-2 rounded-full bg-[#2f5d50]/10 px-4 py-1.5 text-xs font-semibold text-[#2f5d50]">
             <Stars /> 4,9 · Malerfirma i Odense
           </motion.p>
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
             className="mt-6 font-display text-6xl font-bold leading-[0.95] tracking-tight sm:text-7xl"
           >
             Skarpe kanter.
             <br />
             <span className="text-[#c96f4a]">Ingen stænk.</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="mt-6 max-w-md text-lg leading-relaxed text-[#1d1b19]/65">
+          <motion.p className="mt-6 max-w-md text-lg leading-relaxed text-[#1d1b19]/65">
             Vi afdækker, spartler, maler og rydder op. Du kommer hjem til et færdigt rum, og prisen står i tilbuddet.
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="mt-9 flex flex-wrap gap-3">
-            <a href="#pris" className="rounded-full bg-[#1d1b19] px-7 py-4 text-sm font-semibold text-[#f7f4ef] transition hover:bg-[#2f5d50]">
+          <motion.div className="mt-9 flex flex-wrap gap-3">
+            <a href="#pris" className="rounded-md bg-[#1d1b19] px-7 py-4 text-sm font-semibold text-[#f7f4ef] transition hover:bg-[#2f5d50]">
               Beregn din pris
             </a>
-            <a href={TEL} className="flex items-center gap-2 rounded-full border-2 border-[#1d1b19]/15 px-7 py-4 text-sm font-semibold transition hover:border-[#1d1b19]/40">
+            <a href={TEL} className="flex items-center gap-2 rounded-md border-2 border-[#1d1b19]/15 px-7 py-4 text-sm font-semibold transition hover:border-[#1d1b19]/40">
               <Icon name="phone" className="size-4" /> {PHONE}
             </a>
           </motion.div>
@@ -143,7 +140,7 @@ export function MalerSite() {
           className="relative lg:col-span-6"
         >
           <Img id="1688372199140-cade7ae820fe" w={1200} alt="Maler med rulle maler en væg gul" className="aspect-[4/5] w-full rounded-[2rem] object-cover sm:aspect-[5/4] lg:aspect-[4/5]" />
-          <div className="absolute -left-3 bottom-8 rounded-2xl bg-[#fffdf9] px-5 py-4 shadow-xl sm:-left-6">
+          <div className="absolute -left-3 bottom-8 rounded-md bg-[#fffdf9] px-5 py-4 shadow-xl sm:-left-6">
             <p className="font-display text-3xl font-bold">1.200+</p>
             <p className="text-sm text-[#1d1b19]/60">rum malet på Fyn</p>
           </div>
@@ -154,7 +151,6 @@ export function MalerSite() {
       <section id="pris" className="scroll-mt-24 bg-[#1d1b19] py-20 text-[#f7f4ef] sm:py-28">
         <div className="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-2">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#e8c26a]">Prisberegner</p>
             <h2 className="mt-3 font-display text-5xl font-bold tracking-tight">Hvad koster det?</h2>
             <p className="mt-4 max-w-md text-[#f7f4ef]/65">Få en vejledende pris på indvendig maling på 20 sekunder. Den endelige pris får du, når vi har set rummet.</p>
 
@@ -198,7 +194,7 @@ export function MalerSite() {
                   ))}
                 </div>
               </div>
-              <label className="flex cursor-pointer items-center justify-between gap-4 rounded-2xl bg-[#f7f4ef]/6 px-5 py-4">
+              <label className="flex cursor-pointer items-center justify-between gap-4 rounded-md bg-[#f7f4ef]/6 px-5 py-4">
                 <span>
                   <span className="block text-sm font-semibold">Væggene skal spartles først</span>
                   <span className="text-xs text-[#f7f4ef]/50">Revner, huller eller gammel tapet</span>
@@ -209,7 +205,7 @@ export function MalerSite() {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center rounded-3xl bg-[#f7f4ef] p-8 text-[#1d1b19] sm:p-10">
+          <div className="flex flex-col justify-center rounded-lg bg-[#f7f4ef] p-8 text-[#1d1b19] sm:p-10">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1d1b19]/50">Vejledende pris</p>
             {base > 0 ? (
               <>
@@ -249,7 +245,6 @@ export function MalerSite() {
       <motion.section id="farver" animate={{ backgroundColor: c.hex, color: c.text }} transition={{ duration: 0.6 }} className="scroll-mt-24 py-20 sm:py-28">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] opacity-70">Farveguide</p>
             <h2 className="mt-3 font-display text-5xl font-bold tracking-tight">Svært at vælge farve?</h2>
             <p className="mt-4 max-w-md opacity-75">Klik dig igennem årets mest valgte farver og se dem i rigtige rum. Vi kommer gerne med prøver, du kan sætte op derhjemme.</p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -274,7 +269,7 @@ export function MalerSite() {
             <button
               type="button"
               onClick={() => order("Indvendig maling", `Farveprøver: ${c.name}`)}
-              className="mt-8 rounded-full border-2 border-current px-7 py-3.5 text-sm font-semibold transition hover:bg-current/10"
+              className="mt-8 rounded-md border-2 border-current px-7 py-3.5 text-sm font-semibold transition hover:bg-current/10"
             >
               Bestil gratis farveprøver
             </button>
@@ -295,7 +290,7 @@ export function MalerSite() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((s) => (
             <article key={s.title} className="group">
-              <div className="aspect-[3/4] overflow-hidden rounded-3xl">
+              <div className="aspect-[3/4] overflow-hidden rounded-lg">
                 <Img id={s.id} w={700} alt={s.title} className="size-full object-cover transition duration-700 group-hover:scale-105" />
               </div>
               <h3 className="mt-5 text-xl font-bold">{s.title}</h3>
@@ -313,7 +308,6 @@ export function MalerSite() {
         <div className="mx-auto max-w-6xl px-5">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#c96f4a]">Før og efter</p>
               <h2 className="mt-3 font-display text-5xl font-bold tracking-tight">Stue på Hunderupvej</h2>
             </div>
             <p className="max-w-sm text-[#1d1b19]/60">Nedslidte vægge blev spartlet og malet i en varm hvid. Træk i billedet for at se forskellen.</p>
@@ -338,7 +332,7 @@ export function MalerSite() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="rounded-3xl bg-[#fffdf9] p-7 shadow-[0_20px_60px_-40px_rgba(0,0,0,0.3)]"
+              className="rounded-lg bg-[#fffdf9] p-7 shadow-sm"
             >
               <Stars className="text-[#c96f4a]" />
               <blockquote className="mt-4 leading-relaxed">“{r.text}”</blockquote>

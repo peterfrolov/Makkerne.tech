@@ -8,14 +8,14 @@ import { LangToggle, useLang } from "./lang";
 export function Logo({ light = false }: { light?: boolean }) {
   return (
     <Link href="/" className="group flex items-center gap-2.5" aria-label="Makkerne – forside">
-      <span className="grid size-10 place-items-center bg-ink transition group-hover:-rotate-3">
+      <span className="grid size-10 place-items-center bg-ink">
         <svg viewBox="0 0 100 100" aria-hidden className="size-7 fill-brand">
           <path d="M15 85V15h12l18 35 18-35h12v70h-12V35L45 70h-10L17 35v50H15z" />
         </svg>
       </span>
       <span className="flex flex-col leading-none">
         <span className={`font-cond text-2xl font-extrabold uppercase tracking-tight ${light ? "text-paper" : ""}`}>Makkerne</span>
-        <span className={`mt-0.5 font-mono text-[9px] uppercase tracking-[0.15em] ${light ? "text-paper/55" : "text-ink/55"}`}>Hjemmesider til håndværkere</span>
+        <span className={`mt-0.5 text-[11px] ${light ? "text-paper/55" : "text-ink/55"}`}>Hjemmesider til håndværkere</span>
       </span>
     </Link>
   );
@@ -35,25 +35,18 @@ export function Header() {
   const here = (href: string) => pathname.replace(/\/$/, "") === href.replace(/\/$/, "");
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b-2 border-ink bg-paper">
-      <ul className="flex h-8 items-center justify-center gap-x-6 overflow-hidden bg-ink px-4 font-mono text-[11px] uppercase tracking-wide text-paper sm:gap-x-10">
-        {t.usp.map((u, i) => (
-          <li key={u} className={`items-center gap-2 ${i > 1 ? "hidden sm:flex" : "flex"}`}>
-            <span className="text-brand">✓</span> {u}
-          </li>
-        ))}
-      </ul>
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/15 bg-paper">
+      <div className="mx-auto flex h-18 max-w-6xl items-center justify-between gap-4 px-4 sm:px-8">
         <Logo />
 
-        <nav className="hidden items-center md:flex">
+        <nav className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               aria-current={here(l.href) ? "page" : undefined}
               className={`px-3 py-2 font-cond text-base font-bold uppercase tracking-wide transition ${
-                here(l.href) ? "bg-ink text-paper" : "text-ink/75 hover:bg-brand hover:text-ink"
+                here(l.href) ? "text-ink underline decoration-2 underline-offset-8" : "text-ink/65 hover:text-ink"
               }`}
             >
               {l.label}
@@ -63,18 +56,15 @@ export function Header() {
 
         <div className="flex items-center gap-3">
           <LangToggle className="hidden sm:flex" />
-          <a
-            href="#kontakt"
-            className="hidden border-2 border-ink bg-brand px-4 py-2 font-cond text-base font-extrabold uppercase tracking-wide shadow-[3px_3px_0_var(--color-ink)] transition hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_var(--color-ink)] sm:block"
-          >
-            {t.nav.cta} →
+          <a href="#kontakt" className="hidden bg-ink px-4 py-2 font-cond text-base font-bold uppercase tracking-wide text-paper transition hover:bg-ink/85 sm:block">
+            {t.nav.cta}
           </a>
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? t.nav.menuClose : t.nav.menuOpen}
             aria-expanded={open}
-            className="grid size-10 place-items-center border-2 border-ink md:hidden"
+            className="grid size-11 place-items-center border border-ink/30 md:hidden"
           >
             <svg className="size-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden>
               {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
@@ -84,15 +74,11 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t-2 border-ink px-4 pb-4 md:hidden">
+        <div className="border-t border-ink/15 px-4 pb-4 md:hidden">
           <ul>
             {links.map((l) => (
               <li key={l.href}>
-                <Link
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="flex h-12 items-center border-b border-ink/15 font-cond text-xl font-bold uppercase"
-                >
+                <Link href={l.href} onClick={() => setOpen(false)} className="flex h-12 items-center border-b border-ink/10 font-cond text-xl font-bold uppercase">
                   {l.label}
                 </Link>
               </li>
@@ -100,12 +86,8 @@ export function Header() {
           </ul>
           <div className="mt-4 flex items-center justify-between">
             <LangToggle />
-            <a
-              href="#kontakt"
-              onClick={() => setOpen(false)}
-              className="border-2 border-ink bg-brand px-5 py-2 font-cond text-lg font-extrabold uppercase"
-            >
-              {t.nav.cta} →
+            <a href="#kontakt" onClick={() => setOpen(false)} className="bg-ink px-5 py-2.5 font-cond text-lg font-bold uppercase text-paper">
+              {t.nav.cta}
             </a>
           </div>
         </div>
