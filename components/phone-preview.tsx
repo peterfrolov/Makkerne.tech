@@ -66,10 +66,10 @@ export function RuggedPhone({ src, title, width = 300, height = 600 }: { src: st
           </div>
         </div>
       </div>
-      <Bumper className="-left-1.5 -top-1.5 rounded-tl-[2.7rem] border-l-[7px] border-t-[7px]" />
-      <Bumper className="-right-1.5 -top-1.5 rounded-tr-[2.7rem] border-r-[7px] border-t-[7px]" />
-      <Bumper className="-bottom-1.5 -left-1.5 rounded-bl-[2.7rem] border-b-[7px] border-l-[7px]" />
-      <Bumper className="-bottom-1.5 -right-1.5 rounded-br-[2.7rem] border-b-[7px] border-r-[7px]" />
+      <Bumper className="left-0 top-0 rounded-tl-[2.4rem] border-l-[7px] border-t-[7px]" />
+      <Bumper className="right-0 top-0 rounded-tr-[2.4rem] border-r-[7px] border-t-[7px]" />
+      <Bumper className="bottom-0 left-0 rounded-bl-[2.4rem] border-b-[7px] border-l-[7px]" />
+      <Bumper className="bottom-0 right-0 rounded-br-[2.4rem] border-b-[7px] border-r-[7px]" />
       <span aria-hidden className="absolute -right-2 top-[22%] h-16 w-2 rounded-r-md bg-ink" />
       <span aria-hidden className="absolute -left-2 top-[18%] h-9 w-2 rounded-l-md bg-ink" />
     </div>
