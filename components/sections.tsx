@@ -208,7 +208,8 @@ export function Contact() {
   };
   return (
     <section id="kontakt" className="bg-ink text-paper">
-      <div className="mx-auto grid max-w-6xl gap-14 px-4 py-20 sm:px-8 sm:py-28 lg:grid-cols-2">
+      {/* The text keeps to the page's column; the photos run all the way to the right edge. */}
+      <div className="grid gap-14 px-4 py-20 sm:px-8 sm:py-28 lg:grid-cols-[minmax(0,28rem)_1fr] lg:pl-[max(2rem,calc((100vw-72rem)/2+2rem))]">
         <div>
           <h2 className="text-balance font-cond text-5xl font-extrabold uppercase leading-[0.95] sm:text-6xl">{c.title}</h2>
           <p className="mt-5 max-w-md text-lg text-paper/70">{c.lead}</p>
@@ -230,7 +231,7 @@ export function Contact() {
           <div className="mt-6 grid flex-1 grid-cols-2 gap-4 sm:gap-6">
             {TEAM.map((p) => (
               <figure key={p.email} className="flex flex-col">
-                <img src={p.photo} alt={p.name} loading="lazy" decoding="async" className="aspect-[4/5] w-full flex-1 border-2 border-paper/15 object-cover object-top lg:aspect-auto lg:min-h-80" />
+                <img src={p.photo} alt={p.name} loading="lazy" decoding="async" className="aspect-[4/5] w-full flex-1 border-2 border-paper/15 object-cover object-top" />
                 <figcaption className="mt-3">
                   <span className="block font-cond text-xl font-bold uppercase">{p.name}</span>
                   <a href={`mailto:${p.email}`} className="break-all text-sm text-paper/70 underline-offset-4 transition hover:text-brand hover:underline">
