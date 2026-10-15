@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Makkerne laver hjemmesider til håndværkere: VVS'ere, tømrere, malere og andre fag. Du klarer håndværket, vi klarer siden. Fast pris: 999,-.",
   openGraph: {
-    title: "Makkerne – du klarer håndværket, vi klarer hjemmesiden",
+    title: "Makkerne – vi laver din hjemmeside for 999,-",
     description: "Hjemmesider til håndværkere, der får telefonen til at ringe. Fast pris: 999,-.",
     locale: "da_DK",
     type: "website",
