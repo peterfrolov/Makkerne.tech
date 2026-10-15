@@ -16,12 +16,11 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23024995'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia,serif' font-size='15' font-weight='700' fill='%23fff'%3EJAH%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Montserrat:wght@400;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 
 <!--
   PLAN
-  Top: kept as on 3blaa.dk (akut tab, logo, menu, hero photo, the four cards with the blue men).
-  Below it: an old Copenhagen trades house (since 1942) with nothing to hide - like a well-kept price list
+  an old Copenhagen trades house (since 1942) with nothing to hide - like a well-kept price list
   in a shop window. Their logo with the three running blue men leads; their own photos are framed as prints.
   Fonts: Libre Caslon Text (headings) + Source Sans 3 (body).
   Palette from the logo: navy #181e38 as ink and dark bands, blue #024995 as the one accent, raspberry
@@ -67,7 +66,7 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 16px; -webkit-text-size-adjust: 100%; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); -webkit-text-size-adjust: 100%; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6; }
   img { max-width: 100%; height: auto; display: block; }
   a { color: inherit; }
@@ -314,77 +313,53 @@
   .site-footer .legal { grid-column: 1 / -1; border-top: 1px solid var(--rule); padding-top: var(--s-5); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-3); }
   @media (max-width: 760px) { .site-footer .wrap { grid-template-columns: 1fr; gap: var(--s-6); } }
 
-  /* ---------- Their original top (kept as on 3blaa.dk) ---------- */
-  .t-wrap { width: min(1540px, 100% - 2 * var(--s-5)); margin-inline: auto; }
-  .t-header { position: relative; background: #fcfafa; font-family: "Montserrat", system-ui, sans-serif; }
-  .t-strip { height: 18px; background: #ebe9e5; }
-  .t-head { position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--s-5); min-height: 135px; padding-top: 22px; }
-  .t-akut {
-    position: absolute; top: -18px; right: 0; z-index: 2;
-    display: flex; align-items: center; gap: 16px; min-height: 56px; padding: 10px 28px;
-    background: #a30039; color: #ffffff; text-decoration: none; font-size: 16px;
-    border: 3px solid #c3416f; border-top: 0; border-radius: 0 0 25px 25px;
-    transition: background-color 150ms var(--ease);
-  }
-  .t-akut:hover { background: #8a0030; }
-  .t-akut strong { font-weight: 700; }
-  .t-short { display: none; }
-  .t-sep { width: 1px; height: 24px; background: rgba(255,255,255,0.75); }
-  .t-logo { display: inline-flex; align-items: center; min-height: 48px; }
-  .t-logo img { height: 82px; width: auto; }
-  .t-nav { display: flex; align-items: center; gap: 40px; margin-top: 20px; }
-  .t-nav a { font-weight: 700; font-size: 16px; color: #00122d; text-decoration: none; text-transform: uppercase; min-height: 44px; display: inline-flex; align-items: center; }
-  .t-nav a:hover { color: #0074db; }
-  .t-kontakt { background: #cbe8f1; border-radius: 50px; padding: 10px 35px; transition: background-color 150ms var(--ease); }
-  .t-kontakt:hover { background: #b6dceb; color: #00122d !important; }
-  .t-header .menu-btn { margin-top: 20px; }
+  /* ---------- Top: akut bar, header, hero with their photo, the four blue men ---------- */
+  .a-bar { background: #a30039; color: #ffffff; font-size: 0.95rem; }
+  .a-bar .wrap { display: flex; justify-content: space-between; align-items: center; gap: var(--s-4); min-height: 40px; }
+  .a-bar a { display: inline-flex; align-items: center; gap: var(--s-3); min-height: 40px; text-decoration: none; }
+  .a-bar a:hover { text-decoration: underline; }
+  .a-bar strong { font-weight: 600; }
+  .a-bar .where { opacity: 0.85; }
+  @media (max-width: 600px) { .a-bar .where { display: none; } .a-bar .long { display: none; } }
+  @media (min-width: 601px) { .a-bar .short { display: none; } }
 
-  .t-hero {
-    position: relative; min-height: 650px; display: flex; align-items: flex-start;
-    background:
-      linear-gradient(rgba(255,255,255,0), #00122d),
-      linear-gradient(rgba(0,18,45,0.28), rgba(0,18,45,0.28)),
-      url("img/hero.jpg") center / cover no-repeat;
-    font-family: "Montserrat", system-ui, sans-serif; color: #ffffff;
+  .h-hero { padding-block: clamp(40px, 6vw, 88px) clamp(40px, 5vw, 72px); }
+  .h-hero .wrap { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px, 6vw, 88px); align-items: center; }
+  .h-hero h1 { font-size: var(--step-4); max-width: 13ch; }
+  .h-hero .lead { font-size: var(--step-1); color: var(--muted); margin-top: var(--s-5); max-width: 44ch; }
+  .h-hero .actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-6); }
+  .h-hero .reassure { margin-top: var(--s-4); font-size: 0.95rem; color: var(--muted); }
+  .h-hero .reassure a { color: var(--accent); font-weight: 600; }
+  .h-hero figure { margin: 0; }
+  .h-hero .print { transform: rotate(0.5deg); }
+  .h-hero .print img { aspect-ratio: 5 / 4; object-position: 42% 50%; }
+  .h-hero figcaption { margin-top: 10px; font-size: 0.9rem; color: var(--muted); text-align: right; }
+  @media (max-width: 860px) {
+    .h-hero .wrap { grid-template-columns: 1fr; }
+    .h-hero .print { transform: none; }
+    .h-hero .print img { aspect-ratio: 4 / 3; }
   }
-  .t-hero .t-wrap { padding-top: 180px; padding-bottom: 150px; }
-  .t-hero .eyebrow { font-weight: 700; font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.5625rem); text-transform: uppercase; }
-  .t-hero h1 { font-family: "Montserrat", system-ui, sans-serif; font-weight: 700; font-size: clamp(2rem, 1.1rem + 3.3vw, 3.4375rem); line-height: 1.2; letter-spacing: 0; max-width: 1240px; margin-top: 4px; }
 
-  .t-cards { position: relative; margin-top: -53px; font-family: "Montserrat", system-ui, sans-serif; }
-  .t-cards ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 35px; }
-  .t-card { position: relative; display: flex; flex-direction: column; align-items: center; background: #ffffff; padding: 178px 30px 40px; text-align: center; box-shadow: 0 1px 3px rgba(0,18,45,0.05); }
-  .t-card img { position: absolute; top: -47px; left: 50%; transform: translateX(-50%); width: 200px; height: 200px; }
-  .t-card h2 { font-family: "Montserrat", system-ui, sans-serif; font-size: 25px; font-weight: 700; text-transform: uppercase; color: #262626; letter-spacing: 0; }
-  .t-card p { margin-top: 14px; color: #404040; font-size: 16px; line-height: 1.6; }
-  .t-card a { display: inline-flex; align-items: center; min-height: 44px; margin-top: auto; padding-top: 10px; color: #a30039; font-weight: 700; text-decoration: none; }
-  .t-card a:hover { text-decoration: underline; }
-  .t-after { height: clamp(48px, 6vw, 88px); }
-
-  @media (max-width: 1180px) {
-    .t-nav { display: none; }
-    .t-header .menu-btn { display: inline-flex; margin-top: 0; }
-    .t-strip { display: none; }
-    .t-akut { position: static; width: 100%; justify-content: center; border: 0; border-radius: 0; min-height: 44px; padding: 8px 16px; font-size: 15px; flex-wrap: wrap; gap: 4px 12px; }
-    .t-header > .t-akut-wrap { background: #a30039; }
-    .t-head { min-height: 96px; padding-top: 0; }
-    .t-logo img { height: 60px; }
-    .t-header .mobile-nav[data-open="true"] { display: block; border-top: 1px solid var(--rule); padding-bottom: var(--s-5); }
-    .t-header .mobile-nav ul { list-style: none; margin: 0; padding: 0; }
-    .t-header .mobile-nav a { display: flex; align-items: center; min-height: 52px; text-decoration: none; font-weight: 700; text-transform: uppercase; color: #00122d; border-bottom: 1px solid var(--rule); }
-    .t-header .mobile-nav .t-kontakt { justify-content: center; margin-top: var(--s-5); border-bottom: 0; }
-    .t-cards ul { grid-template-columns: 1fr 1fr; row-gap: 80px; }
+  /* The four blue men, like a painted shop sign */
+  .men { padding-bottom: clamp(48px, 6vw, 88px); }
+  .men ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 3px double var(--ink); border-bottom: 1px solid var(--rule); }
+  .men li + li { border-left: 1px solid var(--rule); }
+  .men a { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--s-3); padding: var(--s-5) var(--s-3); text-decoration: none; height: 100%; transition: background-color 150ms var(--ease); }
+  .men a:hover { background: var(--paper); }
+  .men a:hover strong { text-decoration: underline; text-underline-offset: 4px; }
+  .men img { width: 104px; height: 104px; }
+  .men strong { display: block; font-family: var(--font-head); font-size: var(--step-1); font-weight: 700; color: var(--ink); }
+  .men span { display: block; margin-top: 2px; font-size: 0.95rem; color: var(--muted); }
+  @media (max-width: 1000px) {
+    .men ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .men li:nth-child(3) { border-left: 0; }
+    .men li:nth-child(n+3) { border-top: 1px solid var(--rule); }
   }
-  @media (max-width: 640px) {
-    .t-long { display: none; }
-    .t-short { display: inline; }
-    .t-akut { flex-wrap: nowrap; gap: 10px; }
-    .t-hero { min-height: 0; }
-    .t-hero .t-wrap { padding-top: 72px; padding-bottom: 120px; }
-    .t-cards ul { grid-template-columns: 1fr; row-gap: 72px; }
-    .t-card { padding-top: 140px; }
-    .t-card img { width: 160px; height: 160px; top: -40px; }
-    .t-logo img { height: 52px; }
+  @media (max-width: 560px) {
+    .men ul { grid-template-columns: 1fr; }
+    .men li + li { border-left: 0; border-top: 1px solid var(--rule); }
+    .men a { display: grid; grid-template-columns: 72px 1fr; text-align: left; align-items: center; gap: var(--s-4); padding: var(--s-4) 0; }
+    .men img { width: 72px; height: 72px; }
   }
 
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 600ms var(--ease), transform 600ms var(--ease); }
@@ -401,62 +376,83 @@
 <body>
 <a class="skip" href="#indhold">Spring til indhold</a>
 
-<header class="t-header">
-  <div class="t-strip"></div>
-  <div class="t-akut-wrap">
-    <div class="t-wrap" style="position:relative">
-      <a class="t-akut" href="tel:+4538890889"><strong>AKUT</strong><span class="t-sep" aria-hidden="true"></span><span><span class="t-long">Har du brug for VVS Vagten – Ring på</span><span class="t-short">VVS-Vagten:</span> <strong class="num">+45 38 89 08 89</strong></span></a>
+<div class="a-bar">
+  <div class="wrap">
+    <a href="tel:+4538890889"><strong>AKUT</strong><span class="long">Har du brug for VVS-Vagten? Ring døgnet rundt:</span><span class="short">VVS-Vagten:</span><strong class="num">38 89 08 89</strong></a>
+    <span class="where">Storkøbenhavn og Sjælland</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="#top"><img src="img/logo.png" width="640" height="264" alt="JAH &amp; De Blå Mænd A/S"></a>
+    <nav class="nav" aria-label="Hovedmenu">
+      <a href="#ydelser">Ydelser</a>
+      <a href="#priser">Priser</a>
+      <a href="#om-os">Om os</a>
+      <a href="#garanti">Garanti</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="header-cta">
+      <a class="header-phone num" href="tel:+4570252590" aria-label="Ring 70 25 25 90">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+        <span>70 25 25 90</span>
+      </a>
+      <a class="btn btn-primary" href="#kontakt">Bestil en håndværker</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobilmenu" aria-label="Åbn menu">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </div>
-  <div class="t-wrap t-head">
-    <a class="t-logo" href="#top"><img src="img/logo.png" width="640" height="264" alt="JAH &amp; De Blå Mænd A/S"></a>
-    <nav class="t-nav" aria-label="Hovedmenu">
-      <a href="#vvs">VVS</a>
-      <a href="#ejendomsservice">Ejendomsservice</a>
-      <a href="#kloak">Kloak</a>
-      <a href="#murer">Murer</a>
-      <a class="t-kontakt" href="#kontakt">Kontakt os</a>
-    </nav>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobilmenu" aria-label="Åbn menu">
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
-  </div>
   <div class="mobile-nav" id="mobilmenu" data-open="false">
-    <div class="t-wrap">
+    <div class="wrap">
       <ul>
-        <li><a href="#vvs">VVS</a></li>
-        <li><a href="#ejendomsservice">Ejendomsservice</a></li>
-        <li><a href="#kloak">Kloak</a></li>
-        <li><a href="#murer">Murer</a></li>
+        <li><a href="#ydelser">Ydelser</a></li>
         <li><a href="#priser">Priser</a></li>
+        <li><a href="#om-os">Om os</a></li>
+        <li><a href="#garanti">Garanti</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
       </ul>
-      <a class="t-kontakt" href="#kontakt">Kontakt os</a>
+      <a class="btn btn-primary" href="#kontakt">Bestil en håndværker</a>
     </div>
   </div>
 </header>
 
 <main id="indhold">
 
-  <!-- Hero, as on 3blaa.dk -->
-  <section class="t-hero" id="top" aria-labelledby="hero-title">
-    <div class="t-wrap">
-      <p class="eyebrow">JAH &amp; De Blå Mænd</p>
-      <h1 id="hero-title">Vi skaber trygge rammer for såvel kunder, leverandører og medarbejdere</h1>
+  <!-- Hero: who and what, with their own photo framed as a print -->
+  <section class="h-hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div>
+        <h1 id="hero-title">Håndværkere i København siden 1942</h1>
+        <p class="lead">VVS, el, kloak, murer og ejendomsservice for private, boligforeninger og erhverv. Vi skaber trygge rammer for kunder, leverandører og medarbejdere, og priserne står på siden.</p>
+        <div class="actions">
+          <a class="btn btn-primary num" href="tel:+4570252590">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+            Ring 70 25 25 90
+          </a>
+          <a class="btn btn-ghost" href="#priser">Se alle priser</a>
+        </div>
+        <p class="reassure">Eller <a href="#kontakt">skriv til os</a>, så kontakter vi dig hurtigst muligt.</p>
+      </div>
+      <figure>
+        <div class="print"><img src="img/hero.jpg" width="2000" height="750" alt="Montør i blåt arbejdstøj med beskyttelsesbriller og handsker" fetchpriority="high"></div>
+      </figure>
     </div>
   </section>
 
-  <!-- The four service cards with the blue men, as on 3blaa.dk -->
-  <section class="t-cards" aria-label="Vores fag">
-    <div class="t-wrap">
+  <!-- The four blue men from their logo, each leading to its trade -->
+  <nav class="men" aria-label="Vores fag">
+    <div class="wrap">
       <ul>
-        <li class="t-card"><img src="img/icon-vvs.png" width="245" height="245" alt=""><h2>VVS</h2><p>Som en ekstra service for vores VVS-kunder har vi en specialafdeling, VVS-Vagten, som tager over uden for normal arbejdstid.</p><a href="#vvs">Gå til VVS-ydelser</a></li>
-        <li class="t-card"><img src="img/icon-ejendomsservice.png" width="245" height="245" alt=""><h2>Ejendomsservice</h2><p>For mange beboelsesejendomme og boligselskaber kan det være en fordel at kombinere service og vedligeholdelse af de tekniske installationer.</p><a href="#ejendomsservice">Gå til ejendomsservice</a></li>
-        <li class="t-card"><img src="img/icon-kloak.png" width="245" height="245" alt=""><h2>Kloak</h2><p>Kloaksystemer med brønde, rør og rensningsanlæg er en usynlig del af danskernes hverdag, men har stor betydning for folkesundheden og miljøet.</p><a href="#kloak">Gå til kloakarbejde</a></li>
-        <li class="t-card"><img src="img/icon-murer.png" width="245" height="245" alt=""><h2>Murer</h2><p>Vores erfarne murermestre tilbyder alt fra tagarbejde til badeværelser og facadearbejde.</p><a href="#murer">Gå til murerarbejde</a></li>
+        <li><a href="#vvs"><img src="img/icon-vvs.png" width="245" height="245" alt=""><span><strong>VVS</strong><span>VVS-Vagt døgnet rundt</span></span></a></li>
+        <li><a href="#ejendomsservice"><img src="img/icon-ejendomsservice.png" width="245" height="245" alt=""><span><strong>Ejendomsservice</strong><span>Service- og nøgleaftaler</span></span></a></li>
+        <li><a href="#kloak"><img src="img/icon-kloak.png" width="245" height="245" alt=""><span><strong>Kloak</strong><span>Autoriserede kloakmestre</span></span></a></li>
+        <li><a href="#murer"><img src="img/icon-murer.png" width="245" height="245" alt=""><span><strong>Murer</strong><span>Bad, facader og tag</span></span></a></li>
       </ul>
     </div>
-  </section>
-  <div class="t-after"></div>
+  </nav>
+
 
   <!-- Info strip -->
   <section class="info" aria-label="Pris, vagt og firma">
@@ -810,7 +806,7 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && menu.dataset.open === "true") { set(false); btn.focus(); }
     });
-    window.matchMedia("(min-width: 1181px)").addEventListener("change", (m) => { if (m.matches) set(false); });
+    window.matchMedia("(min-width: 961px)").addEventListener("change", (m) => { if (m.matches) set(false); });
   })();
 
   // Scroll reveal: once per element, a small fade and lift.
