@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Makkerne – forslag A: Tilbuddet</title>
+<!--
+  Forslag A: "Tilbuddet". The whole offer is written as a quote, the kind a
+  tradesperson writes every week: line items, "inkl." and a total of 999,-.
+  Plain office look: white paper, ballpoint blue, monospace for the figures.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f3ef;
+    --paper: #ffffff;
+    --ink: #1b1d22;
+    --muted: #5b5e66;
+    --rule: #d8d6cf;
+    --blue: #1f45b5;
+    --blue-dark: #173690;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--sans); }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  .wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+  h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  h1, h2, h3 { text-wrap: balance; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border: 2px solid var(--ink); border-radius: 3px; font-weight: 600; text-decoration: none; transition: background-color 150ms ease, color 150ms ease; }
+  .btn-main { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .btn-main:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+  .btn-line:hover { background: var(--ink); color: var(--paper); }
+
+  /* Header */
+  .top { border-bottom: 1px solid var(--rule); background: var(--paper); }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 68px; gap: 16px; }
+  .logo { font-weight: 700; font-size: 1.25rem; text-decoration: none; letter-spacing: -0.01em; }
+  .top nav { display: flex; align-items: center; gap: 28px; }
+  .top nav a:not(.btn) { text-decoration: none; color: var(--muted); }
+  .top nav a:not(.btn):hover { color: var(--ink); }
+  @media (max-width: 720px) { .top nav a:not(.btn) { display: none; } }
+
+  /* Hero: headline left, the quote right */
+  .hero { padding-block: clamp(40px, 7vw, 96px); }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .hero h1 { font-size: clamp(2.4rem, 1.4rem + 4vw, 4.4rem); font-weight: 700; max-width: 12ch; }
+  .hero h1 span { color: var(--blue); white-space: nowrap; }
+  .hero .lead { margin-top: 20px; font-size: 1.2rem; color: var(--muted); max-width: 34ch; }
+  .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .hero .small { margin-top: 14px; font-size: 0.95rem; color: var(--muted); }
+
+  .quote { background: var(--paper); border: 1px solid var(--rule); padding: clamp(20px, 3vw, 36px); }
+  .quote header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+  .quote header strong { font-size: 1.35rem; }
+  .quote header span { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); }
+  .quote .to { margin-top: 14px; font-size: 0.95rem; color: var(--muted); }
+  .quote table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  .quote td { padding: 11px 0; border-bottom: 1px dashed var(--rule); vertical-align: top; }
+  .quote td + td { text-align: right; font-family: var(--mono); white-space: nowrap; padding-left: 16px; color: var(--muted); }
+  .quote tr.total td { border-bottom: 0; padding-top: 18px; font-weight: 700; font-size: 1.15rem; color: var(--ink); }
+  .quote tr.total td { vertical-align: baseline; }
+  .quote tr.total td + td { font-family: var(--sans); font-size: 2.1rem; color: var(--blue); }
+  .quote .terms { margin-top: 6px; font-size: 0.92rem; color: var(--muted); }
+  .quote .sign { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 0.92rem; color: var(--muted); }
+  @media (max-width: 880px) { .hero .wrap { grid-template-columns: 1fr; } }
+
+  /* Sections */
+  section.block { padding-block: clamp(56px, 8vw, 112px); border-top: 1px solid var(--rule); }
+  .block h2 { font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.8rem); font-weight: 700; max-width: 22ch; }
+  .block .intro { margin-top: 12px; color: var(--muted); max-width: 60ch; }
+
+  .examples { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .examples a { display: block; text-decoration: none; }
+  .examples .shot { border: 1px solid var(--rule); background: var(--paper); padding: 6px; transition: border-color 150ms ease; }
+  .examples a:hover .shot { border-color: var(--ink); }
+  .examples img { aspect-ratio: 5 / 3; width: 100%; object-fit: cover; object-position: top; }
+  .examples h3 { margin-top: 14px; font-size: 1.15rem; }
+  .examples p { margin-top: 2px; color: var(--muted); font-size: 0.95rem; }
+  .examples .go { display: inline-block; margin-top: 6px; color: var(--blue); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .more { margin-top: 28px; }
+  .more a { color: var(--blue); font-weight: 600; }
+  .note { margin-top: 10px; font-size: 0.9rem; color: var(--muted); }
+  @media (max-width: 880px) { .examples { grid-template-columns: 1fr; gap: 36px; } }
+
+  .steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+  .steps li { border-top: 2px solid var(--ink); padding-top: 16px; }
+  .steps .when { font-family: var(--mono); font-size: 0.9rem; color: var(--blue); }
+  .steps h3 { margin-top: 6px; font-size: 1.25rem; }
+  .steps p { margin-top: 8px; color: var(--muted); }
+  @media (max-width: 880px) { .steps { grid-template-columns: 1fr; } }
+
+  .faq { margin-top: 32px; max-width: 760px; }
+  .faq details { border-bottom: 1px solid var(--rule); }
+  .faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; align-items: center; min-height: 56px; padding-block: 12px; font-weight: 600; font-size: 1.05rem; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-family: var(--mono); font-size: 1.3rem; color: var(--blue); }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { padding-bottom: 18px; color: var(--muted); max-width: 62ch; }
+
+  .contact { background: var(--paper); }
+  .contact .box { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; }
+  .contact .mail { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); margin-top: 12px; word-break: break-all; }
+  .contact .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
+  @media (max-width: 880px) { .contact .box { grid-template-columns: 1fr; } .contact .actions { justify-content: flex-start; } }
+
+  footer { padding-block: 28px; font-size: 0.9rem; color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#">Makkerne</a>
+    <nav aria-label="Menu">
+      <a href="#eksempler">Eksempler</a>
+      <a href="#saadan">Sådan foregår det</a>
+      <a href="#spoergsmaal">Spørgsmål</a>
+      <a class="btn btn-main" href="#kontakt">Få et udkast</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Vi laver din hjemmeside for <span>999,-</span></h1>
+        <p class="lead">Vi skriver teksterne, sætter domænet op og gør siden klar til telefonen og Google. Du skal ikke tænke mere over det.</p>
+        <div class="actions">
+          <a class="btn btn-main" href="#kontakt">Få et udkast</a>
+          <a class="btn btn-line" href="#eksempler">Se eksempler</a>
+        </div>
+        <p class="small">Du ser et udkast af din side først og betaler kun, hvis du vil beholde den.</p>
+      </div>
+
+      <div class="quote" role="group" aria-label="Det får du for 999 kroner">
+        <header><strong>Tilbud</strong><span>Hjemmeside til dit firma</span></header>
+        <p class="to">Til: håndværkere, der vil have en side, der bare virker.</p>
+        <table>
+          <tr><td>Tekster skrevet til dit fag</td><td>inkl.</td></tr>
+          <tr><td>Dit logo og billeder af dit arbejde</td><td>inkl.</td></tr>
+          <tr><td>Ring-knap og tilbudsformular</td><td>inkl.</td></tr>
+          <tr><td>Virker på telefonen</td><td>inkl.</td></tr>
+          <tr><td>Klar til at blive fundet på Google</td><td>inkl.</td></tr>
+          <tr><td>Domæne og hængelås sat op</td><td>inkl.</td></tr>
+          <tr><td>Udkast, før du siger ja</td><td>0,-</td></tr>
+          <tr class="total"><td>I alt</td><td>999,-</td></tr>
+        </table>
+        <p class="terms">Betales én gang. Intet abonnement og ingen binding.</p>
+        <div class="sign"><span>Venlig hilsen Makkerne</span><span>Vi er to iværksættere.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="eksempler">
+    <div class="wrap">
+      <h2>Sådan kan din side se ud</h2>
+      <p class="intro">Klik på et eksempel og prøv siden. Din egen side bliver lavet til dit firma, med dine billeder og dit område.</p>
+      <ul class="examples">
+        <li><a href="/examples/vvs/"><div class="shot"><img src="../makkerne/img/vvs.jpg" width="1200" height="720" alt="Eksempel: forsiden af Holm VVS"></div><h3>Holm VVS</h3><p>VVS i Herlev, med døgnvagt og typiske priser</p><span class="go">Se siden</span></a></li>
+        <li><a href="/examples/tomrer/"><div class="shot"><img src="../makkerne/img/tomrer.jpg" width="1200" height="720" alt="Eksempel: forsiden af Egholm Tømrer" loading="lazy"></div><h3>Egholm Tømrer</h3><p>Tømrer i Roskilde, med projekter og besigtigelse</p><span class="go">Se siden</span></a></li>
+        <li><a href="/examples/tag/"><div class="shot"><img src="../makkerne/img/tag.jpg" width="1200" height="720" alt="Eksempel: forsiden af Tagværk" loading="lazy"></div><h3>Tagværk</h3><p>Tag og tømrer på Sjælland, med tilbud i toppen</p><span class="go">Se siden</span></a></li>
+      </ul>
+      <p class="more"><a href="/eksempler">Se alle eksempler</a></p>
+      <p class="note">Firmaerne er opdigtede. Siderne viser, hvad vi kan bygge.</p>
+    </div>
+  </section>
+
+  <section class="block" id="saadan">
+    <div class="wrap">
+      <h2>Du ser siden, før du betaler</h2>
+      <p class="intro">Ingen møder og ingen lange mails. Du passer dit arbejde, vi klarer resten.</p>
+      <ol class="steps">
+        <li><span class="when">I dag</span><h3>Du skriver til os</h3><p>Send dit firmanavn, dit fag og din by. Har du billeder af dit arbejde eller et logo, så send dem med.</p></li>
+        <li><span class="when">Få dage efter</span><h3>Du får et udkast</h3><p>Vi bygger et udkast til din side ud fra det, du sender, og det vi kan finde om dig.</p></li>
+        <li><span class="when">Når du siger ja</span><h3>Siden går live</h3><p>Du betaler 999,-, og vi sætter siden online på dit domæne. Vil du ikke have den, siger du bare nej tak.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="spoergsmaal">
+    <div class="wrap">
+      <h2>Det bliver vi tit spurgt om</h2>
+      <div class="faq">
+        <details><summary>Hvordan er det så billigt?</summary><p>Vi er to mand uden kontor, sælgere eller mellemled. Siderne er enkle og fokuserede, så vi kan lave dem hurtigt og holde prisen nede.</p></details>
+        <details><summary>Er der binding?</summary><p>Nej. Du betaler 999,- én gang, og så er siden din. Det eneste, du selv betaler løbende, er dit domæne, direkte til udbyderen.</p></details>
+        <details><summary>Jeg har ikke tid til at skrive tekster</summary><p>Det skal du heller ikke. Fortæl os i en mail, hvad du laver, så skriver vi det.</p></details>
+        <details><summary>Jeg har allerede en hjemmeside</summary><p>Så laver vi en ny, der er hurtigere og nemmere at ringe fra, og flytter dit domæne over, så du beholder din adresse.</p></details>
+        <details><summary>Kan jeg ændre noget bagefter?</summary><p>Ja. Når siden er live, kan du altid skrive til os, hvis noget skal opdateres.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block contact" id="kontakt">
+    <div class="wrap box">
+      <div>
+        <h2>Skal vi lave et udkast til dig?</h2>
+        <p class="intro">Skriv dit firmanavn, dit fag og din by. Vi svarer typisk samme dag.</p>
+        <p class="mail">blond.nikolaj@gmail.com</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-main" href="mailto:blond.nikolaj@gmail.com?subject=Udkast%20til%20min%20hjemmeside&amp;body=Firmanavn%3A%0AFag%3A%0ABy%3A%0A%0A(Send%20gerne%20billeder%20af%20dit%20arbejde%20med)">Skriv en mail</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 Makkerne</span><span>Vi er to iværksættere.</span></div>
+</footer>
+
+</body>
+</html>
