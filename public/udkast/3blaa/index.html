@@ -281,6 +281,7 @@
 
   /* Contact */
   .contact .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(32px, 6vw, 96px); }
+  @media (max-width: 860px) { .contact .wrap { grid-template-columns: 1fr; } }
   form { display: grid; gap: var(--s-4); margin-top: var(--s-6); }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
   @media (max-width: 600px) { .row { grid-template-columns: 1fr; } }
