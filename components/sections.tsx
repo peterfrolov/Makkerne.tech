@@ -158,8 +158,6 @@ export function Contact() {
   const { t } = useLang();
   const c = t.contact;
   const [copied, setCopied] = useState(false);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(EMAIL);
@@ -167,7 +165,6 @@ export function Contact() {
       setTimeout(() => setCopied(false), 2000);
     } catch {}
   };
-  const field = "w-full border border-paper/25 bg-paper/5 px-4 py-3 text-paper outline-none placeholder:text-paper/45 focus:border-brand";
   return (
     <section id="kontakt" className="bg-ink text-paper">
       <div className="mx-auto grid max-w-6xl gap-14 px-4 py-20 sm:px-8 sm:py-28 lg:grid-cols-2">
@@ -183,30 +180,7 @@ export function Contact() {
             </button>
           </div>
         </div>
-        <form
-          className="lg:border-l lg:border-paper/15 lg:pl-14"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const body = `${c.name}: ${name}\n${c.phone}: ${phone}`;
-            window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(c.subject)}&body=${encodeURIComponent(body)}`;
-          }}
-        >
-          <h3 className="font-cond text-3xl font-bold uppercase">{c.callTitle}</h3>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <label className="block">
-              <span className="text-sm text-paper/70">{c.name}</span>
-              <input required value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className={`mt-1 ${field}`} />
-            </label>
-            <label className="block">
-              <span className="text-sm text-paper/70">{c.phone}</span>
-              <input required value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" className={`mt-1 ${field}`} />
-            </label>
-          </div>
-          <button type="submit" className="mt-4 border border-paper px-6 py-3.5 font-cond text-lg font-bold uppercase transition hover:bg-paper hover:text-ink">
-            {c.send}
-          </button>
-          <p className="mt-3 text-xs text-paper/50">{c.note}</p>
-        </form>
+        <p className="self-end text-2xl font-bold lg:border-l lg:border-paper/15 lg:pl-14">{c.who}</p>
       </div>
     </section>
   );
