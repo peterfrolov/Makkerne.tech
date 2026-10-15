@@ -1,6 +1,11 @@
 export type Lang = "da" | "en";
 
 export const EMAIL = "blond.nikolaj@gmail.com";
+
+export const TEAM = [
+  { name: "Peter", email: "peterfrolov09@gmail.com", photo: "/team/peter.webp" },
+  { name: "Nikolaj", email: "blond.nikolaj@gmail.com", photo: "/team/nikolaj.webp" },
+];
 export const PRICE = "999,-";
 
 export type Example = {
