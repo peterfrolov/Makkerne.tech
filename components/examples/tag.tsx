@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BeforeAfter, DemoNote, Icon, Img, Stars } from "./shared";
+import { BeforeAfter, DemoNote, Icon, Img, Stars, photo } from "./shared";
 
 const PHONE = "45 67 89 01";
 const TEL = "tel:+4545678901";
@@ -192,8 +192,10 @@ export function TagSite() {
       </header>
 
       {/* Hero with the form */}
-      <section id="top" className="mx-auto grid max-w-6xl gap-12 px-5 pb-16 pt-12 sm:pt-16 lg:grid-cols-2 lg:items-center">
+      <section id="top" className="mx-auto grid max-w-6xl gap-12 px-5 pb-16 pt-6 sm:pt-10 lg:grid-cols-2 lg:items-center">
         <div>
+          {/* eslint-disable-next-line @next/next/no-img-element -- remote stock photo, loaded at once since it is the first thing you see */}
+          <img src={photo("1605450099279-533bd3ce379a", 1400)} alt="Hus med nyt tag" fetchPriority="high" className="mb-8 h-44 w-full rounded-md object-cover sm:h-56" />
           <h1 className="font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl">Tagdækker og tømrer på Sjælland</h1>
           <p className={`mt-5 max-w-lg text-lg leading-relaxed ${MUTED}`}>
             Nyt tag, renovering, tilbygning og murerarbejde. Udført af faglærte folk til en fast pris, der står i tilbuddet.
@@ -216,7 +218,7 @@ export function TagSite() {
         <QuoteForm />
       </section>
 
-      <Img id="1605450099279-533bd3ce379a" w={2000} alt="Nyt tag på et parcelhus" className="h-64 w-full object-cover sm:h-96" />
+      <Img id="1528223871781-8f4c984f6164" w={2000} alt="Nye tegl lagt på et tag" className="h-64 w-full object-cover sm:h-96" />
 
       {/* Roof chooser */}
       <section className="mx-auto max-w-6xl px-5 py-20 sm:py-24">
