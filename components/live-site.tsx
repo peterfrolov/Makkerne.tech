@@ -15,15 +15,19 @@ function hideScrollbar(e: React.SyntheticEvent<HTMLIFrameElement>) {
 const DESKTOP_WIDTH = 1280;
 const PHONE_WIDTH = 390;
 
-/** Renders a page at desktop (or phone) width and scales it down to fit its box. */
-function useScaledFrame() {
+/**
+ * Renders a page at desktop (or phone) width and scales it down to fit its box.
+ * With `alwaysDesktop` it keeps the desktop layout however narrow the box gets.
+ */
+function useScaledFrame(alwaysDesktop = false) {
   const boxRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: DESKTOP_WIDTH, h: 800, scale: 0.5 });
   useEffect(() => {
     const box = boxRef.current;
     if (!box) return;
     const measure = () => {
-      const w = box.clientWidth < 500 ? PHONE_WIDTH : DESKTOP_WIDTH;
+      if (!box.clientWidth) return;
+      const w = alwaysDesktop || box.clientWidth >= 500 ? DESKTOP_WIDTH : PHONE_WIDTH;
       const scale = box.clientWidth / w;
       setSize({ w, h: Math.ceil(box.clientHeight / scale), scale });
     };
@@ -31,7 +35,7 @@ function useScaledFrame() {
     const ro = new ResizeObserver(measure);
     ro.observe(box);
     return () => ro.disconnect();
-  }, []);
+  }, [alwaysDesktop]);
   return { boxRef, size };
 }
 
@@ -88,7 +92,7 @@ export function BrowserSite({ src, title, liveLabel, tryLabel, accent }: { src: 
  * offset shadow, like a sign on the workshop wall. Clicking it opens the real site.
  */
 export function WorkshopScreen({ src, title, tryLabel }: { src: string; title: string; tryLabel: string }) {
-  const { boxRef, size } = useScaledFrame();
+  const { boxRef, size } = useScaledFrame(true);
   const path = src.replace(/^\//, "makkerne.tech/").replace(/\/$/, "");
 
   return (
@@ -103,7 +107,7 @@ export function WorkshopScreen({ src, title, tryLabel }: { src: string; title: s
           {path} ↗
         </a>
       </div>
-      <div ref={boxRef} className="relative aspect-[9/14] overflow-hidden bg-paper sm:aspect-[16/10]">
+      <div ref={boxRef} className="relative aspect-[16/10] overflow-hidden bg-paper">
         <iframe
           key={src}
           src={src}

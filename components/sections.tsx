@@ -73,36 +73,41 @@ export function ExamplesByIndustry() {
           ))}
         </div>
 
-        <div id="eksempel-panel" role="tabpanel" className="mt-10 grid gap-12 lg:grid-cols-12 lg:gap-10">
-          <div className="relative lg:col-span-8 lg:pb-14 lg:pr-16">
-            <WorkshopScreen src={item.href} title={item.name} tryLabel={e.try} />
-            <div className="absolute -bottom-2 right-0 hidden lg:block">
-              <RuggedPhone src={item.href} title={`${item.name} på telefonen`} width={190} height={390} />
+        <div id="eksempel-panel" role="tabpanel" className="mt-10">
+          {/* Computer and phone next to each other, never on top of each other. */}
+          <div className="flex flex-col items-center gap-10 md:flex-row md:items-end md:gap-10">
+            <div className="w-full min-w-0 md:flex-1">
+              <WorkshopScreen src={item.href} title={item.name} tryLabel={e.try} />
+            </div>
+            <div className="shrink-0">
+              <RuggedPhone src={item.href} title={`${item.name} på telefonen`} width={240} height={490} />
             </div>
           </div>
 
-          <div className="lg:col-span-4">
-            <p className="text-sm text-ink/60">
-              {item.industry} · {item.place}
-            </p>
-            <h2 className="mt-1 font-cond text-5xl font-extrabold uppercase leading-none">{item.name}</h2>
-            <p className="mt-4 leading-relaxed text-ink/75">{item.long}</p>
-            <ul className="mt-6 space-y-2.5 border-t-2 border-ink pt-5">
+          <div className="mt-14 grid gap-10 border-t-2 border-ink pt-8 lg:grid-cols-12">
+            <div className="lg:col-span-6">
+              <p className="text-sm text-ink/60">
+                {item.industry} · {item.place}
+              </p>
+              <h2 className="mt-1 font-cond text-5xl font-extrabold uppercase leading-none">{item.name}</h2>
+              <p className="mt-4 max-w-lg leading-relaxed text-ink/75">{item.long}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href={item.href} target="_blank" rel="noopener" className="bg-ink px-5 py-3 font-cond text-lg font-bold uppercase text-paper transition hover:bg-ink/85">
+                  {e.open} ↗
+                </a>
+                <a href="#kontakt" className="border-2 border-ink px-5 py-3 font-cond text-lg font-bold uppercase transition hover:bg-brand">
+                  {e.want}
+                </a>
+              </div>
+            </div>
+            <ul className="space-y-3 lg:col-span-6 lg:pt-6">
               {item.features.map((f) => (
-                <li key={f} className="flex gap-2.5">
+                <li key={f} className="flex gap-2.5 text-lg">
                   <Check />
                   {f}
                 </li>
               ))}
             </ul>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href={item.href} target="_blank" rel="noopener" className="bg-ink px-5 py-3 font-cond text-lg font-bold uppercase text-paper transition hover:bg-ink/85">
-                {e.open} ↗
-              </a>
-              <a href="#kontakt" className="border-2 border-ink px-5 py-3 font-cond text-lg font-bold uppercase transition hover:bg-brand">
-                {e.want}
-              </a>
-            </div>
           </div>
         </div>
         <p className="mt-14 text-sm text-ink/55">{e.disclaimer}</p>
