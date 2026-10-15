@@ -1,7 +1,7 @@
 export type Lang = "da" | "en";
 
 export const EMAIL = "blond.nikolaj@gmail.com";
-export const PRICE = "599,-";
+export const PRICE = "999,-";
 
 export type Example = {
   slug: "vvs" | "tomrer" | "maler" | "tag";
@@ -123,7 +123,7 @@ const da = {
     title: "Det bliver vi tit spurgt om",
     items: [
       { q: "Hvordan er det så billigt?", a: "Vi er to mand uden kontor, sælgere eller mellemled. Siderne er enkle og fokuserede, så vi kan lave dem hurtigt og holde prisen nede." },
-      { q: "Er der binding?", a: "Nej. Du betaler 599,- én gang, og så er siden din. Der er intet abonnement til os." },
+      { q: "Er der binding?", a: "Nej. Du betaler 999,- én gang, og så er siden din. Der er intet abonnement til os." },
       { q: "Hvem taler jeg med?", a: "Med os, dem der bygger siden. Der er ingen sælger eller kontaktperson imellem." },
       { q: "Jeg har ikke tid til at skrive tekster", a: "Det skal du heller ikke. Fortæl os i telefonen, hvad du laver, så skriver vi det. Billederne tager du med telefonen på næste opgave." },
       { q: "Hvor kommer forespørgslerne hen?", a: "Direkte i din mail, så du kan ringe kunden op, når du har en pause. Og knappen 'Ring nu' ringer bare op til dig." },
@@ -180,7 +180,7 @@ const en: Dict = {
     all: "See all examples",
     disclaimer: "The businesses are made up. The sites show what we can build, they are not real client projects.",
     pageTitle: "See what we can make for your business",
-    pageLead: "Example websites for tradespeople. Every site is built from scratch, works on phones and costs 599 DKK. The business names are made up.",
+    pageLead: "Example websites for tradespeople. Every site is built from scratch, works on phones and costs 999 DKK. The business names are made up.",
     items: [
       {
         ...da.examples.items[0],
@@ -245,7 +245,7 @@ const en: Dict = {
     title: "What people often ask us",
     items: [
       { q: "How is it so cheap?", a: "We are two people with no office, salespeople or middlemen. The sites are simple and focused, so we can make them quickly and keep the price down." },
-      { q: "Is there a lock-in?", a: "No. You pay 599 DKK once and the site is yours. There is no subscription to us." },
+      { q: "Is there a lock-in?", a: "No. You pay 999 DKK once and the site is yours. There is no subscription to us." },
       { q: "Who do I talk to?", a: "To us, the people building the site. There is no salesperson or account manager in between." },
       { q: "I don't have time to write texts", a: "You don't have to. Tell us on the phone what you do and we write it. Take the photos with your phone on your next job." },
       { q: "Where do the requests go?", a: "Straight to your email, so you can call the customer back on your break. And the 'Call now' button simply calls you." },
