@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import heroPhoto from "@/public/examples/maler-hero.jpg";
 import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, Stars } from "./shared";
 
 const PHONE = "34 56 78 90";
@@ -139,12 +141,13 @@ export function MalerSite() {
           transition={{ duration: 1.1, ease: [0.65, 0, 0.35, 1] }}
           className="relative lg:col-span-6"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element -- remote stock photo (Pexels), sized via the URL */}
-          <img
-            src="https://images.pexels.com/photos/6050252/pexels-photo-6050252.jpeg?auto=compress&cs=tinysrgb&w=1400"
-            alt="Smilende maler i arbejdstøj med en malerrulle i hånden"
-            decoding="async"
-            className="aspect-[4/5] w-full rounded-[2rem] object-cover sm:aspect-[5/4] lg:aspect-[4/5]"
+          <Image
+            src={heroPhoto}
+            alt="Smilende maler i hvidt arbejdstøj med malerrulle og spand foran et hus"
+            sizes="(min-width: 1024px) 540px, 100vw"
+            fetchPriority="high"
+            loading="eager"
+            className="aspect-[4/5] w-full rounded-[2rem] object-cover object-[50%_20%] sm:aspect-[5/4] lg:aspect-[4/5]"
           />
           <div className="absolute bottom-6 left-4 rounded-md bg-[#fffdf9] px-5 py-4 shadow-xl sm:bottom-8 sm:left-6">
             <p className="font-display text-3xl font-bold">1.200+</p>
