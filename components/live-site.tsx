@@ -84,22 +84,81 @@ export function LiveSite({ src, title, tryLabel }: { src: string; title: string;
           {path} ↗
         </a>
       </div>
-      <div ref={boxRef} className="relative aspect-[9/14] overflow-hidden bg-paper sm:aspect-[16/10]">
-        <iframe
-          src={src}
-          title={title}
-          loading="lazy"
-          tabIndex={active ? 0 : -1}
-          onLoad={hideScrollbar}
-          className={`absolute left-0 top-0 origin-top-left border-0 bg-paper ${active ? "" : "pointer-events-none"}`}
-          style={{ width: size.w, height: size.h, transform: `scale(${size.scale})` }}
-        />
-        {!active && (
-          <button type="button" onClick={() => setActive(true)} className="absolute inset-0 flex items-end justify-center pb-6 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
-            <span className="bg-ink px-5 py-2.5 font-cond text-lg font-bold uppercase text-paper">{tryLabel}</span>
-          </button>
-        )}
+      <Frame boxRef={boxRef} size={size} src={src} title={title} tryLabel={tryLabel} active={active} setActive={setActive} />
+    </div>
+  );
+}
+
+/**
+ * The examples-page version: a soft, rounded browser window with a live dot and a coloured
+ * strip in the example's own colour along the bottom.
+ */
+export function BrowserSite({ src, title, liveLabel, tryLabel, accent }: { src: string; title: string; liveLabel: string; tryLabel: string; accent: string }) {
+  const { boxRef, size } = useScaledFrame();
+  const [active, setActive] = useState(false);
+  const path = src.replace(/^\//, "makkerne.tech/").replace(/\/$/, "");
+
+  return (
+    <div className="group overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_30px_80px_-30px_rgba(0,0,0,0.35)]">
+      <div className="flex items-center gap-3 px-4 py-3 sm:gap-4 sm:px-5">
+        <span className="flex gap-1.5" aria-hidden>
+          <span className="size-3 rounded-full bg-black/15" />
+          <span className="size-3 rounded-full bg-black/15" />
+          <span className="size-3 rounded-full bg-black/15" />
+        </span>
+        <a href={src} target="_blank" rel="noopener" className="min-w-0 flex-1 truncate rounded-full bg-[#f3f2ef] px-4 py-1.5 text-center text-sm text-black/55 transition hover:text-black">
+          {path} ↗
+        </a>
+        <span className="hidden items-center gap-2 text-sm text-black/60 sm:flex">
+          <span className="size-2.5 rounded-full bg-emerald-500" aria-hidden />
+          {liveLabel}
+        </span>
       </div>
+      <Frame boxRef={boxRef} size={size} src={src} title={title} tryLabel={tryLabel} active={active} setActive={setActive} soft />
+      <div className="h-1.5" style={{ background: accent }} aria-hidden />
+    </div>
+  );
+}
+
+function Frame({
+  boxRef,
+  size,
+  src,
+  title,
+  tryLabel,
+  active,
+  setActive,
+  soft = false,
+}: {
+  boxRef: React.RefObject<HTMLDivElement | null>;
+  size: { w: number; h: number; scale: number };
+  src: string;
+  title: string;
+  tryLabel: string;
+  active: boolean;
+  setActive: (a: boolean) => void;
+  soft?: boolean;
+}) {
+  return (
+    <div ref={boxRef} className="relative aspect-[9/14] overflow-hidden bg-paper sm:aspect-[16/10]">
+      <iframe
+        src={src}
+        title={title}
+        loading="lazy"
+        tabIndex={active ? 0 : -1}
+        onLoad={hideScrollbar}
+        className={`absolute left-0 top-0 origin-top-left border-0 bg-paper ${active ? "" : "pointer-events-none"}`}
+        style={{ width: size.w, height: size.h, transform: `scale(${size.scale})` }}
+      />
+      {!active && (
+        <button type="button" onClick={() => setActive(true)} className="absolute inset-0 flex items-end justify-center pb-6 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
+          {soft ? (
+            <span className="rounded-xl bg-black/45 px-6 py-3 text-base font-semibold text-white/85 backdrop-blur-sm">{tryLabel}</span>
+          ) : (
+            <span className="bg-ink px-5 py-2.5 font-cond text-lg font-bold uppercase text-paper">{tryLabel}</span>
+          )}
+        </button>
+      )}
     </div>
   );
 }

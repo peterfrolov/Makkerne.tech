@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { EMAIL, PRICE, TEAM } from "@/lib/content";
+import { EMAIL, PRICE, TEAM, type Example } from "@/lib/content";
 import { useLang } from "./lang";
-import { LiveSite, SiteThumb } from "./live-site";
+import { BrowserSite, SiteThumb } from "./live-site";
 import { Logo } from "./header";
 
 function SectionHead({ title, lead, light = false }: { title: string; lead?: string; light?: boolean }) {
@@ -42,41 +42,40 @@ export function Examples() {
 }
 
 /** The full design-examples page, sorted by industry. */
+/** Each example's own main colour, used for the strip under its browser window. */
+const ACCENT: Record<Example["slug"], string> = { vvs: "#ff5a1f", tomrer: "#a2582a", maler: "#2f5d50", tag: "#1d211f" };
+
 export function ExamplesByIndustry() {
   const { t } = useLang();
   const e = t.examples;
   return (
-    <section className="mx-auto max-w-6xl space-y-20 px-4 py-16 sm:px-8 sm:py-24">
-      {e.items.map((item) => (
-        <article key={item.slug} className="grid gap-10 border-t border-ink/15 pt-10 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <p className="text-sm text-ink/60">{item.industry}</p>
-            <h2 className="mt-1 font-cond text-4xl font-extrabold uppercase leading-none">
-              {item.name} <span className="block text-xl font-bold text-ink/50">{item.place}</span>
-            </h2>
-            <p className="mt-4 leading-relaxed text-ink/75">{item.long}</p>
-            <ul className="mt-6 space-y-2">
-              {item.features.map((f) => (
-                <li key={f} className="flex gap-2.5 text-sm">
-                  <Check />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href={item.href} target="_blank" rel="noopener" className="bg-ink px-5 py-3 font-cond text-lg font-bold uppercase text-paper transition hover:bg-ink/85">
-                {e.seeExample} ↗
-              </a>
-              <a href="#kontakt" className="border border-ink px-5 py-3 font-cond text-lg font-bold uppercase transition hover:bg-brand">
-                {e.want}
+    <section className="bg-[#f3f2ef]">
+      <div className="mx-auto max-w-7xl space-y-24 px-4 py-20 sm:space-y-32 sm:px-8 sm:py-28">
+        {e.items.map((item, i) => (
+          <article key={item.slug} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+            <div className={`lg:col-span-7 ${i % 2 ? "lg:order-2" : ""}`}>
+              <BrowserSite src={item.href} title={item.name} liveLabel={e.live} tryLabel={e.try} accent={ACCENT[item.slug]} />
+            </div>
+            <div className={`lg:col-span-5 ${i % 2 ? "lg:order-1" : ""}`}>
+              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">
+                {String(i + 1).padStart(2, "0")} · {item.industry}
+              </p>
+              <h2 className="mt-3 text-4xl font-bold tracking-tight text-[#1a1a1a]">{item.name}</h2>
+              <p className="mt-5 text-lg leading-relaxed text-black/60">{item.short}</p>
+              <ul className="mt-7 flex flex-wrap gap-2.5">
+                {item.tags.map((tag) => (
+                  <li key={tag} className="rounded-full border border-black/10 bg-black/[0.03] px-4 py-1.5 text-black/70">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+              <a href={item.href} target="_blank" rel="noopener" className="mt-8 inline-block border-b border-black/70 pb-0.5 text-lg font-semibold text-[#1a1a1a] transition hover:border-blue-600 hover:text-blue-600">
+                {e.open} ↗
               </a>
             </div>
-          </div>
-          <div className="lg:col-span-8">
-            <LiveSite src={item.href} title={item.name} tryLabel={e.try} />
-          </div>
-        </article>
-      ))}
+          </article>
+        ))}
+      </div>
     </section>
   );
 }
@@ -226,12 +225,12 @@ export function Contact() {
             </button>
           </p>
         </div>
-        <div className="self-end lg:border-l lg:border-paper/15 lg:pl-14">
+        <div className="flex flex-col lg:border-l lg:border-paper/15 lg:pl-14">
           <p className="text-2xl font-bold">{c.who}</p>
-          <div className="mt-6 grid grid-cols-2 gap-4 sm:gap-6">
+          <div className="mt-6 grid flex-1 grid-cols-2 gap-4 sm:gap-6">
             {TEAM.map((p) => (
-              <figure key={p.email}>
-                <img src={p.photo} alt={p.name} loading="lazy" decoding="async" className="aspect-[4/5] w-full border-2 border-paper/15 object-cover object-top" />
+              <figure key={p.email} className="flex flex-col">
+                <img src={p.photo} alt={p.name} loading="lazy" decoding="async" className="aspect-[4/5] w-full flex-1 border-2 border-paper/15 object-cover object-top lg:aspect-auto lg:min-h-80" />
                 <figcaption className="mt-3">
                   <span className="block font-cond text-xl font-bold uppercase">{p.name}</span>
                   <a href={`mailto:${p.email}`} className="break-all text-sm text-paper/70 underline-offset-4 transition hover:text-brand hover:underline">
