@@ -10,10 +10,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://makkerne.tech"),
   title: { default: "Makkerne", template: "%s · Makkerne" },
   description:
-    "Makkerne laver hjemmesider til håndværkere: VVS'ere, tømrere, malere og andre fag. Du klarer håndværket, vi klarer siden. Fast pris: 599,-.",
+    "Makkerne laver hjemmesider til håndværkere: VVS'ere, tømrere, malere og andre fag. Du klarer håndværket, vi klarer siden. Fast pris: 999,-.",
   openGraph: {
     title: "Makkerne – du klarer håndværket, vi klarer hjemmesiden",
-    description: "Hjemmesider til håndværkere, der får telefonen til at ringe. Fast pris: 599,-.",
+    description: "Hjemmesider til håndværkere, der får telefonen til at ringe. Fast pris: 999,-.",
     locale: "da_DK",
     type: "website",
   },
