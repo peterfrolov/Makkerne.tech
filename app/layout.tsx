@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="da" className={`${plexSans.variable} ${barlow.variable} antialiased`}>
+    <html lang="da" data-scroll-behavior="smooth" className={`${plexSans.variable} ${barlow.variable} antialiased`}>
       <body className="min-h-dvh bg-paper font-sans text-ink">
         {children}
       </body>

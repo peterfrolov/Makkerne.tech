@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LangToggle, useLang } from "./lang";
 
 export function Logo({ light = false }: { light?: boolean }) {
@@ -25,6 +25,11 @@ export function Header() {
   const { t } = useLang();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  // A new page from the menu always starts at the top, unless the link points at a section.
+  useEffect(() => {
+    if (!window.location.hash) window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
 
   const links = [
     { href: "/eksempler/", label: t.nav.examples },
