@@ -9,7 +9,7 @@ export function Logo({ light = false }: { light?: boolean }) {
   return (
     <Link href="/" className="group flex items-center gap-2.5" aria-label="Makkerne – forside">
       <span className="grid size-10 place-items-center bg-ink">
-        <svg viewBox="0 0 100 100" aria-hidden className="size-7 fill-brand">
+        <svg viewBox="12 12 76 76" aria-hidden className="size-8 fill-brand">
           <path d="M15 85V15h12l18 35 18-35h12v70h-12V35L45 70h-10L17 35v50H15z" />
         </svg>
       </span>
