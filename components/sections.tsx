@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { EMAIL, PRICE, TEAM, type Example } from "@/lib/content";
 import { useLang } from "./lang";
-import { BrowserSite, SiteThumb } from "./live-site";
+import { BrowserSite } from "./live-site";
 import { Logo } from "./header";
 
 function SectionHead({ title, lead, light = false }: { title: string; lead?: string; light?: boolean }) {
@@ -24,59 +24,64 @@ function Check({ light = false }: { light?: boolean }) {
   );
 }
 
-/** Landing page: the four example sites as still pictures you can click. */
+/** Landing page: the same browser-window rows as the examples page, under a heading. */
 export function Examples() {
   const { t } = useLang();
   const e = t.examples;
   return (
-    <section id="eksempler" className="mx-auto max-w-6xl px-4 py-20 sm:px-8 sm:py-28">
-      <SectionHead title={e.title} lead={e.lead} />
-      <div className="grid gap-x-8 gap-y-12 md:grid-cols-2">
-        {e.items.map((item) => (
-          <SiteThumb key={item.slug} src={item.href} name={item.name} industry={item.industry} open={e.open} />
-        ))}
+    <section id="eksempler" className="bg-[#f3f2ef]">
+      <div className="mx-auto max-w-7xl px-4 pt-20 sm:px-8 sm:pt-28">
+        <SectionHead title={e.title} lead={e.lead} />
       </div>
-      <p className="mt-10 text-sm text-ink/55">{e.disclaimer}</p>
+      <ExampleRows />
+      <p className="mx-auto max-w-7xl px-4 pb-20 text-sm text-ink/55 sm:px-8 sm:pb-28">{e.disclaimer}</p>
     </section>
   );
 }
 
-/** The full design-examples page, sorted by industry. */
+/** The full examples page. */
+export function ExamplesByIndustry() {
+  return (
+    <section className="bg-[#f3f2ef] py-20 sm:py-28">
+      <ExampleRows />
+    </section>
+  );
+}
+
 /** Each example's own main colour, used for the strip under its browser window. */
 const ACCENT: Record<Example["slug"], string> = { vvs: "#ff5a1f", tomrer: "#a2582a", maler: "#2f5d50", tag: "#1d211f" };
 
-export function ExamplesByIndustry() {
+/** One row per example: the live site in a browser window, its text beside it, swapping sides each row. */
+function ExampleRows() {
   const { t } = useLang();
   const e = t.examples;
   return (
-    <section className="bg-[#f3f2ef]">
-      <div className="mx-auto max-w-7xl space-y-24 px-4 py-20 sm:space-y-32 sm:px-8 sm:py-28">
-        {e.items.map((item, i) => (
-          <article key={item.slug} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-            <div className={`lg:col-span-7 ${i % 2 ? "lg:order-2" : ""}`}>
-              <BrowserSite src={item.href} title={item.name} liveLabel={e.live} tryLabel={e.try} accent={ACCENT[item.slug]} />
-            </div>
-            <div className={`lg:col-span-5 ${i % 2 ? "lg:order-1" : ""}`}>
-              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">
-                {String(i + 1).padStart(2, "0")} · {item.industry}
-              </p>
-              <h2 className="mt-3 text-4xl font-bold tracking-tight text-[#1a1a1a]">{item.name}</h2>
-              <p className="mt-5 text-lg leading-relaxed text-black/60">{item.short}</p>
-              <ul className="mt-7 flex flex-wrap gap-2.5">
-                {item.tags.map((tag) => (
-                  <li key={tag} className="rounded-full border border-black/10 bg-black/[0.03] px-4 py-1.5 text-black/70">
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-              <a href={item.href} target="_blank" rel="noopener" className="mt-8 inline-block border-b border-black/70 pb-0.5 text-lg font-semibold text-[#1a1a1a] transition hover:border-blue-600 hover:text-blue-600">
-                {e.open} ↗
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
+    <div className="mx-auto max-w-7xl space-y-24 px-4 py-12 sm:space-y-32 sm:px-8 sm:py-16">
+      {e.items.map((item, i) => (
+        <article key={item.slug} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className={`lg:col-span-7 ${i % 2 ? "lg:order-2" : ""}`}>
+            <BrowserSite src={item.href} title={item.name} liveLabel={e.live} tryLabel={e.try} accent={ACCENT[item.slug]} />
+          </div>
+          <div className={`lg:col-span-5 ${i % 2 ? "lg:order-1" : ""}`}>
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">
+              {String(i + 1).padStart(2, "0")} · {item.industry}
+            </p>
+            <h2 className="mt-3 text-4xl font-bold tracking-tight text-[#1a1a1a]">{item.name}</h2>
+            <p className="mt-5 text-lg leading-relaxed text-black/60">{item.short}</p>
+            <ul className="mt-7 flex flex-wrap gap-2.5">
+              {item.tags.map((tag) => (
+                <li key={tag} className="rounded-full border border-black/10 bg-black/[0.03] px-4 py-1.5 text-black/70">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+            <a href={item.href} target="_blank" rel="noopener" className="mt-8 inline-block border-b border-black/70 pb-0.5 text-lg font-semibold text-[#1a1a1a] transition hover:border-blue-600 hover:text-blue-600">
+              {e.open} ↗
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
   );
 }
 

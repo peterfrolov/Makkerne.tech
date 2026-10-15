@@ -35,63 +35,10 @@ function useScaledFrame() {
   return { boxRef, size };
 }
 
-/** A still picture of an example site: the whole card is a link that opens it. */
-export function SiteThumb({ src, name, industry, open }: { src: string; name: string; industry: string; open: string }) {
-  const { boxRef, size } = useScaledFrame();
-  return (
-    <a href={src} target="_blank" rel="noopener" className="group block">
-      <div ref={boxRef} className="relative aspect-[16/11] overflow-hidden border border-ink/15 bg-card transition group-hover:border-ink/40">
-        <iframe
-          src={src}
-          title={name}
-          loading="lazy"
-          tabIndex={-1}
-          aria-hidden
-          onLoad={hideScrollbar}
-          className="pointer-events-none absolute left-0 top-0 origin-top-left border-0 bg-paper"
-          style={{ width: size.w, height: size.h, transform: `scale(${size.scale})` }}
-        />
-      </div>
-      <div className="mt-3 flex items-baseline justify-between gap-4">
-        <p>
-          <span className="font-cond text-2xl font-bold uppercase">{name}</span>
-          <span className="ml-2 text-sm text-ink/60">{industry}</span>
-        </p>
-        <span className="shrink-0 text-sm text-ink/60 underline-offset-4 group-hover:text-ink group-hover:underline">{open} ↗</span>
-      </div>
-    </a>
-  );
-}
-
 /**
- * A real, running example site in a browser-style box. It stays still until it is clicked,
- * so it never steals the page's scroll.
- */
-export function LiveSite({ src, title, tryLabel }: { src: string; title: string; liveLabel?: string; tryLabel: string }) {
-  const { boxRef, size } = useScaledFrame();
-  const [active, setActive] = useState(false);
-  const path = src.replace(/^\//, "makkerne.tech/").replace(/\/$/, "");
-
-  return (
-    <div className="group overflow-hidden border border-ink/20 bg-card">
-      <div className="flex items-center gap-3 border-b border-ink/15 bg-paper-2 px-4 py-2">
-        <span className="flex gap-1.5" aria-hidden>
-          <span className="size-2.5 rounded-full bg-ink/20" />
-          <span className="size-2.5 rounded-full bg-ink/20" />
-          <span className="size-2.5 rounded-full bg-ink/20" />
-        </span>
-        <a href={src} target="_blank" rel="noopener" className="min-w-0 flex-1 truncate bg-card px-3 py-1 text-center text-xs text-ink/60 transition hover:text-ink">
-          {path} ↗
-        </a>
-      </div>
-      <Frame boxRef={boxRef} size={size} src={src} title={title} tryLabel={tryLabel} active={active} setActive={setActive} />
-    </div>
-  );
-}
-
-/**
- * The examples-page version: a soft, rounded browser window with a live dot and a coloured
- * strip in the example's own colour along the bottom.
+ * A real, running example site in a soft, rounded browser window with a live dot and a strip in
+ * the example's own colour along the bottom. It stays still until it is clicked, so it never
+ * steals the page's scroll.
  */
 export function BrowserSite({ src, title, liveLabel, tryLabel, accent }: { src: string; title: string; liveLabel: string; tryLabel: string; accent: string }) {
   const { boxRef, size } = useScaledFrame();
@@ -114,51 +61,23 @@ export function BrowserSite({ src, title, liveLabel, tryLabel, accent }: { src: 
           {liveLabel}
         </span>
       </div>
-      <Frame boxRef={boxRef} size={size} src={src} title={title} tryLabel={tryLabel} active={active} setActive={setActive} soft />
-      <div className="h-1.5" style={{ background: accent }} aria-hidden />
-    </div>
-  );
-}
-
-function Frame({
-  boxRef,
-  size,
-  src,
-  title,
-  tryLabel,
-  active,
-  setActive,
-  soft = false,
-}: {
-  boxRef: React.RefObject<HTMLDivElement | null>;
-  size: { w: number; h: number; scale: number };
-  src: string;
-  title: string;
-  tryLabel: string;
-  active: boolean;
-  setActive: (a: boolean) => void;
-  soft?: boolean;
-}) {
-  return (
-    <div ref={boxRef} className="relative aspect-[9/14] overflow-hidden bg-paper sm:aspect-[16/10]">
-      <iframe
-        src={src}
-        title={title}
-        loading="lazy"
-        tabIndex={active ? 0 : -1}
-        onLoad={hideScrollbar}
-        className={`absolute left-0 top-0 origin-top-left border-0 bg-paper ${active ? "" : "pointer-events-none"}`}
-        style={{ width: size.w, height: size.h, transform: `scale(${size.scale})` }}
-      />
-      {!active && (
-        <button type="button" onClick={() => setActive(true)} className="absolute inset-0 flex items-end justify-center pb-6 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
-          {soft ? (
+      <div ref={boxRef} className="relative aspect-[9/14] overflow-hidden bg-paper sm:aspect-[16/10]">
+        <iframe
+          src={src}
+          title={title}
+          loading="lazy"
+          tabIndex={active ? 0 : -1}
+          onLoad={hideScrollbar}
+          className={`absolute left-0 top-0 origin-top-left border-0 bg-paper ${active ? "" : "pointer-events-none"}`}
+          style={{ width: size.w, height: size.h, transform: `scale(${size.scale})` }}
+        />
+        {!active && (
+          <button type="button" onClick={() => setActive(true)} className="absolute inset-0 flex items-end justify-center pb-6 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
             <span className="rounded-xl bg-black/45 px-6 py-3 text-base font-semibold text-white/85 backdrop-blur-sm">{tryLabel}</span>
-          ) : (
-            <span className="bg-ink px-5 py-2.5 font-cond text-lg font-bold uppercase text-paper">{tryLabel}</span>
-          )}
-        </button>
-      )}
+          </button>
+        )}
+      </div>
+      <div className="h-1.5" style={{ background: accent }} aria-hidden />
     </div>
   );
 }
