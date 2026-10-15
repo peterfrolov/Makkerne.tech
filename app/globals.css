@@ -1,10 +1,9 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   /* Makkerne's own headings: heavy, condensed, workshop-sign style. */
   --font-cond: var(--font-barlow), "Arial Narrow", ui-sans-serif, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
   /* Display face of each example site, set per page with next/font. */
   --font-display: var(--font-example-display), ui-serif, Georgia, serif;
   /* Raw workshop palette: concrete, ink and tape-measure yellow */
@@ -24,6 +23,22 @@ html {
 body {
   background: var(--color-paper);
   color: var(--color-ink);
+}
+
+/* Keyboard focus that is easy to see, on light and dark sections alike. */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
+/* Buttons (padded links and buttons) give a small press when tapped. */
+a[class*="px-"],
+button[class*="px-"] {
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+a[class*="px-"]:active,
+button[class*="px-"]:active {
+  transform: scale(0.98);
 }
 
 @media (prefers-reduced-motion: reduce) {

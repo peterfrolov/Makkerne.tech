@@ -25,13 +25,14 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a href="#eksempler" className="bg-ink px-6 py-3.5 font-cond text-lg font-bold uppercase tracking-wide text-paper transition hover:bg-ink/85">
-              {t.hero.seeExamples}
-            </a>
-            <a href="#kontakt" className="border border-ink px-6 py-3.5 font-cond text-lg font-bold uppercase tracking-wide transition hover:bg-brand">
+            <a href="#kontakt" className="bg-ink px-6 py-3.5 font-cond text-lg font-bold uppercase tracking-wide text-paper transition hover:bg-ink/85">
               {t.hero.write}
             </a>
+            <a href="#eksempler" className="border border-ink px-6 py-3.5 font-cond text-lg font-bold uppercase tracking-wide transition hover:bg-brand">
+              {t.hero.seeExamples}
+            </a>
           </div>
+          <p className="mt-4 text-sm text-ink/60">{t.hero.reassure}</p>
         </div>
 
         <div className="hidden justify-center lg:col-span-5 lg:flex">
