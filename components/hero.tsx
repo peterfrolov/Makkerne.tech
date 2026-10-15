@@ -42,8 +42,8 @@ export function Hero() {
           <p className="mt-4 text-sm text-ink/60">{h.reassure}</p>
         </div>
 
-        <div className="hidden justify-center lg:col-span-5 lg:flex">
-          <PhonePreview src={t.examples.items[0].href} title={h.phone} cta={h.tryIt} />
+        <div className="flex justify-center lg:col-span-5">
+          <PhonePreview items={t.examples.items} title={h.phone} cta={h.tryIt} pick={h.pickTrade} />
         </div>
       </div>
     </section>

@@ -9,7 +9,9 @@ export const TEAM = [
 export const PRICE = "999,-";
 
 export type Example = {
-  slug: "vvs" | "tomrer" | "maler" | "tag";
+  slug: "vvs" | "tomrer" | "maler" | "tag" | "el";
+  /** Short trade name for tabs and chips. */
+  trade: string;
   href: string;
   name: string;
   place: string;
@@ -41,11 +43,13 @@ const da = {
     priceNote: "Én gang. Intet abonnement.",
     phone: "Sådan ser en af vores sider ud på telefonen",
     tryIt: "Prøv siden",
+    pickTrade: "Se dit fag",
   },
   examples: {
     title: "Sådan kan din side se ud",
-    lead: "Fire eksempler til en VVS'er, en tømrer, en maler og et tagfirma. Klik på en og prøv den. Din egen side bliver lavet til dit firma.",
+    lead: "Fem eksempler til en VVS'er, en tømrer, en maler, et tagfirma og en elektriker. Klik på en og prøv den. Din egen side bliver lavet til dit firma.",
     live: "Live",
+    pick: "Vælg dit fag",
     try: "Klik og prøv siden",
     open: "Åbn siden",
     seeExample: "Se eksemplet",
@@ -57,6 +61,7 @@ const da = {
     items: [
       {
         slug: "vvs",
+        trade: "VVS",
         href: "/examples/vvs/",
         name: "Holm VVS",
         place: "Herlev",
@@ -68,6 +73,7 @@ const da = {
       },
       {
         slug: "tomrer",
+        trade: "Tømrer",
         href: "/examples/tomrer/",
         name: "Egholm Tømrer",
         place: "Roskilde",
@@ -79,6 +85,7 @@ const da = {
       },
       {
         slug: "maler",
+        trade: "Maler",
         href: "/examples/maler/",
         name: "Malerfirmaet Kulør",
         place: "Odense",
@@ -90,6 +97,7 @@ const da = {
       },
       {
         slug: "tag",
+        trade: "Tag",
         href: "/examples/tag/",
         name: "Tagværk",
         place: "Rødovre",
@@ -98,6 +106,18 @@ const da = {
         long: "Lys, rolig side til tagdækker og tømrer med formular i toppen, menuer for hvert fag, tagvælger, galleri og anmeldelser.",
         tags: ["Tilbud i toppen", "Afbetaling", "Vælg tagtype", "Før og efter"],
         features: ["Tilbudsformular lige i toppen", "Rentefri afbetaling", "Vælg tagtype med pris og levetid", "Før og efter-galleri", "Anmeldelser og ofte stillede spørgsmål"],
+      },
+      {
+        slug: "el",
+        trade: "Elektriker",
+        href: "/examples/el/",
+        name: "Fasebro El",
+        place: "Køge",
+        industry: "Elektriker",
+        short: "Skarp elektrikerside i grafit og kabelgul: ring nu i toppen, en guide når HPFI-relæet slår fra, prisberegner til ladeboks, før og efter af eltavler og tilbudsformular.",
+        long: "Elektrikerside i grafit og kabelgul, hvor kunden selv kan finde fejlen i eltavlen og se prisen på en ladeboks med det samme.",
+        tags: ["Ring nu", "HPFI-guide", "Pris på ladeboks", "Før og efter"],
+        features: ["Ring nu og akut hjælp i toppen", "Trin for trin, når HPFI-relæet slår fra", "Prisberegner til ladeboks", "Før og efter af gamle eltavler", "Tilbudsformular med prisen udfyldt"],
       },
     ] as Example[],
   },
@@ -189,11 +209,13 @@ const en: Dict = {
     priceNote: "Once. No subscription.",
     phone: "What one of our sites looks like on a phone",
     tryIt: "Try the site",
+    pickTrade: "See your trade",
   },
   examples: {
     title: "This is what your site could look like",
-    lead: "Four examples for a plumber, a carpenter, a painter and a roofer. Click one and try it. Yours is made for your business.",
+    lead: "Five examples for a plumber, a carpenter, a painter, a roofer and an electrician. Click one and try it. Yours is made for your business.",
     live: "Live",
+    pick: "Pick your trade",
     try: "Click to try the site",
     open: "Open the site",
     seeExample: "See the example",
@@ -205,6 +227,7 @@ const en: Dict = {
     items: [
       {
         ...da.examples.items[0],
+        trade: "Plumber",
         industry: "Plumber",
         short: "A plumber site built to make the phone ring: 24/7 call-out at the top, a guide with typical prices, before and after photos, an area check and a quote form.",
         long: "A plumber site in navy and orange, where customers can call in one tap, see typical prices and book a plumber.",
@@ -213,6 +236,7 @@ const en: Dict = {
       },
       {
         ...da.examples.items[1],
+        trade: "Carpenter",
         industry: "Carpenter",
         short: "A calm, solid carpenter site with tabbed services, a filterable project gallery, before and after of an extension and booking of a free site visit.",
         long: "A warm carpenter site in wood and forest green with big photos of the work, a filterable gallery and site-visit booking.",
@@ -221,6 +245,7 @@ const en: Dict = {
       },
       {
         ...da.examples.items[2],
+        trade: "Painter",
         industry: "Painter",
         short: "A fresh painter site with a price calculator, a colour guide shown in real rooms, before and after and a quote form that carries the price over.",
         long: "A light painter site where customers work out a price themselves and click through colours shown in real rooms.",
@@ -229,11 +254,21 @@ const en: Dict = {
       },
       {
         ...da.examples.items[3],
+        trade: "Roofer",
         industry: "Roofer & carpenter",
         short: "A light, calm site for a roofing and carpentry firm: quote form right at the top, interest-free instalments, pick your roof type, before and after and reviews.",
         long: "A light, calm roofer and carpenter site with the form at the top, menus for each trade, a roof picker, a gallery and reviews.",
         tags: ["Quote at the top", "Instalments", "Pick a roof", "Before & after"],
         features: ["Quote form right at the top", "Interest-free instalments", "Roof picker with price and lifetime", "Before and after gallery", "Reviews and FAQ"],
+      },
+      {
+        ...da.examples.items[4],
+        trade: "Electrician",
+        industry: "Electrician",
+        short: "A sharp electrician site in graphite and cable yellow: call now at the top, a guide for when the RCD trips, an EV charger price calculator, before and after of fuse boxes and a quote form.",
+        long: "An electrician site in graphite and cable yellow, where customers can find the fault in the fuse box themselves and see the price of an EV charger at once.",
+        tags: ["Call now", "RCD guide", "EV charger price", "Before & after"],
+        features: ["Call now and emergency help at the top", "Step by step when the RCD trips", "EV charger price calculator", "Before and after of old fuse boxes", "Quote form with the price filled in"],
       },
     ],
   },

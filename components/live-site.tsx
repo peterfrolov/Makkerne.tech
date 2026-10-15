@@ -82,3 +82,45 @@ export function BrowserSite({ src, title, liveLabel, tryLabel, accent }: { src: 
     </div>
   );
 }
+
+/**
+ * The examples page's version: a raw, square screen with a thick black frame and a hard
+ * offset shadow, like a sign on the workshop wall. Clicking it opens the real site.
+ */
+export function WorkshopScreen({ src, title, tryLabel }: { src: string; title: string; tryLabel: string }) {
+  const { boxRef, size } = useScaledFrame();
+  const path = src.replace(/^\//, "makkerne.tech/").replace(/\/$/, "");
+
+  return (
+    <div className="group border-[3px] border-ink bg-ink shadow-[10px_10px_0_0_var(--color-brand)]">
+      <div className="flex items-center gap-3 px-3 py-2">
+        <span className="flex gap-1.5" aria-hidden>
+          <span className="size-2.5 bg-paper/25" />
+          <span className="size-2.5 bg-paper/25" />
+          <span className="size-2.5 bg-paper/25" />
+        </span>
+        <a href={src} target="_blank" rel="noopener" className="min-w-0 flex-1 truncate text-center font-mono text-xs text-paper/60 transition hover:text-paper">
+          {path} ↗
+        </a>
+      </div>
+      <div ref={boxRef} className="relative aspect-[9/14] overflow-hidden bg-paper sm:aspect-[16/10]">
+        <iframe
+          key={src}
+          src={src}
+          title={title}
+          loading="lazy"
+          tabIndex={-1}
+          aria-hidden
+          onLoad={hideScrollbar}
+          className="pointer-events-none absolute left-0 top-0 origin-top-left border-0 bg-paper"
+          style={{ width: size.w, height: size.h, transform: `scale(${size.scale})` }}
+        />
+        <a href={src} target="_blank" rel="noopener" className="absolute inset-0 flex items-end justify-center pb-6">
+          <span className="bg-ink px-5 py-2.5 font-cond text-lg font-bold uppercase text-paper opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
+            {tryLabel} ↗
+          </span>
+        </a>
+      </div>
+    </div>
+  );
+}

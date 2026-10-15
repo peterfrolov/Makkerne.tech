@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { EMAIL, PRICE, TEAM, type Example } from "@/lib/content";
 import { useLang } from "./lang";
-import { BrowserSite } from "./live-site";
+import { BrowserSite, WorkshopScreen } from "./live-site";
+import { RuggedPhone } from "./phone-preview";
 import { Logo } from "./header";
 
 function SectionHead({ title, lead, light = false }: { title: string; lead?: string; light?: boolean }) {
@@ -24,7 +25,7 @@ function Check({ light = false }: { light?: boolean }) {
   );
 }
 
-/** Landing page: the same browser-window rows as the examples page, under a heading. */
+/** Landing page: one soft browser-window row per example, under a heading. */
 export function Examples() {
   const { t } = useLang();
   const e = t.examples;
@@ -39,17 +40,79 @@ export function Examples() {
   );
 }
 
-/** The full examples page. */
+/**
+ * The examples page: pick your trade, and see that site on a computer and on a phone side by
+ * side, with what it can do next to it. Rawer than the landing page on purpose.
+ */
 export function ExamplesByIndustry() {
+  const { t } = useLang();
+  const e = t.examples;
+  const [sel, setSel] = useState(0);
+  const item = e.items[sel];
+
   return (
-    <section className="bg-[#f3f2ef] py-20 sm:py-28">
-      <ExampleRows />
+    <section className="border-b border-ink/15">
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-8 sm:py-16">
+        <p className="font-cond text-lg font-bold uppercase tracking-wide text-ink/55">{e.pick}</p>
+        <div role="tablist" aria-label={e.pick} className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
+          {e.items.map((it, i) => (
+            <button
+              key={it.slug}
+              type="button"
+              role="tab"
+              aria-selected={i === sel}
+              aria-controls="eksempel-panel"
+              onClick={() => setSel(i)}
+              className={`flex shrink-0 items-baseline gap-2 border-2 border-ink px-5 py-3 font-cond text-xl font-bold uppercase transition sm:text-2xl ${
+                i === sel ? "bg-brand" : "bg-card hover:bg-paper-2"
+              }`}
+            >
+              <span className="text-sm text-ink/45">{String(i + 1).padStart(2, "0")}</span>
+              {it.trade}
+            </button>
+          ))}
+        </div>
+
+        <div id="eksempel-panel" role="tabpanel" className="mt-10 grid gap-12 lg:grid-cols-12 lg:gap-10">
+          <div className="relative lg:col-span-8 lg:pb-14 lg:pr-16">
+            <WorkshopScreen src={item.href} title={item.name} tryLabel={e.try} />
+            <div className="absolute -bottom-2 right-0 hidden lg:block">
+              <RuggedPhone src={item.href} title={`${item.name} på telefonen`} width={190} height={390} />
+            </div>
+          </div>
+
+          <div className="lg:col-span-4">
+            <p className="text-sm text-ink/60">
+              {item.industry} · {item.place}
+            </p>
+            <h2 className="mt-1 font-cond text-5xl font-extrabold uppercase leading-none">{item.name}</h2>
+            <p className="mt-4 leading-relaxed text-ink/75">{item.long}</p>
+            <ul className="mt-6 space-y-2.5 border-t-2 border-ink pt-5">
+              {item.features.map((f) => (
+                <li key={f} className="flex gap-2.5">
+                  <Check />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={item.href} target="_blank" rel="noopener" className="bg-ink px-5 py-3 font-cond text-lg font-bold uppercase text-paper transition hover:bg-ink/85">
+                {e.open} ↗
+              </a>
+              <a href="#kontakt" className="border-2 border-ink px-5 py-3 font-cond text-lg font-bold uppercase transition hover:bg-brand">
+                {e.want}
+              </a>
+            </div>
+          </div>
+        </div>
+        <p className="mt-14 text-sm text-ink/55">{e.disclaimer}</p>
+      </div>
     </section>
   );
 }
 
 /** Each example's own main colour, used for the strip under its browser window. */
-const ACCENT: Record<Example["slug"], string> = { vvs: "#ff5a1f", tomrer: "#a2582a", maler: "#2f5d50", tag: "#1d211f" };
+const ACCENT: Record<Example["slug"], string> = { vvs: "#ff5a1f", tomrer: "#a2582a", maler: "#2f5d50", tag: "#1d211f", el: "#ffd000" };
 
 /** One row per example: the live site in a browser window, its text beside it, swapping sides each row. */
 function ExampleRows() {
