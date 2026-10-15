@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { EMAIL, PRICE } from "@/lib/content";
+import { EMAIL, PRICE, TEAM } from "@/lib/content";
 import { useLang } from "./lang";
 import { LiveSite, SiteThumb } from "./live-site";
 import { Logo } from "./header";
@@ -226,7 +226,22 @@ export function Contact() {
             </button>
           </p>
         </div>
-        <p className="self-end text-2xl font-bold lg:border-l lg:border-paper/15 lg:pl-14">{c.who}</p>
+        <div className="self-end lg:border-l lg:border-paper/15 lg:pl-14">
+          <p className="text-2xl font-bold">{c.who}</p>
+          <div className="mt-6 grid grid-cols-2 gap-4 sm:gap-6">
+            {TEAM.map((p) => (
+              <figure key={p.email}>
+                <img src={p.photo} alt={p.name} loading="lazy" decoding="async" className="aspect-[4/5] w-full border-2 border-paper/15 object-cover object-top" />
+                <figcaption className="mt-3">
+                  <span className="block font-cond text-xl font-bold uppercase">{p.name}</span>
+                  <a href={`mailto:${p.email}`} className="break-all text-sm text-paper/70 underline-offset-4 transition hover:text-brand hover:underline">
+                    {p.email}
+                  </a>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
