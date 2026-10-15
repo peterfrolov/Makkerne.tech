@@ -28,9 +28,10 @@ const da = {
   hero: {
     line1: "Du klarer håndværket.",
     line2: "Vi klarer hjemmesiden.",
-    lead: "En pæn og enkel side, der virker på telefonen og får kunderne til at ringe. Du sender et par billeder og fortæller, hvad du laver. Resten klarer vi.",
+    lead: "Vi laver en enkel side, der virker på telefonen og får kunderne til at ringe. Skriv dit firmanavn, dit fag og din by, så laver vi et udkast, du kan se, før du betaler noget.",
     seeExamples: "Se eksempler",
-    write: "Skriv til os",
+    write: "Få et udkast",
+    reassure: "Du betaler kun, hvis du vil beholde siden. Ingen binding.",
     priceNote: "én gang. Intet abonnement.",
     phone: "Sådan ser en af vores sider ud på telefonen",
     tryIt: "Prøv siden",
@@ -109,20 +110,33 @@ const da = {
       "Domæne, hosting og hængelås sat op",
     ],
     compare: "Til sammenligning koster en ny hjemmeside fra et bureau ofte flere tusinde kroner.",
+    running: "Det eneste, du selv betaler løbende, er dit domæne, og det betaler du direkte til udbyderen.",
+    table: {
+      title: "Sådan står vi i forhold til de andre",
+      cols: ["", "Makkerne", "Bureau", "Byg selv (Wix o.l.)"],
+      rows: [
+        ["Pris", `${PRICE} én gang`, "Ofte flere tusinde kr.", "Gratis at starte"],
+        ["Løbende betaling", "Kun dit domæne", "Ofte en serviceaftale", "Månedligt abonnement"],
+        ["Hvem skriver teksterne", "Vi gør", "Typisk dem", "Dig"],
+        ["Ser du siden, før du betaler", "Ja", "Sjældent", "Ja"],
+        ["Din tid", "En mail", "Møder og mails", "Mange aftener"],
+      ],
+    },
   },
   process: {
-    title: "Det tager dig et kvarter",
+    title: "Se siden, før du betaler",
     lead: "Ingen møder og ingen lange mails. Du passer dit arbejde, vi klarer resten.",
     steps: [
-      { n: "1", title: "Du skriver til os", text: "Fortæl hvad du laver, og hvor du kører. Send et par billeder af dit arbejde fra telefonen og dit logo, hvis du har et." },
-      { n: "2", title: "Vi bygger siden", text: "Vi skriver teksterne for dig. Du får et udkast at se og retter til, indtil det sidder lige i skabet." },
-      { n: "3", title: "Siden går live", text: "Vi sætter den online på dit domæne. Kommer der en ny opgave, du er stolt af, sender du bare billederne." },
+      { n: "1", title: "Du skriver til os", text: "Send dit firmanavn, dit fag og din by. Har du billeder af dit arbejde eller et logo, så send dem med." },
+      { n: "2", title: "Du får et udkast", text: "Vi bygger et udkast til din side ud fra det, du sender, og det vi kan finde om dig. Du ser det, før du betaler noget." },
+      { n: "3", title: "Siden går live", text: `Er du tilfreds, betaler du ${PRICE}, og vi sætter siden online på dit domæne. Vil du ikke have den, siger du bare nej tak.` },
     ],
   },
   faq: {
     title: "Det bliver vi tit spurgt om",
     items: [
       { q: "Hvordan er det så billigt?", a: "Vi er to mand uden kontor, sælgere eller mellemled. Siderne er enkle og fokuserede, så vi kan lave dem hurtigt og holde prisen nede." },
+      { q: "Hvad koster udkastet?", a: "Ingenting. Du betaler kun, hvis du vil have siden." },
       { q: "Er der binding?", a: "Nej. Du betaler 999,- én gang, og så er siden din. Der er intet abonnement til os." },
       { q: "Hvem taler jeg med?", a: "Med os, dem der bygger siden. Der er ingen sælger eller kontaktperson imellem." },
       { q: "Jeg har ikke tid til at skrive tekster", a: "Det skal du heller ikke. Fortæl os i en mail, hvad du laver, så skriver vi det. Billederne tager du med telefonen på næste opgave." },
@@ -133,13 +147,17 @@ const da = {
     ],
   },
   contact: {
-    title: "Skal vi lave din side?",
-    lead: "Skriv en mail med dit firmanavn, dit fag og hvor du kører. Vi svarer typisk samme dag.",
+    title: "Skal vi lave et udkast til dig?",
+    lead: "Skriv dit firmanavn, dit fag og din by. Så går vi i gang med dit udkast. Vi svarer typisk samme dag.",
+    write: "Skriv en mail",
+    subject: "Udkast til min hjemmeside",
+    body: "Firmanavn:\nFag:\nBy:\n\n(Send gerne billeder af dit arbejde med)",
     copy: "Kopiér mail",
     copied: "Kopieret",
     who: "Vi er to iværksættere.",
   },
   footer: "© 2026 Makkerne",
+  updated: "Priser opdateret oktober 2026",
 };
 
 export type Dict = typeof da;
@@ -157,9 +175,10 @@ const en: Dict = {
   hero: {
     line1: "You do the work.",
     line2: "We do the website.",
-    lead: "A clean, simple site that works on phones and gets customers to call. You send a few photos and tell us what you do. We handle the rest.",
+    lead: "We make a simple site that works on phones and gets customers to call. Send your business name, your trade and your town, and we make a draft you can see before you pay anything.",
     seeExamples: "See examples",
-    write: "Write to us",
+    write: "Get a draft",
+    reassure: "You only pay if you want to keep the site. No lock-in.",
     priceNote: "once. No subscription.",
     phone: "What one of our sites looks like on a phone",
     tryIt: "Try the site",
@@ -226,20 +245,33 @@ const en: Dict = {
       "Domain, hosting and padlock set up",
     ],
     compare: "For comparison, a new website from an agency often costs several thousand kroner.",
+    running: "The only ongoing cost is your domain, which you pay directly to the provider.",
+    table: {
+      title: "How we compare",
+      cols: ["", "Makkerne", "Agency", "DIY (Wix etc.)"],
+      rows: [
+        ["Price", "999 DKK once", "Often several thousand DKK", "Free to start"],
+        ["Ongoing payment", "Only your domain", "Often a service plan", "Monthly subscription"],
+        ["Who writes the texts", "We do", "Usually them", "You"],
+        ["See the site before you pay", "Yes", "Rarely", "Yes"],
+        ["Your time", "One email", "Meetings and emails", "Many evenings"],
+      ],
+    },
   },
   process: {
-    title: "It takes you fifteen minutes",
+    title: "See the site before you pay",
     lead: "No meetings and no long emails. You get on with your work, we handle the rest.",
     steps: [
-      { n: "1", title: "You write to us", text: "Tell us what you do and where you work. Send a few photos of your work from your phone, and your logo if you have one." },
-      { n: "2", title: "We build the site", text: "We write the texts for you. You get a draft and we adjust it until it is just right." },
-      { n: "3", title: "The site goes live", text: "We put it online on your domain. When you finish a job you are proud of, just send us the photos." },
+      { n: "1", title: "You write to us", text: "Send your business name, your trade and your town. If you have photos of your work or a logo, send them too." },
+      { n: "2", title: "You get a draft", text: "We build a draft of your site from what you send and what we can find about you. You see it before you pay anything." },
+      { n: "3", title: "The site goes live", text: "If you are happy, you pay 999 DKK and we put the site online on your domain. If not, just say no thanks." },
     ],
   },
   faq: {
     title: "What people often ask us",
     items: [
       { q: "How is it so cheap?", a: "We are two people with no office, salespeople or middlemen. The sites are simple and focused, so we can make them quickly and keep the price down." },
+      { q: "What does the draft cost?", a: "Nothing. You only pay if you want the site." },
       { q: "Is there a lock-in?", a: "No. You pay 999 DKK once and the site is yours. There is no subscription to us." },
       { q: "Who do I talk to?", a: "To us, the people building the site. There is no salesperson or account manager in between." },
       { q: "I don't have time to write texts", a: "You don't have to. Tell us by email what you do and we write it. Take the photos with your phone on your next job." },
@@ -250,13 +282,17 @@ const en: Dict = {
     ],
   },
   contact: {
-    title: "Shall we make your site?",
-    lead: "Send an email with your business name, your trade and where you work. We usually reply the same day.",
+    title: "Shall we make you a draft?",
+    lead: "Send your business name, your trade and your town, and we start on your draft. We usually reply the same day.",
+    write: "Write an email",
+    subject: "Draft for my website",
+    body: "Business name:\nTrade:\nTown:\n\n(Feel free to attach photos of your work)",
     copy: "Copy email",
     copied: "Copied",
     who: "We are two entrepreneurs.",
   },
   footer: "© 2026 Makkerne",
+  updated: "Prices updated October 2026",
 };
 
 export const dict: Record<Lang, Dict> = { da, en };

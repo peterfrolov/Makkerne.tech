@@ -41,7 +41,7 @@ export const useLang = () => useContext(LangContext);
 export function LangToggle({ className = "" }: { className?: string }) {
   const { lang, setLang } = useLang();
   return (
-    <div className={`flex items-center border-2 border-ink font-mono text-[11px] font-medium ${className}`}>
+    <div className={`flex items-center border border-ink/40 text-xs font-medium ${className}`}>
       {(["da", "en"] as const).map((l) => (
         <button
           key={l}

@@ -105,7 +105,47 @@ export function Pricing({ hideHead = false }: { hideHead?: boolean }) {
           ))}
         </ul>
       </div>
-      <p className="mt-4 text-sm text-ink/55">{p.compare}</p>
+      <p className="mt-4 max-w-2xl text-sm text-ink/60">
+        {p.running} {p.compare}
+      </p>
+    </section>
+  );
+}
+
+/** Plain side-by-side with the two usual alternatives. */
+export function Comparison() {
+  const { t } = useLang();
+  const tb = t.pricing.table;
+  return (
+    <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-8 sm:pb-28">
+      <h2 className="font-cond text-3xl font-extrabold uppercase sm:text-4xl">{tb.title}</h2>
+      <div className="mt-6 overflow-x-auto">
+        <table className="w-full min-w-[32rem] border-collapse text-left text-sm sm:text-base">
+          <thead>
+            <tr className="border-b-2 border-ink">
+              {tb.cols.map((col, i) => (
+                <th key={i} scope="col" className={`py-3 pr-4 font-cond text-lg font-bold uppercase ${i === 1 ? "bg-brand/40 px-3" : ""}`}>
+                  {col}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {tb.rows.map(([label, ...cells]) => (
+              <tr key={label} className="border-b border-ink/15">
+                <th scope="row" className="py-3 pr-4 font-medium text-ink/70">
+                  {label}
+                </th>
+                {cells.map((cell, i) => (
+                  <td key={i} className={`py-3 pr-4 ${i === 0 ? "bg-brand/40 px-3 font-semibold" : "text-ink/75"}`}>
+                    {cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }
@@ -117,12 +157,14 @@ export function Process({ hideHead = false }: { hideHead?: boolean }) {
     <section id="proces" className="border-y border-ink/15 bg-paper-2">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-8 sm:py-28">
         {!hideHead && <SectionHead title={p.title} lead={p.lead} />}
-        <ol className="grid gap-10 md:grid-cols-3">
+        <ol className="max-w-3xl border-t border-ink/20">
           {p.steps.map((s) => (
-            <li key={s.n}>
-              <p className="grid size-10 place-items-center bg-brand font-cond text-2xl font-extrabold">{s.n}</p>
-              <h3 className="mt-4 font-cond text-2xl font-bold uppercase">{s.title}</h3>
-              <p className="mt-2 leading-relaxed text-ink/70">{s.text}</p>
+            <li key={s.n} className="grid grid-cols-[3rem_1fr] gap-x-5 border-b border-ink/20 py-7 sm:grid-cols-[4rem_1fr]">
+              <p className="font-cond text-5xl font-extrabold leading-none text-ink/30 sm:text-6xl">{s.n}</p>
+              <div>
+                <h3 className="font-cond text-2xl font-bold uppercase sm:text-3xl">{s.title}</h3>
+                <p className="mt-2 max-w-xl leading-relaxed text-ink/70">{s.text}</p>
+              </div>
             </li>
           ))}
         </ol>
@@ -153,7 +195,7 @@ export function Faq({ hideHead = false }: { hideHead?: boolean }) {
   );
 }
 
-/** Email us, or leave a number. With no server behind the site, the form opens a ready-written email. */
+/** Email is the only way in. The button opens a mail with the three things we need already listed. */
 export function Contact() {
   const { t } = useLang();
   const c = t.contact;
@@ -171,14 +213,18 @@ export function Contact() {
         <div>
           <h2 className="text-balance font-cond text-5xl font-extrabold uppercase leading-[0.95] sm:text-6xl">{c.title}</h2>
           <p className="mt-5 max-w-md text-lg text-paper/70">{c.lead}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href={`mailto:${EMAIL}`} className="bg-brand px-6 py-3.5 text-center font-medium text-ink transition hover:bg-brand-dark">
-              {EMAIL}
-            </a>
-            <button type="button" onClick={copy} className="border border-paper/30 px-6 py-3.5 font-medium transition hover:border-paper">
+          <a
+            href={`mailto:${EMAIL}?subject=${encodeURIComponent(c.subject)}&body=${encodeURIComponent(c.body)}`}
+            className="mt-8 inline-flex bg-brand px-7 py-4 font-cond text-xl font-bold uppercase text-ink transition hover:bg-brand-dark"
+          >
+            {c.write}
+          </a>
+          <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-paper/70">
+            <span>{EMAIL}</span>
+            <button type="button" onClick={copy} className="text-sm underline underline-offset-4 transition hover:text-paper">
               {copied ? `${c.copied} ✓` : c.copy}
             </button>
-          </div>
+          </p>
         </div>
         <p className="self-end text-2xl font-bold lg:border-l lg:border-paper/15 lg:pl-14">{c.who}</p>
       </div>
@@ -198,7 +244,9 @@ export function Footer() {
           <Link href="/proces/" className="hover:text-brand">{t.nav.process}</Link>
           <Link href="/faq/" className="hover:text-brand">{t.nav.faq}</Link>
         </nav>
-        <p className="text-xs text-paper/50">{t.footer}</p>
+        <p className="text-xs text-paper/50">
+          {t.footer} · {t.updated}
+        </p>
       </div>
     </footer>
   );
