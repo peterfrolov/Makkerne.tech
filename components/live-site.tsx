@@ -37,12 +37,11 @@ function useScaledFrame() {
 
 /**
  * A real, running example site in a soft, rounded browser window with a live dot and a strip in
- * the example's own colour along the bottom. It stays still until it is clicked, so it never
- * steals the page's scroll.
+ * the example's own colour along the bottom. The preview never takes clicks or scroll; clicking it
+ * opens the real site in a new tab.
  */
 export function BrowserSite({ src, title, liveLabel, tryLabel, accent }: { src: string; title: string; liveLabel: string; tryLabel: string; accent: string }) {
   const { boxRef, size } = useScaledFrame();
-  const [active, setActive] = useState(false);
   const path = src.replace(/^\//, "makkerne.tech/").replace(/\/$/, "");
 
   return (
@@ -66,16 +65,18 @@ export function BrowserSite({ src, title, liveLabel, tryLabel, accent }: { src: 
           src={src}
           title={title}
           loading="lazy"
-          tabIndex={active ? 0 : -1}
+          tabIndex={-1}
+          aria-hidden
           onLoad={hideScrollbar}
-          className={`absolute left-0 top-0 origin-top-left border-0 bg-paper ${active ? "" : "pointer-events-none"}`}
+          className="pointer-events-none absolute left-0 top-0 origin-top-left border-0 bg-paper"
           style={{ width: size.w, height: size.h, transform: `scale(${size.scale})` }}
         />
-        {!active && (
-          <button type="button" onClick={() => setActive(true)} className="absolute inset-0 flex items-end justify-center pb-6 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
-            <span className="rounded-xl bg-black/45 px-6 py-3 text-base font-semibold text-white/85 backdrop-blur-sm">{tryLabel}</span>
-          </button>
-        )}
+        {/* Clicking anywhere on the picture opens the real site, just like the address bar. */}
+        <a href={src} target="_blank" rel="noopener" className="absolute inset-0 flex items-end justify-center pb-6">
+          <span className="rounded-xl bg-black/45 px-6 py-3 text-base font-semibold text-white/85 opacity-100 backdrop-blur-sm transition sm:opacity-0 sm:group-hover:opacity-100">
+            {tryLabel} ↗
+          </span>
+        </a>
       </div>
       <div className="h-1.5" style={{ background: accent }} aria-hidden />
     </div>
