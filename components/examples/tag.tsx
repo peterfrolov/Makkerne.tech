@@ -16,14 +16,14 @@ const MENU = {
 const TRUST = ["20 års garanti på tæthed", "Forsikret op til 10 mio. kr.", "Fast pris i tilbuddet", "2 gratis tageftersyn om året"];
 
 const ROOFS = [
-  { name: "Tegltag", id: "1528223871781-8f4c984f6164", life: "60–100 år", price: "fra 1.150 kr./m²", text: "Klassisk og holdbart. Tegl ældes smukt og kræver næsten ingen vedligehold." },
+  { name: "Tegltag", id: "1557671009-600c3a1973ca", life: "60–100 år", price: "fra 1.150 kr./m²", text: "Klassisk og holdbart. Tegl ældes smukt og kræver næsten ingen vedligehold." },
   { name: "Betontagsten", id: "1610056868457-e61d6f9eeb86", life: "40–60 år", price: "fra 850 kr./m²", text: "Ligner tegl, men er billigere. Et godt valg til det klassiske parcelhus." },
   { name: "Skiffer", id: "1518736346281-76873166a64a", life: "50–80 år", price: "fra 1.050 kr./m²", text: "Stramt, mørkt og moderne udtryk. Let tag, der passer til de fleste huse." },
   { name: "Sedumtag", id: "1784397545672-3af32b683383", life: "40+ år", price: "fra 950 kr./m²", text: "Grønt tag, der optager regnvand, isolerer og giver liv til carport, skur eller tilbygning." },
 ];
 
 const SERVICES = [
-  { id: "1605450099279-533bd3ce379a", title: "Nyt tag", text: "Komplet nyt tag med nedrivning, lægter, undertag og bortskaffelse." },
+  { id: "1763665814538-8ba04597286c", title: "Nyt tag", text: "Komplet nyt tag med nedrivning, lægter, undertag og bortskaffelse." },
   { id: "1635424824849-1b09bdcc55b1", title: "Tagrenovering", text: "Udskiftning af beskadigede sten, rygning og inddækninger." },
   { id: "1518736346281-76873166a64a", title: "Tagpap", text: "Fladt tag i to lag pap med garanti. Til hus, garage og carport." },
   { id: "1561297331-a9c00b9c2c44", title: "Tømrerarbejde", text: "Spær, gavle, døre, vinduer og alt det andet i træ." },
@@ -195,7 +195,7 @@ export function TagSite() {
       <section id="top" className="mx-auto grid max-w-6xl gap-12 px-5 pb-16 pt-6 sm:pt-10 lg:grid-cols-2 lg:items-center">
         <div>
           {/* eslint-disable-next-line @next/next/no-img-element -- remote stock photo, loaded at once since it is the first thing you see */}
-          <img src={photo("1605450099279-533bd3ce379a", 1400)} alt="Hus med nyt tag" fetchPriority="high" className="mb-8 h-44 w-full rounded-md object-cover sm:h-56" />
+          <img src={photo("1726589004565-bedfba94d3a2", 1400)} alt="Tagdækker lægger nye tegl på et tag" fetchPriority="high" className="mb-8 h-44 w-full rounded-md object-cover object-[50%_35%] sm:h-56" />
           <h1 className="font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl">Tagdækker og tømrer på Sjælland</h1>
           <p className={`mt-5 max-w-lg text-lg leading-relaxed ${MUTED}`}>
             Nyt tag, renovering, tilbygning og murerarbejde. Udført af faglærte folk til en fast pris, der står i tilbuddet.
@@ -218,7 +218,7 @@ export function TagSite() {
         <QuoteForm />
       </section>
 
-      <Img id="1528223871781-8f4c984f6164" w={2000} alt="Nye tegl lagt på et tag" className="h-64 w-full object-cover sm:h-96" />
+      <Img id="1580642866497-dde93c97492b" w={2000} alt="Tag med kviste og nye tagsten" className="h-64 w-full object-cover sm:h-96" />
 
       {/* Roof chooser */}
       <section className="mx-auto max-w-6xl px-5 py-20 sm:py-24">
