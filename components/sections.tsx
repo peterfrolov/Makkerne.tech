@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { EMAIL, PRICE, TEAM, type Example } from "@/lib/content";
 import { useLang } from "./lang";
 import { BrowserSite, WorkshopScreen } from "./live-site";
@@ -127,10 +127,10 @@ function ExampleRows() {
     <div className="mx-auto max-w-7xl space-y-24 px-4 py-12 sm:space-y-32 sm:px-8 sm:py-16">
       {e.items.map((item, i) => (
         <article key={item.slug} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-          <div className={`lg:col-span-7 ${i % 2 ? "lg:order-2" : ""}`}>
-            <BrowserSite src={item.href} title={item.name} liveLabel={e.live} tryLabel={e.try} accent={ACCENT[item.slug]} />
+          <div className={`min-w-0 lg:col-span-7 ${i % 2 ? "lg:order-2" : ""}`}>
+            <BrowserSite src={item.href} title={item.name} tryLabel={e.try} accent={ACCENT[item.slug]} />
           </div>
-          <div className={`lg:col-span-5 ${i % 2 ? "lg:order-1" : ""}`}>
+          <div className={`min-w-0 lg:col-span-5 ${i % 2 ? "lg:order-1" : ""}`}>
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">
               {String(i + 1).padStart(2, "0")} · {item.industry}
             </p>
@@ -271,14 +271,17 @@ export function Faq({ hideHead = false }: { hideHead?: boolean }) {
 export function Contact() {
   const { t } = useLang();
   const c = t.contact;
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
+  // Which address was just copied, so only that line says "Copied".
+  const [copied, setCopied] = useState<string | null>(null);
+  const copy = async (mail: string) => {
     try {
-      await navigator.clipboard.writeText(EMAIL);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(mail);
+      setCopied(mail);
+      setTimeout(() => setCopied(null), 2000);
     } catch {}
   };
+  // The main address first, then Peter's underneath.
+  const mails = [EMAIL, ...TEAM.map((p) => p.email).filter((m) => m !== EMAIL)];
   return (
     <section id="kontakt" className="bg-ink text-paper">
       {/* The text keeps to the page's column; the photos run all the way to the right edge. */}
@@ -292,12 +295,17 @@ export function Contact() {
           >
             {c.write}
           </a>
-          <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-paper/70">
-            <span>{EMAIL}</span>
-            <button type="button" onClick={copy} className="text-sm underline underline-offset-4 transition hover:text-paper">
-              {copied ? `${c.copied} ✓` : c.copy}
-            </button>
-          </p>
+          {/* Two columns, so the "Copy" links line up under each other. */}
+          <div className="mt-5 grid w-fit grid-cols-[auto_auto] items-center gap-x-4 gap-y-2 text-paper/70">
+            {mails.map((mail) => (
+              <Fragment key={mail}>
+                <span className="break-all">{mail}</span>
+                <button type="button" onClick={() => copy(mail)} className="justify-self-start text-sm underline underline-offset-4 transition hover:text-paper">
+                  {copied === mail ? `${c.copied} ✓` : c.copy}
+                </button>
+              </Fragment>
+            ))}
+          </div>
         </div>
         <div className="flex flex-col lg:border-l lg:border-paper/15 lg:pl-14">
           <p className="text-2xl font-bold">{c.who}</p>

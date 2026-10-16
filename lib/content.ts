@@ -48,7 +48,6 @@ const da = {
   examples: {
     title: "Sådan kan din side se ud",
     lead: "Fem eksempler til en VVS'er, en tømrer, en maler, et tagfirma og en elektriker. Klik på en og prøv den. Din egen side bliver lavet til dit firma.",
-    live: "Live",
     pick: "Vælg dit fag",
     try: "Klik og prøv siden",
     open: "Åbn siden",
@@ -214,7 +213,6 @@ const en: Dict = {
   examples: {
     title: "This is what your site could look like",
     lead: "Five examples for a plumber, a carpenter, a painter, a roofer and an electrician. Click one and try it. Yours is made for your business.",
-    live: "Live",
     pick: "Pick your trade",
     try: "Click to try the site",
     open: "Open the site",

@@ -40,11 +40,11 @@ function useScaledFrame(alwaysDesktop = false) {
 }
 
 /**
- * A real, running example site in a soft, rounded browser window with a live dot and a strip in
+ * A real, running example site in a soft, rounded browser window with the usual browser buttons and a strip in
  * the example's own colour along the bottom. The preview never takes clicks or scroll; clicking it
  * opens the real site in a new tab.
  */
-export function BrowserSite({ src, title, liveLabel, tryLabel, accent }: { src: string; title: string; liveLabel: string; tryLabel: string; accent: string }) {
+export function BrowserSite({ src, title, tryLabel, accent }: { src: string; title: string; tryLabel: string; accent: string }) {
   const { boxRef, size } = useScaledFrame();
   const path = src.replace(/^\//, "makkerne.tech/").replace(/\/$/, "");
 
@@ -59,9 +59,19 @@ export function BrowserSite({ src, title, liveLabel, tryLabel, accent }: { src: 
         <a href={src} target="_blank" rel="noopener" className="min-w-0 flex-1 truncate rounded-full bg-[#f3f2ef] px-4 py-1.5 text-center text-sm text-black/55 transition hover:text-black">
           {path} ↗
         </a>
-        <span className="hidden items-center gap-2 text-sm text-black/60 sm:flex">
-          <span className="size-2.5 rounded-full bg-emerald-500" aria-hidden />
-          {liveLabel}
+        {/* The usual browser buttons on the right: share, new tab, tabs. Just for looks. */}
+        <span className="hidden items-center gap-4 text-black/45 sm:flex" aria-hidden>
+          <svg viewBox="0 0 24 24" className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M8.5 9H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1.5" />
+            <path d="M12 3v11M8.5 6.5 12 3l3.5 3.5" />
+          </svg>
+          <svg viewBox="0 0 24 24" className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          <svg viewBox="0 0 24 24" className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
+            <rect x="8" y="3.5" width="12.5" height="12.5" rx="2.5" />
+            <path d="M16 19.5a1.5 1.5 0 0 1-1.5 1.5H6a2.5 2.5 0 0 1-2.5-2.5V10A1.5 1.5 0 0 1 5 8.5" />
+          </svg>
         </span>
       </div>
       <div ref={boxRef} className="relative aspect-[9/14] overflow-hidden bg-paper sm:aspect-[16/10]">

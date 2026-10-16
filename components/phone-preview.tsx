@@ -25,8 +25,12 @@ function Bumper({ className }: { className: string }) {
  * The screen shows one of the example sites at real phone width; it never takes clicks itself.
  */
 export function RuggedPhone({ src, title, width = 300, height = 600 }: { src: string; title: string; width?: number; height?: number }) {
-  const rim = Math.round(width * 0.04);
+  // A proper bezel: thin at the sides, a little thicker top and bottom, so the screen sits well inside
+  // the rubber case and its corners don't cut into the site's top bar or bottom buttons.
+  const rim = Math.round(width * 0.05);
+  const bezel = Math.round(width * 0.085);
   const screenW = width - rim * 2;
+  const screenH = height - bezel * 2;
   const scale = screenW / PHONE_WIDTH;
   // Which site has finished loading, so a newly picked trade never shows a blank screen.
   const [loaded, setLoaded] = useState<string | null>(null);
@@ -44,8 +48,10 @@ export function RuggedPhone({ src, title, width = 300, height = 600 }: { src: st
   }, [src]);
   return (
     <div className="relative" style={{ width, height }}>
-      <div className="absolute inset-0 rounded-[2.4rem] bg-ink shadow-[0_34px_60px_-28px_rgba(22,21,19,0.55)]" style={{ padding: rim }}>
-        <div className="relative size-full overflow-hidden rounded-[1.7rem] bg-paper">
+      <div className="absolute inset-0 rounded-[2.4rem] bg-ink shadow-[0_34px_60px_-28px_rgba(22,21,19,0.55)]" style={{ padding: `${bezel}px ${rim}px` }}>
+        {/* Speaker slot in the top bezel. */}
+        <span aria-hidden className="absolute left-1/2 h-1 w-12 -translate-x-1/2 rounded-full bg-paper/15" style={{ top: bezel / 2 - 2 }} />
+        <div className="relative size-full overflow-hidden rounded-xl bg-paper">
           <iframe
             key={src}
             ref={frameRef}
@@ -59,7 +65,7 @@ export function RuggedPhone({ src, title, width = 300, height = 600 }: { src: st
               setLoaded(src);
             }}
             className="pointer-events-none absolute left-0 top-0 origin-top-left border-0 bg-paper"
-            style={{ width: PHONE_WIDTH, height: (height - rim * 2) / scale, transform: `scale(${scale})` }}
+            style={{ width: PHONE_WIDTH, height: screenH / scale, transform: `scale(${scale})` }}
           />
           <div aria-hidden className={`absolute inset-0 grid place-items-center bg-paper transition-opacity duration-300 ${loaded === src ? "pointer-events-none opacity-0" : "opacity-100"}`}>
             <span className="h-1.5 w-16 animate-pulse bg-brand" />
