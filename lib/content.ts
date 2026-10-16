@@ -9,7 +9,7 @@ export const TEAM = [
 export const PRICE = "999,-";
 
 export type Example = {
-  slug: "vvs" | "tomrer" | "maler" | "tag" | "el";
+  slug: "vvs" | "tomrer" | "maler" | "tag" | "el" | "murer";
   /** Short trade name for tabs and chips. */
   trade: string;
   href: string;
@@ -47,7 +47,7 @@ const da = {
   },
   examples: {
     title: "Sådan kan din side se ud",
-    lead: "Fem eksempler til en VVS'er, en tømrer, en maler, et tagfirma og en elektriker. Klik på en og prøv den. Din egen side bliver lavet til dit firma.",
+    lead: "Seks eksempler til en VVS'er, en tømrer, en maler, et tagfirma, en elektriker og en murer. Klik på en og prøv den. Din egen side bliver lavet til dit firma.",
     pick: "Vælg dit fag",
     try: "Klik og prøv siden",
     open: "Åbn siden",
@@ -117,6 +117,18 @@ const da = {
         long: "Elektrikerside i grafit og kabelgul, hvor kunden selv kan finde fejlen i eltavlen og se prisen på en ladeboks med det samme.",
         tags: ["Ring nu", "HPFI-guide", "Pris på ladeboks", "Før og efter"],
         features: ["Ring nu og akut hjælp i toppen", "Trin for trin, når HPFI-relæet slår fra", "Prisberegner til ladeboks", "Før og efter af gamle eltavler", "Tilbudsformular med prisen udfyldt"],
+      },
+      {
+        slug: "murer",
+        trade: "Murer",
+        href: "/examples/murer/",
+        name: "Teglgaard Murer",
+        place: "Aarhus",
+        industry: "Murer",
+        short: "Solid murerside i tegl og kalk: 'Hvad fejler muren?' med årsag og pris, prisberegner til omfugning, før og efter af facader og booking af gratis besigtigelse.",
+        long: "Murerside i teglrød og kalkhvid, hvor kunden selv kan finde ud af, hvad der er galt med muren, og regne prisen ud på at fuge om.",
+        tags: ["Hvad fejler muren?", "Pris på omfugning", "Før og efter", "Gratis besigtigelse"],
+        features: ["'Hvad fejler muren?' med årsag, løsning og pris", "Prisberegner til omfugning med m² og stillads", "Før og efter af facade og puds", "Tjek om vi kører til dit postnummer", "Booking af gratis besigtigelse"],
       },
     ] as Example[],
   },
@@ -212,7 +224,7 @@ const en: Dict = {
   },
   examples: {
     title: "This is what your site could look like",
-    lead: "Five examples for a plumber, a carpenter, a painter, a roofer and an electrician. Click one and try it. Yours is made for your business.",
+    lead: "Six examples for a plumber, a carpenter, a painter, a roofer, an electrician and a bricklayer. Click one and try it. Yours is made for your business.",
     pick: "Pick your trade",
     try: "Click to try the site",
     open: "Open the site",
@@ -267,6 +279,15 @@ const en: Dict = {
         long: "An electrician site in graphite and cable yellow, where customers can find the fault in the fuse box themselves and see the price of an EV charger at once.",
         tags: ["Call now", "RCD guide", "EV charger price", "Before & after"],
         features: ["Call now and emergency help at the top", "Step by step when the RCD trips", "EV charger price calculator", "Before and after of old fuse boxes", "Quote form with the price filled in"],
+      },
+      {
+        ...da.examples.items[5],
+        trade: "Bricklayer",
+        industry: "Bricklayer",
+        short: "A solid bricklayer site in brick and lime: 'What's wrong with my wall?' with cause and price, a repointing price calculator, before and after of facades and booking of a free site visit.",
+        long: "A bricklayer site in brick red and lime white, where customers can work out what is wrong with their wall and calculate the price of repointing.",
+        tags: ["What's wrong with my wall?", "Repointing price", "Before & after", "Free site visit"],
+        features: ["'What's wrong with my wall?' with cause, fix and price", "Repointing price calculator with m² and scaffolding", "Before and after of facade and render", "Check if we cover your postcode", "Free site visit booking"],
       },
     ],
   },

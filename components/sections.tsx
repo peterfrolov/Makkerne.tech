@@ -117,7 +117,7 @@ export function ExamplesByIndustry() {
 }
 
 /** Each example's own main colour, used for the strip under its browser window. */
-const ACCENT: Record<Example["slug"], string> = { vvs: "#ff5a1f", tomrer: "#a2582a", maler: "#2f5d50", tag: "#1d211f", el: "#ffd000" };
+const ACCENT: Record<Example["slug"], string> = { vvs: "#ff5a1f", tomrer: "#a2582a", maler: "#2f5d50", tag: "#1d211f", el: "#ffd000", murer: "#a63d24" };
 
 /** One row per example: the live site in a browser window, its text beside it, swapping sides each row. */
 function ExampleRows() {
