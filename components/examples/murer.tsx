@@ -48,14 +48,14 @@ const PROBLEMS = [
 ];
 
 const SERVICES = [
-  { id: "1701850009190-2859ba2aeea6", title: "Nyt murværk og tilbygning", text: "Fra fundament til gesims. Vi murer tilbygninger, garager og nye vægge i den sten, der passer til huset." },
-  { id: "1592795694703-24f1814cfb0a", title: "Facade og omfugning", text: "Omfugning, udskiftning af skadede sten og rens af facaden, så huset ser ordentligt ud de næste 40 år." },
+  { id: "1617720356637-6264c1c0b4bb", title: "Nyt murværk og tilbygning", text: "Fra fundament til gesims. Vi murer tilbygninger, garager og nye vægge i den sten, der passer til huset." },
+  { id: "1606989254307-863681926e43", title: "Facade og omfugning", text: "Omfugning, udskiftning af skadede sten og rens af facaden, så huset ser ordentligt ud de næste 40 år." },
   { id: "1558211583-03ed8a0b3d5f", title: "Badeværelse", text: "Vådrumssikring, fliser og klinker. Vi er certificeret til vådrum og står for hele badet, også de andre fag." },
   { id: "1604413950933-073730fba9f2", title: "Skorsten og sokkel", text: "Omfugning og ny afdækning af skorstenen, og pudsning af sokler, der er slået i stykker af frost." },
 ];
 
 const PROJECTS = [
-  { title: "Omfugning, Højbjerg", text: "Murermestervilla fra 1934. 140 m² facade kradset ud og fuget om med kalkmørtel. 9 arbejdsdage.", before: "1612529505363-07a363324da7", after: "1547056961-3c25e9140b05" },
+  { title: "Omfugning, Højbjerg", text: "Murermestervilla fra 1934. 140 m² facade kradset ud og fuget om med kalkmørtel. 9 arbejdsdage.", before: "1612529505363-07a363324da7", after: "1592795694703-24f1814cfb0a" },
   { title: "Pudset sokkel, Risskov", text: "Afskallet cementpuds banket af og pudset op igen med kalk. Holder i frost og kan ånde.", before: "1533738630286-f1f4a61705f8", after: "1559173525-d16dfd7c17fe" },
 ];
 
@@ -93,10 +93,11 @@ const kr = (n: number) => `${Math.round(n).toLocaleString("da-DK")} kr.`;
 
 /** Brick bond in thin lines, used as a quiet pattern on the lime sections. */
 const BOND = {
-  backgroundImage:
-    "linear-gradient(to bottom, rgba(42,33,29,0.07) 1px, transparent 1px), linear-gradient(to right, rgba(42,33,29,0.07) 1px, transparent 1px), linear-gradient(to right, rgba(42,33,29,0.07) 1px, transparent 1px)",
-  backgroundSize: "100% 28px, 84px 56px, 84px 56px",
-  backgroundPosition: "0 0, 0 0, 42px 28px",
+  // One tile is two courses: the head joints in the second course sit halfway along the first.
+  backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="84" height="56"><g stroke="rgba(42,33,29,0.07)" stroke-width="1" fill="none"><path d="M0 .5H84M0 28.5H84M.5 0V28M42.5 28V56"/></g></svg>',
+  )}")`,
+  backgroundSize: "84px 56px",
 } as React.CSSProperties;
 
 export function MurerSite() {
@@ -140,7 +141,7 @@ export function MurerSite() {
               </svg>
             </span>
             <span className="leading-none">
-              <span className="block font-display text-xl font-extrabold tracking-tight">Teglgaard Murer</span>
+              <span className="block whitespace-nowrap font-display text-xl font-extrabold tracking-tight">Teglgaard Murer</span>
               <span className="mt-0.5 hidden text-[11px] text-[#2a211d]/55 sm:block">Murermester siden 1998 · Aarhus</span>
             </span>
           </a>
@@ -161,7 +162,8 @@ export function MurerSite() {
               <Icon name="phone" className="size-4" /> <span className="hidden sm:inline">{PHONE}</span>
             </a>
             <a href="#tilbud" className="whitespace-nowrap bg-[#a63d24] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#2a211d] sm:px-5">
-              Gratis besigtigelse
+              <span className="sm:hidden">Book</span>
+              <span className="hidden sm:inline">Gratis besigtigelse</span>
             </a>
           </div>
         </div>
