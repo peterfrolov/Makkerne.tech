@@ -103,26 +103,31 @@ export function IPhone({ src, title, width = 300, height = 600 }: { src: string;
 }
 
 /**
- * Front page: the phone with the visitor's own trade on screen. The trade buttons in the hero
- * pick which site it shows.
+ * Front page: the phone with one of the example sites on screen, Holm VVS until a trade is
+ * picked in the examples below.
  */
-export function PhonePreview({ items, title, cta }: { items: Example[]; title: string; cta: string }) {
+export function PhonePreview({ items, title, cta }: { items: Example[]; title: string; cta?: string }) {
   const item = items[useTrade()] ?? items[0];
-  // A smaller phone on small screens, so it doesn't fill the whole first view.
-  const [small, setSmall] = useState(false);
+  // A smaller phone on small screens, and on a low laptop screen one that fits under the header.
+  const [height, setHeight] = useState(600);
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 639px)");
-    const update = () => setSmall(mq.matches);
+    const update = () => {
+      if (window.innerWidth < 640) setHeight(480);
+      else if (window.innerWidth >= 1024) setHeight(Math.max(480, Math.min(600, window.innerHeight - 190)));
+      else setHeight(600);
+    };
     update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
   }, []);
   return (
     <div className="flex flex-col items-center">
-      <IPhone src={item.href} title={`${title}: ${item.name}`} width={small ? 240 : 300} height={small ? 480 : 600} />
-      <a href={item.href} target="_blank" rel="noopener" className="mt-5 text-sm font-medium text-ink/70 underline underline-offset-4 transition hover:text-ink">
-        {item.name} · {cta} ↗
-      </a>
+      <IPhone src={item.href} title={`${title}: ${item.name}`} width={height / 2} height={height} />
+      {cta && (
+        <a href={item.href} target="_blank" rel="noopener" className="mt-5 text-sm font-medium text-ink/70 underline underline-offset-4 transition hover:text-ink">
+          {item.name} · {cta} ↗
+        </a>
+      )}
     </div>
   );
 }
