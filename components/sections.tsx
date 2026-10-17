@@ -5,7 +5,7 @@ import { Fragment, useState } from "react";
 import { EMAIL, PRICE, TEAM, type Example } from "@/lib/content";
 import { useLang } from "./lang";
 import { BrowserSite, WorkshopScreen } from "./live-site";
-import { RuggedPhone } from "./phone-preview";
+import { IPhone } from "./phone-preview";
 import { Logo } from "./header";
 
 function SectionHead({ title, lead, light = false }: { title: string; lead?: string; light?: boolean }) {
@@ -80,7 +80,7 @@ export function ExamplesByIndustry() {
               <WorkshopScreen src={item.href} title={item.name} tryLabel={e.try} />
             </div>
             <div className="shrink-0">
-              <RuggedPhone src={item.href} title={`${item.name} på telefonen`} width={240} height={490} />
+              <IPhone src={item.href} title={`${item.name} på telefonen`} width={240} height={490} />
             </div>
           </div>
 
