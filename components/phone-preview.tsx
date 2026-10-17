@@ -106,15 +106,15 @@ export function IPhone({ src, title, width = 300, height = 600 }: { src: string;
  * Front page: the phone with one of the example sites on screen, Holm VVS until a trade is
  * picked in the examples below.
  */
-export function PhonePreview({ items, title, cta }: { items: Example[]; title: string; cta?: string }) {
+export function PhonePreview({ items, title, cta, badge }: { items: Example[]; title: string; cta?: string; badge?: string }) {
   const item = items[useTrade()] ?? items[0];
   // A smaller phone on small screens, and on a low laptop screen one that fits under the header.
-  const [height, setHeight] = useState(600);
+  const [height, setHeight] = useState(560);
   useEffect(() => {
     const update = () => {
-      if (window.innerWidth < 640) setHeight(480);
-      else if (window.innerWidth >= 1024) setHeight(Math.max(480, Math.min(600, window.innerHeight - 190)));
-      else setHeight(600);
+      if (window.innerWidth < 640) setHeight(460);
+      else if (window.innerWidth >= 1024) setHeight(Math.max(460, Math.min(560, window.innerHeight - 200)));
+      else setHeight(540);
     };
     update();
     window.addEventListener("resize", update);
@@ -122,6 +122,12 @@ export function PhonePreview({ items, title, cta }: { items: Example[]; title: s
   }, []);
   return (
     <div className="flex flex-col items-center">
+      {badge && (
+        <div className="mb-3.5 flex items-center gap-2 border border-ink/20 bg-card px-3 py-1 font-mono text-xs uppercase tracking-wider text-ink/75 shadow-[2px_2px_0_0_rgba(22,21,19,0.15)]">
+          <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span>{badge}: {item.name} ({item.place})</span>
+        </div>
+      )}
       <IPhone src={item.href} title={`${title}: ${item.name}`} width={height / 2} height={height} />
       {cta && (
         <a href={item.href} target="_blank" rel="noopener" className="mt-5 text-sm font-medium text-ink/70 underline underline-offset-4 transition hover:text-ink">
