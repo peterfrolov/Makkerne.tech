@@ -20,16 +20,16 @@ export function Hero() {
             {h.lead} <span className="font-semibold text-ink">{h.priceNote}</span>
           </p>
 
-          <ul className="mt-6 grid max-w-lg gap-x-6 gap-y-2 sm:grid-cols-2">
-            {h.setup.map((item) => (
-              <li key={item} className="flex items-center gap-2.5 text-lg">
-                <svg viewBox="0 0 24 24" className="size-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-                  <path d="M5 12.5l4.5 4.5L19 7.5" />
-                </svg>
-                {item}
-              </li>
-            ))}
-          </ul>
+          {/* The one thing people worry about: the domain. Say plainly that we sort it out. */}
+          <p className="mt-6 flex max-w-lg items-start gap-3 border-l-4 border-brand bg-card px-4 py-3 text-lg leading-snug">
+            <svg viewBox="0 0 24 24" className="mt-0.5 size-6 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" />
+            </svg>
+            <span>
+              <span className="font-semibold">{h.domainTitle}</span> {h.domain}
+            </span>
+          </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <a href="#kontakt" className="bg-ink px-6 py-3.5 font-cond text-lg font-bold uppercase tracking-wide text-paper transition hover:bg-ink/85">
