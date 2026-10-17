@@ -108,26 +108,26 @@ export function ElSite() {
       <DemoNote className="bg-[#0f1113] text-white/55" />
 
       <header className="sticky top-0 z-40 border-b border-[#17191c]/10 bg-[#f4f3ef]/92 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5">
-          <a href="#top" className="flex items-center gap-2.5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3.5 sm:gap-4 sm:px-5">
+          <a href="#top" className="flex shrink-0 items-center gap-2.5">
             <span className="grid size-9 place-items-center rounded-md bg-[#ffd000]">
               <svg viewBox="0 0 24 24" className="size-5" fill={INK} aria-hidden>
                 <path d="M13.5 2L5 13.5h6L9.5 22 19 9.5h-6z" />
               </svg>
             </span>
             <span className="leading-none">
-              <span className="block font-display text-xl font-bold tracking-tight">Fasebro El</span>
-              <span className="mt-0.5 hidden text-[11px] text-[#17191c]/55 sm:block">Autoriseret elinstallatør · Køge</span>
+              <span className="block whitespace-nowrap font-display text-xl font-bold tracking-tight">Fasebro El</span>
+              <span className="mt-0.5 hidden whitespace-nowrap text-[11px] text-[#17191c]/55 sm:block">Autoriseret elinstallatør · Køge</span>
             </span>
           </a>
-          <nav className="hidden items-center gap-7 text-sm font-medium lg:flex">
+          <nav className="hidden items-center gap-7 whitespace-nowrap text-sm font-medium lg:flex">
             <a href="#hpfi" className="hover:underline hover:decoration-[#ffd000] hover:decoration-2 hover:underline-offset-8">Strømmen er gået</a>
             <a href="#ladeboks" className="hover:underline hover:decoration-[#ffd000] hover:decoration-2 hover:underline-offset-8">Ladeboks</a>
             <a href="#ydelser" className="hover:underline hover:decoration-[#ffd000] hover:decoration-2 hover:underline-offset-8">Ydelser</a>
             <a href="#projekter" className="hover:underline hover:decoration-[#ffd000] hover:decoration-2 hover:underline-offset-8">Før og efter</a>
           </nav>
           <div className="flex items-center gap-2">
-            <a href={TEL} aria-label={`Ring ${PHONE}`} className="flex items-center gap-2 rounded-md border-2 border-[#17191c]/12 px-3 py-2 text-sm font-semibold transition hover:border-[#17191c]/40 sm:px-4">
+            <a href={TEL} aria-label={`Ring ${PHONE}`} className="hidden items-center gap-2 whitespace-nowrap rounded-md border-2 border-[#17191c]/12 px-3 py-2 text-sm font-semibold transition hover:border-[#17191c]/40 min-[380px]:flex sm:px-4">
               <Icon name="phone" className="size-4" /> <span className="hidden sm:inline">{PHONE}</span>
             </a>
             <a href="#tilbud" className="whitespace-nowrap rounded-md bg-[#17191c] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#ffd000] hover:text-[#17191c] sm:px-5">

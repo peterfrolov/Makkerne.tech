@@ -138,12 +138,12 @@ export function TagSite() {
       <DemoNote className="bg-[#1d211f] text-white/60" />
 
       <header className={`sticky top-0 z-40 border-b ${LINE} bg-[#f7f5f0]`} onMouseLeave={() => setMenu(null)}>
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
-          <a href="#top" className="leading-none">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:gap-4 sm:px-5">
+          <a href="#top" className="shrink-0 leading-none">
             <span className="block font-display text-xl font-bold tracking-tight">TAGVÆRK</span>
-            <span className={`block text-xs ${MUTED}`}>Tag, tømrer og murer</span>
+            <span className={`hidden whitespace-nowrap text-xs min-[380px]:block ${MUTED}`}>Tag, tømrer og murer</span>
           </a>
-          <nav className="hidden items-center gap-1 text-sm lg:flex">
+          <nav className="hidden items-center gap-1 whitespace-nowrap text-sm lg:flex">
             {(Object.keys(MENU) as (keyof typeof MENU)[]).map((k) => (
               <div key={k} className="relative" onMouseEnter={() => setMenu(k)}>
                 <button type="button" onClick={() => setMenu(menu === k ? null : k)} aria-expanded={menu === k} className="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-[#1d211f]/5">
@@ -178,13 +178,13 @@ export function TagSite() {
             <a href="#kontakt" className="rounded-md px-3 py-2 hover:bg-[#1d211f]/5">Kontakt</a>
           </nav>
           <div className="flex items-center gap-3">
-            <a href={TEL} className="hidden items-center gap-2 text-sm font-semibold sm:flex">
+            <a href={TEL} className="hidden items-center gap-2 whitespace-nowrap text-sm font-semibold sm:flex">
               <Icon name="phone" className="size-4" /> {PHONE}
             </a>
             <a href={TEL} aria-label={`Ring ${PHONE}`} className={`grid size-11 place-items-center rounded-md border ${LINE} sm:hidden`}>
               <Icon name="phone" className="size-4" />
             </a>
-            <a href="#kontakt" className="rounded-md bg-[#1d211f] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#3a403c]">
+            <a href="#kontakt" className="whitespace-nowrap rounded-md bg-[#1d211f] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#3a403c] sm:px-5">
               Få et tilbud
             </a>
           </div>

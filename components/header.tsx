@@ -7,7 +7,7 @@ import { LangToggle, useLang } from "./lang";
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <Link href="/" className="group flex items-center gap-2.5" aria-label="Makkerne – forside">
+    <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label="Makkerne – forside">
       <span className="grid size-10 place-items-center bg-ink">
         <svg viewBox="12 12 76 76" aria-hidden className="size-8 fill-brand">
           <path d="M15 85V15h12l18 35 18-35h12v70h-12V35L45 70h-10L17 35v50H15z" />
@@ -15,7 +15,7 @@ export function Logo({ light = false }: { light?: boolean }) {
       </span>
       <span className="flex flex-col leading-none">
         <span className={`font-cond text-2xl font-extrabold uppercase tracking-tight ${light ? "text-paper" : ""}`}>Makkerne</span>
-        <span className={`mt-0.5 text-[11px] ${light ? "text-paper/55" : "text-ink/55"}`}>Hjemmesider til håndværkere</span>
+        <span className={`mt-0.5 whitespace-nowrap text-[11px] ${light ? "text-paper/55" : "text-ink/55"}`}>Hjemmesider til håndværkere</span>
       </span>
     </Link>
   );
@@ -44,13 +44,14 @@ export function Header() {
       <div className="mx-auto flex h-18 max-w-6xl items-center justify-between gap-4 px-4 sm:px-8">
         <Logo />
 
-        <nav className="hidden items-center gap-1 md:flex">
+        {/* The full menu only where it fits on one line; below that the menu button takes over. */}
+        <nav className="hidden items-center gap-1 lg:flex">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               aria-current={here(l.href) ? "page" : undefined}
-              className={`px-3 py-2 font-cond text-base font-bold uppercase tracking-wide transition ${
+              className={`whitespace-nowrap px-3 py-2 font-cond text-base font-bold uppercase tracking-wide transition ${
                 here(l.href) ? "text-ink underline decoration-2 underline-offset-8" : "text-ink/65 hover:text-ink"
               }`}
             >
@@ -59,9 +60,9 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-3">
           <LangToggle className="hidden sm:flex" />
-          <a href="#kontakt" className="hidden bg-ink px-4 py-2 font-cond text-base font-bold uppercase tracking-wide text-paper transition hover:bg-ink/85 sm:block">
+          <a href="#kontakt" className="hidden whitespace-nowrap bg-ink px-4 py-2 font-cond text-base font-bold uppercase tracking-wide text-paper transition hover:bg-ink/85 sm:block">
             {t.nav.cta}
           </a>
           <button
@@ -69,7 +70,7 @@ export function Header() {
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? t.nav.menuClose : t.nav.menuOpen}
             aria-expanded={open}
-            className="grid size-11 place-items-center border border-ink/30 md:hidden"
+            className="grid size-11 place-items-center border border-ink/30 lg:hidden"
           >
             <svg className="size-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden>
               {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
@@ -79,7 +80,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-ink/15 px-4 pb-4 md:hidden">
+        <div className="border-t border-ink/15 px-4 pb-4 sm:px-8 lg:hidden">
           <ul>
             {links.map((l) => (
               <li key={l.href}>
@@ -89,7 +90,7 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <div className="mt-4 flex items-center justify-between">
+          <div className="mt-4 flex items-center justify-between sm:hidden">
             <LangToggle />
             <a href="#kontakt" onClick={() => setOpen(false)} className="bg-ink px-5 py-2.5 font-cond text-lg font-bold uppercase text-paper">
               {t.nav.cta}

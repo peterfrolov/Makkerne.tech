@@ -277,7 +277,7 @@ export function QuoteWizard({
   const field = "w-full rounded-xl border border-current/15 bg-(--ex-paper) px-4 py-3 text-sm outline-none transition focus:border-(--ex-accent)";
 
   return (
-    <div className="rounded-lg bg-(--ex-paper) p-6 shadow-sm sm:p-8">
+    <div className="@container rounded-lg bg-(--ex-paper) p-6 shadow-sm sm:p-8">
       {step < 3 && (
         <div className="grid grid-cols-3 gap-2">
           {steps.map((s, i) => (
@@ -298,7 +298,7 @@ export function QuoteWizard({
           {step === 0 && (
             <div>
               <p className="text-lg font-semibold">Hvad skal laves?</p>
-              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              <div className="mt-4 grid gap-2 @md:grid-cols-2">
                 {services.map((s) => (
                   <button
                     key={s}

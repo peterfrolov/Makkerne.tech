@@ -196,7 +196,7 @@ export function Comparison() {
           <thead>
             <tr className="border-b-2 border-ink">
               {tb.cols.map((col, i) => (
-                <th key={i} scope="col" className={`py-3 pr-4 font-cond text-lg font-bold uppercase ${i === 1 ? "bg-brand/40 px-3" : ""}`}>
+                <th key={i} scope="col" className={`py-3 font-cond text-lg font-bold uppercase ${i === 0 ? "pr-4" : "px-3"} ${i === 1 ? "bg-brand/40" : ""}`}>
                   {col}
                 </th>
               ))}
@@ -209,7 +209,7 @@ export function Comparison() {
                   {label}
                 </th>
                 {cells.map((cell, i) => (
-                  <td key={i} className={`py-3 pr-4 ${i === 0 ? "bg-brand/40 px-3 font-semibold" : "text-ink/75"}`}>
+                  <td key={i} className={`px-3 py-3 ${i === 0 ? "bg-brand/40 font-semibold" : "text-ink/75"}`}>
                     {cell}
                   </td>
                 ))}

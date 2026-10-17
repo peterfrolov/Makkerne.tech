@@ -106,24 +106,24 @@ export function VvsSite() {
       </a>
 
       <header className="sticky top-0 z-40 border-b border-[#0e1e33]/8 bg-white/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5">
-          <a href="#top" className="flex items-center gap-2.5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3.5 sm:gap-4 sm:px-5">
+          <a href="#top" className="flex shrink-0 items-center gap-2.5">
             <span className="grid size-9 place-items-center rounded-lg bg-[#0e1e33] font-display text-xl font-bold text-white">H</span>
-            <span className="font-display text-2xl font-bold uppercase leading-none tracking-wide">
+            <span className="whitespace-nowrap font-display text-2xl font-bold uppercase leading-none tracking-wide">
               Holm <span className="text-[#ff5a1f]">VVS</span>
             </span>
           </a>
-          <nav className="hidden items-center gap-7 text-sm font-medium lg:flex">
+          <nav className="hidden items-center gap-7 whitespace-nowrap text-sm font-medium lg:flex">
             <a href="#hjaelp" className="hover:text-[#ff5a1f]">Hvad er der galt?</a>
             <a href="#ydelser" className="hover:text-[#ff5a1f]">Ydelser</a>
             <a href="#projekter" className="hover:text-[#ff5a1f]">Før og efter</a>
             <a href="#omraade" className="hover:text-[#ff5a1f]">Område</a>
           </nav>
           <div className="flex items-center gap-2">
-            <a href={TEL} className="hidden items-center gap-2 rounded-full border-2 border-[#0e1e33]/12 px-4 py-2 text-sm font-semibold transition hover:border-[#0e1e33]/40 sm:flex">
+            <a href={TEL} className="hidden items-center gap-2 whitespace-nowrap rounded-full border-2 border-[#0e1e33]/12 px-4 py-2 text-sm font-semibold transition hover:border-[#0e1e33]/40 sm:flex">
               <Icon name="phone" className="size-4" /> {PHONE}
             </a>
-            <a href="#tilbud" className="rounded-md bg-[#0e1e33] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#ff5a1f]">
+            <a href="#tilbud" className="whitespace-nowrap rounded-md bg-[#0e1e33] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#ff5a1f] sm:px-5">
               Få et tilbud
             </a>
           </div>

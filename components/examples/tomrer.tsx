@@ -119,22 +119,22 @@ export function TomrerSite() {
       <DemoNote className="bg-[#221c15] text-[#f4efe6]/55" />
 
       <header className="sticky top-0 z-40 bg-[#f4efe6]/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
-          <a href="#top" className="leading-none">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:gap-4 sm:px-5">
+          <a href="#top" className="shrink-0 leading-none">
             <span className="block font-display text-2xl">Egholm</span>
-            <span className="block text-[10px] font-semibold uppercase tracking-[0.3em] text-[#a2582a]">Tømrer &amp; Snedker</span>
+            <span className="block whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.3em] text-[#a2582a]">Tømrer &amp; Snedker</span>
           </a>
-          <nav className="hidden items-center gap-8 text-sm md:flex">
+          <nav className="hidden items-center gap-8 whitespace-nowrap text-sm lg:flex">
             <a href="#ydelser" className="hover:text-[#a2582a]">Ydelser</a>
             <a href="#projekter" className="hover:text-[#a2582a]">Projekter</a>
             <a href="#saadan" className="hover:text-[#a2582a]">Sådan arbejder vi</a>
           </nav>
           <div className="flex items-center gap-4">
-            <a href={TEL} className="hidden items-center gap-2 text-sm font-semibold sm:flex">
+            <a href={TEL} className="hidden items-center gap-2 whitespace-nowrap text-sm font-semibold sm:flex">
               <Icon name="phone" className="size-4 text-[#a2582a]" /> {PHONE}
             </a>
-            <a href="#besigtigelse" className="rounded-md bg-[#221c15] px-5 py-2.5 text-sm font-semibold text-[#f4efe6] transition hover:bg-[#a2582a]">
-              Book besigtigelse
+            <a href="#besigtigelse" className="whitespace-nowrap rounded-md bg-[#221c15] px-4 py-2.5 text-sm font-semibold text-[#f4efe6] transition hover:bg-[#a2582a] sm:px-5">
+              Book <span className="hidden min-[400px]:inline">besigtigelse</span>
             </a>
           </div>
         </div>
@@ -161,7 +161,7 @@ export function TomrerSite() {
                 Tage, tilbygninger, terrasser og køkkener til private i Roskilde og omegn. Fast pris og 5 års garanti.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="#besigtigelse" className="rounded-md bg-[#fbf8f2] px-7 py-4 text-sm font-semibold text-[#221c15] transition hover:bg-[#e9b98f]">
+                <a href="#besigtigelse" className="whitespace-nowrap rounded-md bg-[#fbf8f2] px-7 py-4 text-sm font-semibold text-[#221c15] transition hover:bg-[#e9b98f]">
                   Book gratis besigtigelse
                 </a>
                 <a href="#projekter" className="rounded-md border border-[#fbf8f2]/40 px-7 py-4 text-sm font-semibold backdrop-blur transition hover:bg-[#fbf8f2]/10">

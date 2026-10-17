@@ -48,7 +48,7 @@ const PROBLEMS = [
 ];
 
 const SERVICES = [
-  { id: "1617720356637-6264c1c0b4bb", title: "Nyt murværk og tilbygning", text: "Fra fundament til gesims. Vi murer tilbygninger, garager og nye vægge i den sten, der passer til huset." },
+  { id: "1617720356637-6264c1c0b4bb", title: "Murværk og tilbygning", text: "Fra fundament til gesims. Vi murer tilbygninger, garager og nye vægge i den sten, der passer til huset." },
   { id: "1606989254307-863681926e43", title: "Facade og omfugning", text: "Omfugning, udskiftning af skadede sten og rens af facaden, så huset ser ordentligt ud de næste 40 år." },
   { id: "1558211583-03ed8a0b3d5f", title: "Badeværelse", text: "Vådrumssikring, fliser og klinker. Vi er certificeret til vådrum og står for hele badet, også de andre fag." },
   { id: "1604413950933-073730fba9f2", title: "Skorsten og sokkel", text: "Omfugning og ny afdækning af skorstenen, og pudsning af sokler, der er slået i stykker af frost." },
@@ -128,8 +128,8 @@ export function MurerSite() {
       <DemoNote className="bg-[#2a211d] text-white/55" />
 
       <header className="sticky top-0 z-40 border-b border-[#2a211d]/10 bg-[#f3efe7]/92 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5">
-          <a href="#top" className="flex items-center gap-2.5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3.5 sm:gap-4 sm:px-5">
+          <a href="#top" className="flex shrink-0 items-center gap-2.5">
             {/* Three bricks in a running bond. */}
             <span className="grid size-9 place-items-center bg-[#a63d24]" aria-hidden>
               <svg viewBox="0 0 24 24" className="size-6" fill={LIME}>
@@ -142,10 +142,10 @@ export function MurerSite() {
             </span>
             <span className="leading-none">
               <span className="block whitespace-nowrap font-display text-xl font-extrabold tracking-tight">Teglgaard Murer</span>
-              <span className="mt-0.5 hidden text-[11px] text-[#2a211d]/55 sm:block">Murermester siden 1998 · Aarhus</span>
+              <span className="mt-0.5 hidden whitespace-nowrap text-[11px] text-[#2a211d]/55 sm:block">Murermester siden 1998 · Aarhus</span>
             </span>
           </a>
-          <nav className="hidden items-center gap-7 text-sm font-medium lg:flex">
+          <nav className="hidden items-center gap-7 whitespace-nowrap text-sm font-medium xl:flex">
             {[
               ["#mur", "Hvad fejler muren?"],
               ["#pris", "Pris på omfugning"],
@@ -158,7 +158,7 @@ export function MurerSite() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <a href={TEL} aria-label={`Ring ${PHONE}`} className="flex items-center gap-2 border-2 border-[#2a211d]/15 px-3 py-2 text-sm font-semibold transition hover:border-[#2a211d]/45 sm:px-4">
+            <a href={TEL} aria-label={`Ring ${PHONE}`} className="hidden items-center gap-2 whitespace-nowrap border-2 border-[#2a211d]/15 px-3 py-2 text-sm font-semibold transition hover:border-[#2a211d]/45 min-[380px]:flex sm:px-4">
               <Icon name="phone" className="size-4" /> <span className="hidden sm:inline">{PHONE}</span>
             </a>
             <a href="#tilbud" className="whitespace-nowrap bg-[#a63d24] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#2a211d] sm:px-5">
@@ -455,7 +455,7 @@ export function MurerSite() {
             <QuoteWizard
               key={presetKey}
               preset={preset}
-              services={["Facade og fuger", "Nyt murværk og tilbygning", "Badeværelse", "Skorsten og sokkel", "Pudsning", "Andet"]}
+              services={["Facade og fuger", "Murværk og tilbygning", "Badeværelse", "Skorsten og sokkel", "Pudsning", "Andet"]}
               reply="Jens ringer dig op inden for to hverdage og aftaler en tid til at komme ud og kigge."
               submitLabel="Book besigtigelse"
             />
