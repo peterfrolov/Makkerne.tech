@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Example } from "@/lib/content";
+import { useTrade } from "./trade-store";
 
 const PHONE_WIDTH = 390;
 
@@ -102,12 +103,11 @@ export function IPhone({ src, title, width = 300, height = 600 }: { src: string;
 }
 
 /**
- * Front page: the phone with the visitor's own trade on screen. A row of trade buttons
- * underneath swaps the site, so a painter sees a painter's site straight away.
+ * Front page: the phone with the visitor's own trade on screen. The trade buttons in the hero
+ * pick which site it shows.
  */
-export function PhonePreview({ items, title, cta, pick }: { items: Example[]; title: string; cta: string; pick: string }) {
-  const [sel, setSel] = useState(0);
-  const item = items[sel];
+export function PhonePreview({ items, title, cta }: { items: Example[]; title: string; cta: string }) {
+  const item = items[useTrade()] ?? items[0];
   // A smaller phone on small screens, so it doesn't fill the whole first view.
   const [small, setSmall] = useState(false);
   useEffect(() => {
@@ -120,22 +120,8 @@ export function PhonePreview({ items, title, cta, pick }: { items: Example[]; ti
   return (
     <div className="flex flex-col items-center">
       <IPhone src={item.href} title={`${title}: ${item.name}`} width={small ? 240 : 300} height={small ? 480 : 600} />
-      <p className="mt-7 font-cond text-sm font-bold uppercase tracking-widest text-ink/55">{pick}</p>
-      <div className="mt-2 flex flex-wrap justify-center gap-1.5" role="group" aria-label={pick}>
-        {items.map((it, i) => (
-          <button
-            key={it.slug}
-            type="button"
-            onClick={() => setSel(i)}
-            aria-pressed={i === sel}
-            className={`border-2 border-ink px-2.5 py-1 font-cond text-sm font-bold uppercase transition sm:px-3 sm:py-1.5 sm:text-base ${i === sel ? "bg-ink text-paper" : "hover:bg-brand"}`}
-          >
-            {it.trade}
-          </button>
-        ))}
-      </div>
-      <a href={item.href} target="_blank" rel="noopener" className="mt-4 text-sm font-medium text-ink/70 underline underline-offset-4 transition hover:text-ink">
-        {cta} ↗
+      <a href={item.href} target="_blank" rel="noopener" className="mt-5 text-sm font-medium text-ink/70 underline underline-offset-4 transition hover:text-ink">
+        {item.name} · {cta} ↗
       </a>
     </div>
   );

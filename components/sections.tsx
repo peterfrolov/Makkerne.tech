@@ -9,6 +9,7 @@ import { BrowserSite, WorkshopScreen } from "./live-site";
 import { IPhone } from "./phone-preview";
 import { Logo } from "./header";
 import { Calculator } from "./calculator";
+import { setTrade, useTrade } from "./trade-store";
 
 function SectionHead({ title, lead, light = false }: { title: string; lead?: string; light?: boolean }) {
   return (
@@ -123,15 +124,22 @@ const ACCENT: Record<Example["slug"], string> = { vvs: "#ff5a1f", tomrer: "#2e4a
 
 /**
  * One example at a time: the live site in a browser window with its text beside it. Trade tabs and
- * arrows move between them. All six stay mounted (stacked on top of each other), so switching is
- * instant once a site has loaded and the box never jumps in height.
+ * arrows move between them, and the hero's trade buttons pick one too. A site is only loaded the
+ * first time it is shown, then stays mounted (stacked on top of the others), so switching back is
+ * instant and the box never jumps in height.
  */
 function ExampleCarousel() {
   const { t } = useLang();
   const e = t.examples;
   const n = e.items.length;
-  const [[sel, dir], setSel] = useState<[number, number]>([0, 0]);
-  const go = (i: number) => setSel([((i % n) + n) % n, i > sel ? 1 : -1]);
+  const sel = useTrade();
+  const [dir, setDir] = useState(1);
+  const [seen, setSeen] = useState<number[]>([0]);
+  if (!seen.includes(sel)) setSeen([...seen, sel]);
+  const go = (i: number) => {
+    setDir(i > sel ? 1 : -1);
+    setTrade(((i % n) + n) % n);
+  };
   const arrow = "grid size-12 place-items-center border-2 border-ink bg-card transition hover:bg-brand";
   return (
     <div>
@@ -171,7 +179,7 @@ function ExampleCarousel() {
             className={`grid items-center gap-8 transition-opacity duration-300 [grid-area:1/1] lg:grid-cols-12 lg:gap-14 ${i === sel ? "opacity-100" : "pointer-events-none invisible opacity-0"}`}
           >
             <div className="min-w-0 lg:col-span-7">
-              <BrowserSite src={item.href} title={item.name} tryLabel={e.try} accent={ACCENT[item.slug]} />
+              {seen.includes(i) && <BrowserSite src={item.href} title={item.name} tryLabel={e.try} accent={ACCENT[item.slug]} />}
             </div>
             <div className="min-w-0 lg:col-span-5">
               <AnimatePresence mode="wait">
