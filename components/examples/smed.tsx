@@ -298,7 +298,7 @@ export function SmedSite() {
             <Img priority id="1558611997-dd5b20e08c71" w={1200} alt="Smed svejser en ramme i stål på værkstedet, gnisterne står" className="aspect-[4/3] w-full object-cover lg:aspect-[4/5]" />
             <figcaption className={`${mono} flex flex-wrap justify-between gap-x-4 px-4 text-[12px] text-[#A9AFB3] sm:px-0`}>
               <span>Værkstedet, Silkeborg</span>
-              <span>Ramme til altan, pos. 03</span>
+              <span>Svejsning af altanramme</span>
             </figcaption>
           </figure>
 
