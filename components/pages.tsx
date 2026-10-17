@@ -1,7 +1,7 @@
 "use client";
 
 import { useLang } from "./lang";
-import { Comparison, Contact, ExamplesByIndustry, Faq, Footer, PageIntro, Pricing, Process } from "./sections";
+import { Comparison, Contact, ExamplesByIndustry, Faq, Footer, PageIntro, PriceSection, Process } from "./sections";
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
@@ -30,7 +30,7 @@ export function PricePage() {
   return (
     <Shell>
       <PageIntro title={t.pricing.title} lead={t.pricing.lead} />
-      <Pricing hideHead />
+      <PriceSection hideHead />
       <Comparison />
       <Process />
     </Shell>

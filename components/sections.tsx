@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { Fragment, useState } from "react";
-import { EMAIL, PRICE, TEAM, type Example } from "@/lib/content";
+import { AnimatePresence, motion } from "framer-motion";
+import { EMAIL, TEAM, type Example } from "@/lib/content";
 import { useLang } from "./lang";
 import { BrowserSite, WorkshopScreen } from "./live-site";
 import { IPhone } from "./phone-preview";
 import { Logo } from "./header";
+import { Calculator } from "./calculator";
 
 function SectionHead({ title, lead, light = false }: { title: string; lead?: string; light?: boolean }) {
   return (
@@ -25,17 +27,17 @@ function Check({ light = false }: { light?: boolean }) {
   );
 }
 
-/** Landing page: one soft browser-window row per example, under a heading. */
+/** Landing page: the examples as a carousel, one at a time, so the page stays short. */
 export function Examples() {
   const { t } = useLang();
   const e = t.examples;
   return (
-    <section id="eksempler" className="bg-[#f3f2ef]">
-      <div className="mx-auto max-w-7xl px-4 pt-20 sm:px-8 sm:pt-28">
+    <section id="eksempler" className="scroll-mt-18 bg-[#f3f2ef]">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-24">
         <SectionHead title={e.title} lead={e.lead} />
+        <ExampleCarousel />
+        <p className="mt-10 text-sm text-ink/55">{e.disclaimer}</p>
       </div>
-      <ExampleRows />
-      <p className="mx-auto max-w-7xl px-4 pb-20 text-sm text-ink/55 sm:px-8 sm:pb-28">{e.disclaimer}</p>
     </section>
   );
 }
@@ -119,67 +121,108 @@ export function ExamplesByIndustry() {
 /** Each example's own main colour, used for the strip under its browser window. */
 const ACCENT: Record<Example["slug"], string> = { vvs: "#ff5a1f", tomrer: "#a2582a", maler: "#2f5d50", tag: "#1d211f", el: "#ffd000", murer: "#a63d24" };
 
-/** One row per example: the live site in a browser window, its text beside it, swapping sides each row. */
-function ExampleRows() {
+/**
+ * One example at a time: the live site in a browser window with its text beside it. Trade tabs and
+ * arrows move between them. All six stay mounted (stacked on top of each other), so switching is
+ * instant once a site has loaded and the box never jumps in height.
+ */
+function ExampleCarousel() {
   const { t } = useLang();
   const e = t.examples;
+  const n = e.items.length;
+  const [[sel, dir], setSel] = useState<[number, number]>([0, 0]);
+  const go = (i: number) => setSel([((i % n) + n) % n, i > sel ? 1 : -1]);
+  const arrow = "grid size-12 place-items-center border-2 border-ink bg-card transition hover:bg-brand";
   return (
-    <div className="mx-auto max-w-7xl space-y-24 px-4 py-12 sm:space-y-32 sm:px-8 sm:py-16">
-      {e.items.map((item, i) => (
-        <article key={item.slug} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-          <div className={`min-w-0 lg:col-span-7 ${i % 2 ? "lg:order-2" : ""}`}>
-            <BrowserSite src={item.href} title={item.name} tryLabel={e.try} accent={ACCENT[item.slug]} />
-          </div>
-          <div className={`min-w-0 lg:col-span-5 ${i % 2 ? "lg:order-1" : ""}`}>
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">
-              {String(i + 1).padStart(2, "0")} · {item.industry}
-            </p>
-            <h2 className="mt-3 text-4xl font-bold tracking-tight text-[#1a1a1a]">{item.name}</h2>
-            <p className="mt-5 text-lg leading-relaxed text-black/60">{item.short}</p>
-            <ul className="mt-7 flex flex-wrap gap-2.5">
-              {item.tags.map((tag) => (
-                <li key={tag} className="rounded-full border border-black/10 bg-black/[0.03] px-4 py-1.5 text-black/70">
-                  {tag}
-                </li>
-              ))}
-            </ul>
-            <a href={item.href} target="_blank" rel="noopener" className="mt-8 inline-block border-b border-black/70 pb-0.5 text-lg font-semibold text-[#1a1a1a] transition hover:border-blue-600 hover:text-blue-600">
-              {e.open} ↗
-            </a>
-          </div>
-        </article>
-      ))}
+    <div>
+      <div className="flex items-center gap-3">
+        <div role="tablist" aria-label={e.pick} className="-mx-4 flex flex-1 gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
+          {e.items.map((it, i) => (
+            <button
+              key={it.slug}
+              type="button"
+              role="tab"
+              aria-selected={i === sel}
+              onClick={() => go(i)}
+              className={`shrink-0 border-2 border-ink px-4 py-2 font-cond text-lg font-bold uppercase transition ${i === sel ? "bg-ink text-paper" : "bg-card hover:bg-brand"}`}
+            >
+              {it.trade}
+            </button>
+          ))}
+        </div>
+        <div className="hidden shrink-0 items-center gap-2 sm:flex">
+          <span className="mr-2 font-cond text-lg font-bold tabular-nums text-ink/50">
+            {String(sel + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+          </span>
+          <button type="button" onClick={() => go(sel - 1)} aria-label="Forrige eksempel" className={arrow}>
+            <span aria-hidden className="text-xl">←</span>
+          </button>
+          <button type="button" onClick={() => go(sel + 1)} aria-label="Næste eksempel" className={arrow}>
+            <span aria-hidden className="text-xl">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-8 grid">
+        {e.items.map((item, i) => (
+          <article
+            key={item.slug}
+            aria-hidden={i !== sel}
+            className={`grid items-center gap-8 transition-opacity duration-300 [grid-area:1/1] lg:grid-cols-12 lg:gap-14 ${i === sel ? "opacity-100" : "pointer-events-none invisible opacity-0"}`}
+          >
+            <div className="min-w-0 lg:col-span-7">
+              <BrowserSite src={item.href} title={item.name} tryLabel={e.try} accent={ACCENT[item.slug]} />
+            </div>
+            <div className="min-w-0 lg:col-span-5">
+              <AnimatePresence mode="wait">
+                {i === sel && (
+                  <motion.div key={item.slug} initial={{ opacity: 0, x: dir * 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }}>
+                    <p className="font-cond text-lg font-bold uppercase tracking-wide text-ink/50">
+                      {item.industry} · {item.place}
+                    </p>
+                    <h3 className="mt-1 font-cond text-5xl font-extrabold uppercase leading-none">{item.name}</h3>
+                    <p className="mt-4 text-lg leading-relaxed text-ink/70">{item.short}</p>
+                    <ul className="mt-6 flex flex-wrap gap-2">
+                      {item.tags.map((tag) => (
+                        <li key={tag} className="border border-ink/20 bg-card px-3 py-1 text-sm font-medium">
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                    <a href={item.href} target="_blank" rel="noopener" className="mt-7 inline-block border-b-2 border-ink pb-0.5 font-cond text-xl font-bold uppercase transition hover:border-brand">
+                      {e.open} ↗
+                    </a>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {/* Arrows under the example on phones, where there is no room next to the tabs. */}
+      <div className="mt-6 flex items-center justify-between sm:hidden">
+        <button type="button" onClick={() => go(sel - 1)} aria-label="Forrige eksempel" className={arrow}>
+          <span aria-hidden className="text-xl">←</span>
+        </button>
+        <span className="font-cond text-lg font-bold tabular-nums text-ink/50">
+          {String(sel + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+        </span>
+        <button type="button" onClick={() => go(sel + 1)} aria-label="Næste eksempel" className={arrow}>
+          <span aria-hidden className="text-xl">→</span>
+        </button>
+      </div>
     </div>
   );
 }
 
-export function Pricing({ hideHead = false }: { hideHead?: boolean }) {
+/** The price calculator under a short heading. */
+export function PriceSection({ hideHead = false }: { hideHead?: boolean }) {
   const { t } = useLang();
-  const p = t.pricing;
   return (
-    <section id="pris" className="mx-auto max-w-6xl px-4 py-20 sm:px-8 sm:py-28">
-      {!hideHead && <SectionHead title={p.title} lead={p.lead} />}
-      <div className="grid border border-ink/20 bg-card md:grid-cols-2">
-        <div className="border-b border-ink/15 p-8 sm:p-10 md:border-b-0 md:border-r">
-          <p className="text-sm text-ink/60">{p.label}</p>
-          <p className="mt-1 font-cond text-8xl font-extrabold leading-none tracking-tight">{PRICE}</p>
-          <p className="mt-4 max-w-xs text-ink/75">{p.once}</p>
-          <a href="#kontakt" className="mt-8 inline-flex bg-ink px-6 py-3.5 font-cond text-lg font-bold uppercase text-paper transition hover:bg-ink/85">
-            {p.cta}
-          </a>
-        </div>
-        <ul className="space-y-3.5 p-8 sm:p-10">
-          {p.included.map((f) => (
-            <li key={f} className="flex gap-3 text-lg">
-              <Check />
-              {f}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <p className="mt-4 max-w-2xl text-sm text-ink/60">
-        {p.running} {p.compare}
-      </p>
+    <section id="pris" className="scroll-mt-18 mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-24">
+      {!hideHead && <SectionHead title={t.pricing.title} lead={t.pricing.lead} />}
+      <Calculator />
     </section>
   );
 }

@@ -13,12 +13,10 @@ export function Hero() {
         <div className="lg:col-span-7">
           <h1 className="font-cond font-extrabold uppercase leading-[0.92] tracking-tight">
             <span className="block text-5xl sm:text-7xl">{h.title}</span>
-            <span className="mt-2 inline-block bg-brand px-2 text-6xl sm:text-8xl">{h.titlePrice}</span>
+            <span className="mt-2 inline-block bg-brand px-2 text-6xl sm:text-7xl xl:text-[5.4rem]">{h.titleHighlight}</span>
           </h1>
 
-          <p className="mt-6 max-w-lg text-xl leading-relaxed text-ink/80">
-            {h.lead} <span className="font-semibold text-ink">{h.priceNote}</span>
-          </p>
+          <p className="mt-6 max-w-lg text-xl leading-relaxed text-ink/80">{h.lead}</p>
 
           {/* The one thing people worry about: the domain. Say plainly that we sort it out. */}
           <p className="mt-6 flex max-w-lg items-start gap-3 border-l-4 border-brand bg-card px-4 py-3 text-lg leading-snug">
@@ -31,15 +29,16 @@ export function Hero() {
             </span>
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a href="#kontakt" className="bg-ink px-6 py-3.5 font-cond text-lg font-bold uppercase tracking-wide text-paper transition hover:bg-ink/85">
-              {h.write}
+          {/* One clear way in: the price calculator. The examples are a quiet second choice. */}
+          <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+            <a href="#beregner" className="inline-flex items-center gap-3 bg-ink px-8 py-4 font-cond text-2xl font-bold uppercase tracking-wide text-paper shadow-[6px_6px_0_0_var(--color-brand)] transition hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--color-brand)]">
+              {h.cta} <span aria-hidden>→</span>
             </a>
-            <a href="#eksempler" className="border border-ink px-6 py-3.5 font-cond text-lg font-bold uppercase tracking-wide transition hover:bg-brand">
+            <a href="#eksempler" className="text-base font-medium text-ink/70 underline underline-offset-4 transition hover:text-ink">
               {h.seeExamples}
             </a>
           </div>
-          <p className="mt-4 text-sm text-ink/60">{h.reassure}</p>
+          <p className="mt-4 text-sm font-medium text-ink/60">{h.ctaNote}</p>
         </div>
 
         <div className="flex justify-center lg:col-span-5">

@@ -37,6 +37,8 @@ export function Header() {
     { href: "/proces/", label: t.nav.process },
     { href: "/faq/", label: t.nav.faq },
   ];
+  // The one call to action: the price calculator, on the front page or the price page.
+  const ctaHref = pathname === "/" ? "#beregner" : "/pris/#beregner";
   const here = (href: string) => pathname.replace(/\/$/, "") === href.replace(/\/$/, "");
 
   return (
@@ -62,9 +64,9 @@ export function Header() {
 
         <div className="flex shrink-0 items-center gap-3">
           <LangToggle className="hidden sm:flex" />
-          <a href="#kontakt" className="hidden whitespace-nowrap bg-ink px-4 py-2 font-cond text-base font-bold uppercase tracking-wide text-paper transition hover:bg-ink/85 sm:block">
+          <Link href={ctaHref} className="hidden whitespace-nowrap bg-ink px-4 py-2 font-cond text-base font-bold uppercase tracking-wide text-paper transition hover:bg-ink/85 sm:block">
             {t.nav.cta}
-          </a>
+          </Link>
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
@@ -92,9 +94,9 @@ export function Header() {
           </ul>
           <div className="mt-4 flex items-center justify-between sm:hidden">
             <LangToggle />
-            <a href="#kontakt" onClick={() => setOpen(false)} className="bg-ink px-5 py-2.5 font-cond text-lg font-bold uppercase text-paper">
+            <Link href={ctaHref} onClick={() => setOpen(false)} className="bg-ink px-5 py-2.5 font-cond text-lg font-bold uppercase text-paper">
               {t.nav.cta}
-            </a>
+            </Link>
           </div>
         </div>
       )}
