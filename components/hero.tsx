@@ -7,6 +7,7 @@ import { setTrade, useTrade } from "./trade-store";
 /**
  * First view: who we build for, in one line, and a button for each trade. The trade buttons are
  * the way in: on a computer they swap the phone next to them, on a phone they jump to the example.
+ * On a computer it fills the screen, so the examples start below the fold.
  */
 export function Hero() {
   const { t } = useLang();
@@ -15,7 +16,7 @@ export function Hero() {
   const sel = useTrade();
 
   return (
-    <section className="border-b border-ink/15 pt-18">
+    <section className="border-b border-ink/15 pt-18 lg:flex lg:min-h-svh lg:flex-col lg:justify-center">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-4 py-12 sm:px-8 lg:grid-cols-12 lg:py-16">
         <div className="lg:col-span-7">
           <h1 className="font-cond font-extrabold uppercase leading-[0.92] tracking-tight">
