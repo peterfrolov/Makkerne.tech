@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { EMAIL, TEAM, type Example } from "@/lib/content";
 import { useLang } from "./lang";
@@ -53,46 +53,81 @@ export function ExamplesByIndustry() {
   const [sel, setSel] = useState(0);
   const item = e.items[sel];
 
+  // Responsive phone and laptop size so the mockups stay fully visible on laptops and desktop screens.
+  const [phoneSize, setPhoneSize] = useState({ width: 200, height: 410 });
+
+  useEffect(() => {
+    const update = () => {
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
+      if (vw < 768) {
+        setPhoneSize({ width: 200, height: 410 });
+      } else if (vh < 680) {
+        setPhoneSize({ width: 175, height: 355 });
+      } else if (vh < 800) {
+        setPhoneSize({ width: 195, height: 395 });
+      } else {
+        setPhoneSize({ width: 215, height: 435 });
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const laptopMaxWidth = Math.round((phoneSize.height - 33) * 1.6);
+
   return (
-    <section className="border-b border-ink/15">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-8 sm:py-16">
-        <p className="font-cond text-lg font-bold uppercase tracking-wide text-ink/55">{e.pick}</p>
-        <div role="tablist" aria-label={e.pick} className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
-          {e.items.map((it, i) => (
-            <button
-              key={it.slug}
-              type="button"
-              role="tab"
-              aria-selected={i === sel}
-              aria-controls="eksempel-panel"
-              onClick={() => setSel(i)}
-              className={`flex shrink-0 items-baseline gap-2 border-2 border-ink px-5 py-3 font-cond text-xl font-bold uppercase transition sm:text-2xl ${
-                i === sel ? "bg-brand" : "bg-card hover:bg-paper-2"
-              }`}
-            >
-              <span className="text-sm text-ink/45">{String(i + 1).padStart(2, "0")}</span>
-              {it.trade}
-            </button>
-          ))}
+    <section className="border-b border-ink/15 pt-24 pb-12 sm:pt-28 sm:pb-16">
+      <div className="mx-auto max-w-6xl px-4 sm:px-8">
+        <div className="max-w-4xl">
+          <h1 className="text-balance font-cond text-4xl font-extrabold uppercase leading-[0.95] tracking-tight sm:text-5xl lg:text-6xl">
+            {e.pageTitle}
+          </h1>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink/75 sm:text-lg">
+            {e.pageLead}
+          </p>
         </div>
 
-        <div id="eksempel-panel" role="tabpanel" className="mt-10">
+        <div className="mt-6 sm:mt-8">
+          <p className="font-cond text-base font-bold uppercase tracking-wide text-ink/55 sm:text-lg">{e.pick}</p>
+          <div role="tablist" aria-label={e.pick} className="-mx-4 mt-2.5 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
+            {e.items.map((it, i) => (
+              <button
+                key={it.slug}
+                type="button"
+                role="tab"
+                aria-selected={i === sel}
+                aria-controls="eksempel-panel"
+                onClick={() => setSel(i)}
+                className={`flex shrink-0 items-baseline gap-2 border-2 border-ink px-3.5 py-2 font-cond text-lg font-bold uppercase transition sm:px-4 sm:py-2.5 sm:text-xl ${
+                  i === sel ? "bg-brand" : "bg-card hover:bg-paper-2"
+                }`}
+              >
+                <span className="text-xs text-ink/45 sm:text-sm">{String(i + 1).padStart(2, "0")}</span>
+                {it.trade}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div id="eksempel-panel" role="tabpanel" className="mt-8 sm:mt-10">
           {/* Computer and phone next to each other, never on top of each other. */}
-          <div className="flex flex-col items-center gap-10 md:flex-row md:items-end md:gap-10">
-            <div className="w-full min-w-0 md:flex-1">
+          <div className="flex flex-col items-center gap-8 md:flex-row md:items-end md:justify-center md:gap-8 lg:gap-10">
+            <div className="w-full min-w-0 md:flex-1" style={{ maxWidth: laptopMaxWidth }}>
               <WorkshopScreen src={item.href} title={item.name} tryLabel={e.try} />
             </div>
             <div className="shrink-0">
-              <IPhone src={item.href} title={`${item.name} på telefonen`} width={240} height={490} />
+              <IPhone src={item.href} title={`${item.name} på telefonen`} width={phoneSize.width} height={phoneSize.height} />
             </div>
           </div>
 
-          <div className="mt-14 grid gap-10 border-t-2 border-ink pt-8 lg:grid-cols-12">
+          <div className="mt-12 grid gap-10 border-t-2 border-ink pt-8 sm:mt-14 lg:grid-cols-12">
             <div className="lg:col-span-6">
               <p className="text-sm text-ink/60">
                 {item.industry} · {item.place}
               </p>
-              <h2 className="mt-1 font-cond text-5xl font-extrabold uppercase leading-none">{item.name}</h2>
+              <h2 className="mt-1 font-cond text-4xl font-extrabold uppercase leading-none sm:text-5xl">{item.name}</h2>
               <p className="mt-4 max-w-lg leading-relaxed text-ink/75">{item.long}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a href={item.href} target="_blank" rel="noopener" className="bg-ink px-5 py-3 font-cond text-lg font-bold uppercase text-paper transition hover:bg-ink/85">
@@ -113,7 +148,7 @@ export function ExamplesByIndustry() {
             </ul>
           </div>
         </div>
-        <p className="mt-14 text-sm text-ink/55">{e.disclaimer}</p>
+        <p className="mt-12 text-sm text-ink/55 sm:mt-14">{e.disclaimer}</p>
       </div>
     </section>
   );

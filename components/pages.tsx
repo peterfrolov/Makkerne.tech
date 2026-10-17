@@ -16,10 +16,8 @@ function Shell({ children }: { children: React.ReactNode }) {
 }
 
 export function ExamplesPage() {
-  const { t } = useLang();
   return (
     <Shell>
-      <PageIntro title={t.examples.pageTitle} lead={t.examples.pageLead} />
       <ExamplesByIndustry />
     </Shell>
   );
