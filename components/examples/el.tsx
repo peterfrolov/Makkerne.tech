@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, Stars } from "./shared";
+import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, SampleReviewsNote, Stars } from "./shared";
 
 const PHONE = "56 78 12 34";
 const TEL = "tel:+4556781234";
@@ -105,7 +105,7 @@ export function ElSite() {
       className="min-h-dvh overflow-x-clip bg-[#f4f3ef] font-sans text-[#17191c]"
       style={{ "--ex-ink": INK, "--ex-paper": "#ffffff", "--ex-accent": YELLOW, "--ex-on-accent": INK } as React.CSSProperties}
     >
-      <DemoNote className="bg-[#0f1113] text-white/55" />
+      <DemoNote className="bg-[#0f1113] text-white/80" />
 
       <header className="sticky top-0 z-40 border-b border-[#17191c]/10 bg-[#f4f3ef]/92 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3.5 sm:gap-4 sm:px-5">
@@ -139,11 +139,11 @@ export function ElSite() {
 
       {/* Hero */}
       <section id="top" className="relative overflow-hidden bg-[#17191c] text-white">
-        <Img id="1615774925655-a0e97fc85c14" w={2000} alt="Elektriker måler på en eltavle" className="absolute inset-0 size-full object-cover opacity-40" />
+        <Img priority id="1615774925655-a0e97fc85c14" w={2000} alt="Elektriker måler på en eltavle" className="absolute inset-0 size-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#17191c] via-[#17191c]/88 to-[#17191c]/30" />
         <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-14 sm:pb-28 sm:pt-24">
           <p className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3.5 py-1.5 text-xs font-medium backdrop-blur">
-            <Stars className="text-[#ffd000]" /> 4,9 af 5 · 286 anmeldelser
+            Aut. elinstallatør · Køge siden 2011
           </p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -151,7 +151,7 @@ export function ElSite() {
             transition={{ duration: 0.6 }}
             className="mt-6 max-w-3xl font-display text-5xl font-bold leading-[0.95] tracking-tight sm:text-7xl"
           >
-            Strømmen gået? <span className="text-[#ffd000]">Vi kommer i dag.</span>
+            Strømmen gået? Vi kommer i dag.
           </motion.h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
             Autoriseret elinstallatør i Køge og omegn. Eltavler, ladebokse, lys og nye stik. Fast pris før vi går i gang.
@@ -366,9 +366,7 @@ export function ElSite() {
       <section className="mx-auto max-w-6xl px-5 py-20 sm:py-28">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">Det siger kunderne</h2>
-          <p className="flex items-center gap-2 text-[#17191c]/65">
-            <span className="font-display text-3xl font-bold text-[#17191c]">4,9</span> <Stars className="text-[#e0a800]" /> 286 anmeldelser på Google
-          </p>
+          <SampleReviewsNote className="max-w-sm text-[#17191c]/60" />
         </div>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {REVIEWS.map((r) => (

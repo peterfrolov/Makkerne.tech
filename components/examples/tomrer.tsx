@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, Stars } from "./shared";
+import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, SampleReviewsNote, Stars } from "./shared";
 
 const PHONE = "23 45 67 89";
 const TEL = "tel:+4523456789";
@@ -116,7 +116,7 @@ export function TomrerSite() {
       className="min-h-dvh overflow-x-clip bg-[#f4efe6] font-sans text-[#221c15]"
       style={{ "--ex-ink": "#221c15", "--ex-paper": "#fbf8f2", "--ex-accent": "#a2582a", "--ex-on-accent": "#fbf8f2" } as React.CSSProperties}
     >
-      <DemoNote className="bg-[#221c15] text-[#f4efe6]/55" />
+      <DemoNote className="bg-[#221c15] text-[#f4efe6]/80" />
 
       <header className="sticky top-0 z-40 bg-[#f4efe6]/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:gap-4 sm:px-5">
@@ -144,7 +144,7 @@ export function TomrerSite() {
       <section id="top" className="px-3 sm:px-5">
         <div className="relative mx-auto min-h-[78svh] max-w-[90rem] overflow-hidden rounded-[2rem]">
           <motion.div className="absolute inset-0">
-            <Img id="1676802037786-3697d60497ae" w={2200} alt="Hus under opførelse med træskelet" className="size-full object-cover" />
+            <Img priority id="1676802037786-3697d60497ae" w={2200} alt="Hus under opførelse med træskelet" className="size-full object-cover" />
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a150f]/90 via-[#1a150f]/35 to-[#1a150f]/10" />
           <div className="relative flex min-h-[78svh] flex-col justify-end p-7 text-[#fbf8f2] sm:p-14">
@@ -177,9 +177,9 @@ export function TomrerSite() {
       <section className="mx-auto grid max-w-6xl grid-cols-2 gap-y-8 px-5 py-16 md:grid-cols-4">
         {[
           ["22 år", "som tømrermester"],
-          ["640+", "afsluttede projekter"],
+          ["5 mand", "de samme svende i over ti år"],
           ["5 år", "garanti på arbejdet"],
-          ["4,9 ★", "på Google (212 anmeldelser)"],
+          ["Ca. 3 uger", "ventetid lige nu"],
         ].map(([v, l]) => (
           <div key={l} className="border-l border-[#221c15]/15 pl-5">
             <p className="font-display text-4xl sm:text-5xl">{v}</p>
@@ -319,14 +319,18 @@ export function TomrerSite() {
       {/* Master + reviews */}
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 sm:py-28 lg:grid-cols-2">
         <div className="relative">
-          <Img id="1595844730298-b960ff98fee0" w={1000} alt="Mads Egholm med værktøjsbælte" className="aspect-[4/5] w-full rounded-lg object-cover" />
+          <Img id="1595844730298-b960ff98fee0" w={1000} alt="Pladsholderfoto af en tømrer med værktøjsbælte" className="aspect-[4/5] w-full rounded-lg object-cover" />
           <div className="absolute -bottom-6 left-6 right-6 rounded-md bg-[#fbf8f2] p-5 shadow-xl sm:left-auto sm:w-72">
             <p className="font-display text-xl">Mads Egholm</p>
             <p className="text-sm text-[#221c15]/60">Tømrermester. Det er mig, der kommer ud og ser på opgaven.</p>
+            <p className="mt-2 text-xs text-[#221c15]/50">Pladsholderfoto. Her kommer mesterens eget portræt.</p>
           </div>
         </div>
         <div className="space-y-6 pt-8 lg:pt-0">
-          <h2 className="font-display text-5xl">Det siger kunderne</h2>
+          <div>
+            <h2 className="font-display text-5xl">Det siger kunderne</h2>
+            <SampleReviewsNote className="mt-2 text-[#221c15]/55" />
+          </div>
           {REVIEWS.map((r) => (
             <figure key={r.name} className="rounded-md border border-[#221c15]/10 bg-[#fbf8f2] p-6">
               <Stars className="text-sm text-[#a2582a]" />

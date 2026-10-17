@@ -9,9 +9,12 @@ export function photo(id: string, w = 1600) {
   return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=75`;
 }
 
-export function Img({ id, w, alt, className }: { id: string; w?: number; alt: string; className?: string }) {
-  // eslint-disable-next-line @next/next/no-img-element -- remote stock photos, sized via the URL
-  return <img src={photo(id, w)} alt={alt} loading="lazy" decoding="async" className={className} />;
+/** A stock photo. `priority` is for the hero: load it straight away instead of lazily (it is the LCP image). */
+export function Img({ id, w, alt, className, priority = false }: { id: string; w?: number; alt: string; className?: string; priority?: boolean }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- remote stock photos, sized via the URL
+    <img src={photo(id, w)} alt={alt} loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} decoding="async" className={className} />
+  );
 }
 
 /** Index that advances on its own, pauses while hovered, and can be set by hand. */
@@ -79,23 +82,33 @@ export function Arrow({ dir, onClick, className = "" }: { dir: "left" | "right";
   );
 }
 
-export function Stars({ className = "" }: { className?: string }) {
+/** One review's stars. The label always matches what is drawn. */
+export function Stars({ n = 5, className = "" }: { n?: number; className?: string }) {
   return (
-    <span className={`tracking-[0.15em] ${className}`} aria-label="5 ud af 5 stjerner">
-      ★★★★★
+    <span className={`tracking-[0.15em] ${className}`} role="img" aria-label={`${n} ud af 5 stjerner`}>
+      {"★".repeat(n)}
+      <span className="opacity-30">{"★".repeat(5 - n)}</span>
     </span>
   );
+}
+
+/**
+ * Small, honest label for the reviews section: the firm is made up, so the reviews are sample text.
+ * On a real customer's site this is where their own reviews from Google or Anmeld Håndværker go.
+ */
+export function SampleReviewsNote({ className = "" }: { className?: string }) {
+  return <p className={`text-sm ${className}`}>Eksempeltekster. På din side vises dine egne anmeldelser fra Google eller Anmeld Håndværker.</p>;
 }
 
 /** Small banner so nobody mistakes the example for a real business. */
 export function DemoNote({ className = "" }: { className?: string }) {
   return (
-    <p className={`py-2 text-center text-[11px] tracking-wide ${className}`}>
+    <p className={`px-4 py-2 text-center text-[13px] ${className}`}>
       Eksempel lavet af{" "}
-      <Link href="/" target="_top" className="underline underline-offset-2">
+      <Link href="/" target="_top" className="font-semibold underline underline-offset-2">
         Makkerne
       </Link>{" "}
-      · Forretningen er opdigtet
+      · Firmaet er opdigtet, og intet bliver sendt
     </p>
   );
 }
@@ -384,6 +397,7 @@ export function QuoteWizard({
               </motion.div>
               <p className="mt-5 font-display text-3xl font-bold">Tak, {name.split(" ")[0]}!</p>
               <p className="mx-auto mt-2 max-w-xs opacity-65">{reply}</p>
+              <p className="mx-auto mt-3 max-w-xs text-xs opacity-55">Dette er et eksempel, så der er ikke sendt noget.</p>
               <dl className="mx-auto mt-6 max-w-xs divide-y divide-current/10 rounded-md bg-current/5 px-4 text-left text-sm">
                 {[
                   ["Opgave", service],

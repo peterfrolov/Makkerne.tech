@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, Stars } from "./shared";
+import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, SampleReviewsNote, Stars } from "./shared";
 
-const PHONE = "86 12 40 75";
-const TEL = "tel:+4586124075";
+const PHONE = "78 90 12 34";
+const TEL = "tel:+4578901234";
 
 const INK = "#2a211d";
 const BRICK = "#a63d24";
@@ -125,7 +125,7 @@ export function MurerSite() {
       className="min-h-dvh overflow-x-clip bg-[#f3efe7] font-sans text-[#2a211d]"
       style={{ "--ex-ink": INK, "--ex-paper": "#ffffff", "--ex-accent": BRICK, "--ex-on-accent": "#ffffff" } as React.CSSProperties}
     >
-      <DemoNote className="bg-[#2a211d] text-white/55" />
+      <DemoNote className="bg-[#2a211d] text-white/80" />
 
       <header className="sticky top-0 z-40 border-b border-[#2a211d]/10 bg-[#f3efe7]/92 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3.5 sm:gap-4 sm:px-5">
@@ -174,7 +174,7 @@ export function MurerSite() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-10 sm:pb-24 sm:pt-16 lg:grid-cols-12">
           <div className="lg:col-span-6">
             <p className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 text-xs font-medium shadow-sm">
-              <Stars className="text-[#c9861a]" /> 4,9 af 5 · 173 anmeldelser
+              Murermester · Aarhus siden 1998
             </p>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -182,7 +182,7 @@ export function MurerSite() {
               transition={{ duration: 0.6 }}
               className="mt-6 text-balance font-display text-5xl font-extrabold leading-[0.95] tracking-tight sm:text-7xl"
             >
-              Murerarbejde, der holder i <span className="text-[#a63d24]">100 år.</span>
+              Murerarbejde, der holder i 100 år.
             </motion.h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-[#2a211d]/70">
               Facader, omfugning, tilbygninger og badeværelser i Aarhus og omegn. Vi kommer ud og kigger gratis, og du får en fast pris på skrift.
@@ -211,7 +211,7 @@ export function MurerSite() {
             </ul>
           </div>
           <div className="relative lg:col-span-6">
-            <Img id="1701850009190-2859ba2aeea6" w={1400} alt="Murer lægger en ny række sten i mørtel" className="aspect-[4/3] w-full object-cover shadow-[16px_16px_0_0_#a63d24] lg:aspect-[4/5]" />
+            <Img priority id="1701850009190-2859ba2aeea6" w={1400} alt="Murer lægger en ny række sten i mørtel" className="aspect-[4/3] w-full object-cover shadow-[16px_16px_0_0_#a63d24] lg:aspect-[4/5]" />
             <div className="absolute -bottom-6 left-4 bg-[#2a211d] px-5 py-4 text-white sm:left-[-1.5rem]">
               <p className="font-display text-3xl font-extrabold leading-none">2.400+</p>
               <p className="mt-1 text-xs text-white/65">opgaver i Østjylland</p>
@@ -416,9 +416,7 @@ export function MurerSite() {
         <div className="mx-auto max-w-6xl px-5">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Det siger kunderne</h2>
-            <p className="flex items-center gap-2 text-[#2a211d]/65">
-              <span className="font-display text-3xl font-extrabold text-[#2a211d]">4,9</span> <Stars className="text-[#c9861a]" /> 173 anmeldelser på Google
-            </p>
+            <SampleReviewsNote className="max-w-sm text-[#2a211d]/60" />
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {REVIEWS.map((r) => (

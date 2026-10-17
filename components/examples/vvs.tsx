@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, Stars } from "./shared";
+import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, SampleReviewsNote, Stars } from "./shared";
 
 const PHONE = "12 34 56 78";
 const TEL = "tel:+4512345678";
@@ -97,7 +97,7 @@ export function VvsSite() {
       className="min-h-dvh overflow-x-clip bg-[#f2f4f6] font-sans text-[#0e1e33]"
       style={{ "--ex-ink": "#0e1e33", "--ex-paper": "#ffffff", "--ex-accent": "#ff5a1f", "--ex-on-accent": "#ffffff" } as React.CSSProperties}
     >
-      <DemoNote className="bg-[#0a1626] text-white/55" />
+      <DemoNote className="bg-[#0a1626] text-white/80" />
 
       {/* Emergency bar */}
       <a href={TEL} className="flex items-center justify-center gap-3 bg-[#ff5a1f] px-4 py-2.5 text-sm font-semibold text-white">
@@ -132,11 +132,11 @@ export function VvsSite() {
 
       {/* Hero */}
       <section id="top" className="relative overflow-hidden bg-[#0e1e33] text-white">
-        <Img id="1749532125405-70950966b0e5" w={2000} alt="VVS'er reparerer rør på et badeværelse" className="absolute inset-0 size-full object-cover opacity-45" />
+        <Img priority id="1749532125405-70950966b0e5" w={2000} alt="VVS'er reparerer rør på et badeværelse" className="absolute inset-0 size-full object-cover opacity-45" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0e1e33] via-[#0e1e33]/85 to-[#0e1e33]/20" />
         <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-16 sm:pb-28 sm:pt-24">
           <motion.p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-medium backdrop-blur">
-            <Stars className="text-[#ffb35c]" /> 4,9 af 5 · 418 anmeldelser
+            Aut. VVS-installatør · Herlev siden 2009
           </motion.p>
           <motion.h1
             className="mt-6 max-w-3xl font-display text-6xl font-bold uppercase leading-[0.9] tracking-tight sm:text-8xl"
@@ -302,9 +302,7 @@ export function VvsSite() {
         <div className="mx-auto max-w-6xl px-5">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="font-display text-5xl font-bold uppercase tracking-tight sm:text-6xl">Det siger kunderne</h2>
-            <p className="flex items-center gap-2 text-[#0e1e33]/65">
-              <span className="font-display text-3xl font-bold text-[#0e1e33]">4,9</span> <Stars className="text-[#e8952c]" /> 418 anmeldelser på Google
-            </p>
+            <SampleReviewsNote className="max-w-sm text-[#0e1e33]/60" />
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {REVIEWS.slice(0, 3).map((r) => (
@@ -327,9 +325,10 @@ export function VvsSite() {
             <AreaCheck areas={AREAS} base="Herlev" />
           </div>
           <div className="mt-10 flex items-center gap-4 rounded-md bg-white p-5">
-            <Img id="1621905252507-b35492cc74b4" w={200} alt="Mester Jonas Holm" className="size-16 rounded-full object-cover" />
+            <Img id="1621905252507-b35492cc74b4" w={200} alt="Pladsholderfoto af en VVS'er" className="size-16 rounded-full object-cover" />
             <div>
               <p className="font-semibold">Jonas Holm, VVS-mester</p>
+              <p className="text-xs text-[#0e1e33]/50">Pladsholderfoto. Her kommer mesterens eget portræt.</p>
               <p className="text-sm text-[#0e1e33]/60">“Jeg ringer selv tilbage på alle forespørgsler.”</p>
             </div>
           </div>

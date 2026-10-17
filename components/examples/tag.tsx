@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BeforeAfter, DemoNote, Icon, Img, Stars, photo } from "./shared";
+import { BeforeAfter, DemoNote, Icon, Img, SampleReviewsNote, Stars, photo } from "./shared";
 
 const PHONE = "45 67 89 01";
 const TEL = "tel:+4545678901";
@@ -55,7 +55,7 @@ const FACTS = [
   ["20 år", "garanti på tæthed"],
   ["450+", "tage lagt siden 2009"],
   ["10 mio.", "kr. i forsikring"],
-  ["4,9", "på Anmeld en håndværker"],
+  ["2 uger", "ventetid lige nu"],
 ];
 
 const TASKS = ["Nyt tag", "Tagrenovering", "Tagpap", "Sedumtag", "Isolering", "Tømrerarbejde", "Murerarbejde", "Badeværelse", "Andet"];
@@ -90,6 +90,7 @@ function QuoteForm() {
           </span>
           <p className="mt-5 font-display text-2xl font-semibold">Tak, {sent}!</p>
           <p className={`mx-auto mt-2 max-w-xs text-sm ${MUTED}`}>Vi har modtaget din besked og ringer dig op inden for 24 timer.</p>
+          <p className={`mx-auto mt-2 max-w-xs text-xs ${MUTED}`}>Dette er et eksempel, så der er ikke sendt noget.</p>
           <button type="button" onClick={() => setSent(null)} className={`mt-6 text-sm underline underline-offset-4 ${MUTED}`}>
             Send en ny besked
           </button>
@@ -135,7 +136,7 @@ export function TagSite() {
 
   return (
     <div className={`min-h-dvh overflow-x-clip bg-[#f7f5f0] font-sans ${INK}`}>
-      <DemoNote className="bg-[#1d211f] text-white/60" />
+      <DemoNote className="bg-[#1d211f] text-white/80" />
 
       <header className={`sticky top-0 z-40 border-b ${LINE} bg-[#f7f5f0]`} onMouseLeave={() => setMenu(null)}>
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:gap-4 sm:px-5">
@@ -211,9 +212,6 @@ export function TagSite() {
           <div className="mt-8 max-w-lg">
             <Instalment />
           </div>
-          <p className={`mt-6 flex items-center gap-2 text-sm ${MUTED}`}>
-            <Stars className="text-[#c9a227]" /> 4,9 ud af 5 på Anmeld en håndværker · 24 anmeldelser
-          </p>
         </div>
         <QuoteForm />
       </section>
@@ -308,9 +306,7 @@ export function TagSite() {
       <section className="mx-auto max-w-6xl px-5 py-20 sm:py-24">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">Det siger kunderne</h2>
-          <p className={`flex items-center gap-2 text-sm ${MUTED}`}>
-            <Stars className="text-[#c9a227]" /> 4,9 ud af 5 · 24 anmeldelser
-          </p>
+          <SampleReviewsNote className={`max-w-sm ${MUTED}`} />
         </div>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {REVIEWS.map((rv) => (

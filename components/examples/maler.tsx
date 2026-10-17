@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import heroPhoto from "@/public/examples/maler-hero.jpg";
-import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, Stars } from "./shared";
+import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, SampleReviewsNote, Stars } from "./shared";
 
 const PHONE = "34 56 78 90";
 const TEL = "tel:+4534567890";
@@ -81,7 +81,7 @@ export function MalerSite() {
       className="min-h-dvh overflow-x-clip bg-[#f7f4ef] font-sans text-[#1d1b19]"
       style={{ "--ex-ink": "#1d1b19", "--ex-paper": "#fffdf9", "--ex-accent": "#2f5d50", "--ex-on-accent": "#fffdf9" } as React.CSSProperties}
     >
-      <DemoNote className="bg-[#1d1b19] text-[#f7f4ef]/55" />
+      <DemoNote className="bg-[#1d1b19] text-[#f7f4ef]/80" />
 
       <header className="sticky top-0 z-40 bg-[#f7f4ef]/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
@@ -114,14 +114,14 @@ export function MalerSite() {
       <section id="top" className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-20 pt-8 sm:pt-14 lg:grid-cols-12">
         <div className="lg:col-span-6">
           <motion.p className="inline-flex items-center gap-2 rounded-full bg-[#2f5d50]/10 px-4 py-1.5 text-xs font-semibold text-[#2f5d50]">
-            <Stars /> 4,9 · Malerfirma i Odense
+            Malermester i Odense siden 1998
           </motion.p>
           <motion.h1
             className="mt-6 font-display text-6xl font-bold leading-[0.95] tracking-tight sm:text-7xl"
           >
             Skarpe kanter.
             <br />
-            <span className="text-[#c96f4a]">Ingen stænk.</span>
+            Ingen stænk.
           </motion.h1>
           <motion.p className="mt-6 max-w-md text-lg leading-relaxed text-[#1d1b19]/65">
             Vi afdækker, spartler, maler og rydder op. Du kommer hjem til et færdigt rum, og prisen står i tilbuddet.
@@ -329,9 +329,7 @@ export function MalerSite() {
       <section className="mx-auto max-w-6xl px-5 py-20 sm:py-28">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 className="font-display text-5xl font-bold tracking-tight">Glade kunder</h2>
-          <p className="flex items-center gap-2 text-sm text-[#1d1b19]/60">
-            <Stars className="text-[#c96f4a]" /> 4,9 af 5 på Google · 156 anmeldelser
-          </p>
+          <SampleReviewsNote className="max-w-sm text-[#1d1b19]/60" />
         </div>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {REVIEWS.map((r, i) => (

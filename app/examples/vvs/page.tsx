@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Barlow_Condensed } from "next/font/google";
+import { Big_Shoulders } from "next/font/google";
 import { VvsSite } from "@/components/examples/vvs";
 
-const display = Barlow_Condensed({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-example-display" });
+const display = Big_Shoulders({ subsets: ["latin"], weight: ["600", "700", "800"], adjustFontFallback: false, variable: "--font-example-display" });
 
 export const metadata: Metadata = {
   title: { absolute: "Holm VVS – VVS'er i Herlev med døgnvagt (eksempel)" },
