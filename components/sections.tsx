@@ -119,7 +119,7 @@ export function ExamplesByIndustry() {
 }
 
 /** Each example's own main colour, used for the strip under its browser window. */
-const ACCENT: Record<Example["slug"], string> = { vvs: "#ff5a1f", tomrer: "#a2582a", maler: "#2f5d50", tag: "#1d211f", el: "#ffd000", murer: "#a63d24" };
+const ACCENT: Record<Example["slug"], string> = { vvs: "#ff5a1f", tomrer: "#2e4a3b", maler: "#2f5d50", tag: "#1d211f", el: "#ffd000", murer: "#a63d24" };
 
 /**
  * One example at a time: the live site in a browser window with its text beside it. Trade tabs and

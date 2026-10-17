@@ -1,430 +1,447 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { AreaCheck, BeforeAfter, DemoNote, Icon, Img, QuoteWizard, SampleReviewsNote, Stars } from "./shared";
+import { DemoNote, Img, SampleReviewsNote, Stars } from "./shared";
+
+/*
+ * Egholm Tømrer & Snedker, built as a job log: paper, ink and one forest green, a plain grotesk and
+ * a mono for places, dates and sizes. No cards, no shadows, no motion. What makes it feel real is
+ * the facts: who comes out, what a site visit costs, what was built where and how long it took.
+ */
 
 const PHONE = "23 45 67 89";
 const TEL = "tel:+4523456789";
+const ADDRESS = "Håndværkervej 8, 4000 Roskilde";
 
-const SERVICES = [
+const mono = "font-(family-name:--font-egholm-mono)";
+
+type Kind = "Tag" | "Tilbygning" | "Terrasse" | "Indretning";
+
+const JOBS: { kind: Kind; photo: string | null; alt: string; place: string; when: string; size: string; title: string; text: string }[] = [
   {
-    name: "Tag og kviste",
-    id: "1690719095815-549c60090c9f",
-    text: "Nyt tag, efterisolering eller en kvist, der giver lys og plads på første sal. Vi står for stillads, nedrivning og bortskaffelse.",
-    points: ["Tegltag, eternit og tagpap", "Kviste og ovenlysvinduer", "Efterisolering efter BR18"],
-    time: "2–4 uger",
+    kind: "Tilbygning",
+    photo: "1587582423116-ec07293f0395",
+    alt: "Tømrer på toppen af et nyt vægskelet til en tilbygning",
+    place: "Svogerslev",
+    when: "august 2026",
+    size: "32 m² · 7 uger",
+    title: "Tilbygning med nyt soveværelse",
+    text: "Vægge og spær rejst på ni dage. Familien boede hjemme hele vejen, så vi lukkede huset af hver aften.",
   },
   {
-    name: "Tilbygning",
-    id: "1676802037786-3697d60497ae",
-    text: "Mere plads uden at flytte. Vi hjælper med tegninger og byggetilladelse og bygger hele vejen fra sokkel til lister.",
-    points: ["Tegninger og byggetilladelse", "Træskelet og facade", "Fast kontaktperson hele vejen"],
-    time: "6–12 uger",
+    kind: "Tag",
+    photo: "1676802037786-3697d60497ae",
+    alt: "Nye tagspær rejst på et hus mod blå himmel",
+    place: "Viby Sj.",
+    when: "oktober 2025",
+    size: "160 m² · 3 uger",
+    title: "Nyt tag på parcelhus fra 1968",
+    text: "De gamle spær var rådne i den ene side. Vi skiftede dem, efterisolerede og lagde nyt tegltag.",
   },
   {
-    name: "Terrasser",
-    id: "1780220176917-750c21d4ff87",
-    text: "Terrasse i hårdttræ, lærk eller komposit, bygget så den holder i mange år. Gerne med trappe, bænke og lys.",
-    points: ["Hårdttræ, lærk og komposit", "Skjulte skruer", "Trapper, bænke og hegn"],
-    time: "1–2 uger",
+    kind: "Terrasse",
+    photo: "1624409990662-03f19cc0e0cc",
+    alt: "Færdig terrasse med lyskæde, grill og loungesofa",
+    place: "Trekroner",
+    when: "juni 2025",
+    size: "38 m² · 6 arbejdsdage",
+    title: "Hævet terrasse med rækværk",
+    text: "Bygget hen over en skrånende græsplæne. Stolperne til lyskæden var kundens idé, og den var god.",
   },
   {
-    name: "Køkken og indretning",
-    id: "1628797285815-453c1d0d21e3",
-    text: "Vi monterer køkkener fra alle leverandører og bygger skabe, reoler og trapper, der passer præcist til dit hus.",
-    points: ["Køkkenmontage", "Skabe og reoler på mål", "Trapper og gelændere"],
-    time: "1–3 uger",
+    kind: "Indretning",
+    photo: null,
+    alt: "",
+    place: "Roskilde C",
+    when: "marts 2025",
+    size: "9 dage",
+    title: "Køkken i massiv eg",
+    text: "Snedkerlavet på værkstedet og monteret på to dage. Bordpladen er olieret og skal efterbehandles en gang om året. Kunden ville ikke have sit køkken på nettet, så her er intet foto.",
   },
   {
-    name: "Vinduer og døre",
-    id: "1780592018279-279aa3e91f8f",
-    text: "Nye vinduer og døre, der lukker tæt og sparer på varmen. Vi river ned, monterer, fuger og pudser af.",
-    points: ["Træ og træ/alu", "Indfatninger og fuger", "Hjælp til energitilskud"],
-    time: "2–5 dage",
+    kind: "Tag",
+    photo: "1673978482989-5eb3b350be2d",
+    alt: "Tag under udskiftning med stillads rundt om huset",
+    place: "Jyllinge",
+    when: "januar 2025",
+    size: "2 dage",
+    title: "Stormskade efter januarstormen",
+    text: "Presenning på samme aften og nye lægter og tagsten ugen efter. Vi tog billeder til forsikringen undervejs.",
+  },
+  {
+    kind: "Indretning",
+    photo: "1728025801541-20b44f6ed5f3",
+    alt: "Stue med synlige loftsbjælker i træ",
+    place: "Gadstrup",
+    when: "november 2024",
+    size: "48 m² · 2 uger",
+    title: "Bjælkeloft frilagt i gammelt stuehus",
+    text: "Vi tog det nedhængte loft ned og fandt bjælker fra 1890'erne. To af dem var knækket og blev skiftet med genbrugstræ.",
   },
 ];
 
-type Cat = "Tag" | "Tilbygning" | "Terrasse" | "Indretning";
+const KINDS = ["Alle", "Tag", "Tilbygning", "Terrasse", "Indretning"] as const;
 
-const GALLERY: { id: string; title: string; place: string; cat: Cat }[] = [
-  { id: "1690719095815-549c60090c9f", title: "Nyt tag på villa", place: "Roskilde", cat: "Tag" },
-  { id: "1676802011549-c3a3f5adf7a1", title: "Tilbygning på 32 m²", place: "Himmelev", cat: "Tilbygning" },
-  { id: "1785431749019-56a5b536d325", title: "Terrasse i hårdttræ", place: "Viby Sj.", cat: "Terrasse" },
-  { id: "1628797285815-453c1d0d21e3", title: "Køkken med ø i eg", place: "Svogerslev", cat: "Indretning" },
-  { id: "1673978482989-5eb3b350be2d", title: "Tagudskiftning med stillads", place: "Jyllinge", cat: "Tag" },
-  { id: "1728025801541-20b44f6ed5f3", title: "Synligt bjælkeloft", place: "Gadstrup", cat: "Indretning" },
-  { id: "1780220176917-750c21d4ff87", title: "Terrasse med trappe", place: "Roskilde", cat: "Terrasse" },
-  { id: "1676803210608-39cdef6a505c", title: "Anneks i træ", place: "Lejre", cat: "Tilbygning" },
-  { id: "1601760561441-16420502c7e0", title: "Hvidt køkken monteret", place: "Trekroner", cat: "Indretning" },
+const PRICES: { what: string; note?: string; price: string }[] = [
+  { what: "Besigtigelse", note: "trækkes fra, hvis du siger ja", price: "750 kr." },
+  { what: "Timepris, svend", price: "625 kr." },
+  { what: "Terrasse, trykimprægneret", note: "inkl. materialer", price: "1.900–2.400 kr./m²" },
+  { what: "Nyt tag på et parcelhus", note: "ca. 150 m², med stillads", price: "260.000–380.000 kr." },
+  { what: "Nye vinduer og døre", note: "kan give håndværkerfradrag", price: "Efter besigtigelse" },
 ];
 
-const STEPS = [
-  { title: "Gratis besigtigelse", text: "Vi kommer ud, kigger på opgaven og lytter til, hvad du drømmer om." },
-  { title: "Fast tilbud", text: "Du får et skriftligt tilbud med fast pris og tidsplan inden for en uge." },
-  { title: "Vi bygger", text: "Samme folk hver dag, ryddet op hver aften, og du får besked, hvis noget ændrer sig." },
-  { title: "Aflevering", text: "Vi gennemgår arbejdet sammen med dig. Der er 5 års garanti på alt, vi laver." },
+const REVIEWS: { stars: number; date: string; text: string; name: string; reply?: string }[] = [
+  { stars: 5, date: "14. sep. 2026", text: "Tilbygningen blev færdig en uge før aftalt. Mads ryddede op hver dag, også selvom vi sagde, at det var fint.", name: "Louise, Svogerslev" },
+  {
+    stars: 4,
+    date: "2. jul. 2026",
+    text: "Flot terrasse og fair pris. Træk en stjerne, fordi de startede fire dage senere end lovet, og vi selv måtte ringe for at høre hvorfor.",
+    name: "Morten, Trekroner",
+    reply: "Det har du ret i, Morten. Vi skulle have ringet, da det forrige job trak ud. Det gør vi nu.",
+  },
+  { stars: 5, date: "20. maj 2026", text: "Jens kom ud dagen efter stormen og fik lagt presenning på, inden det begyndte at regne igen.", name: "Hanne, Jyllinge" },
+  { stars: 5, date: "3. apr. 2026", text: "Nyt køkken i eg. Det var dyrere end et fra byggemarkedet, men det kan man også se.", name: "Torben, Roskilde" },
 ];
 
-const REVIEWS = [
-  { text: "Vores tilbygning blev færdig til tiden og til prisen. Mads og drengene var søde ved børnene og ryddede op hver dag.", name: "Line og Kasper", place: "Himmelev" },
-  { text: "Flot terrasse og en fornuftig snak om materialer. Han frarådede den dyreste løsning, og det havde han ret i.", name: "Henrik", place: "Viby Sj." },
-  { text: "Nyt tag på et hus fra 1932. Fagligt dygtige, og de fandt råd i en spær, som de løste uden at tage en formue.", name: "Birgitte", place: "Roskilde" },
-];
+const NAV = [
+  ["#opgaver", "Opgaver"],
+  ["#priser", "Priser"],
+  ["#om", "Om os"],
+  ["#kontakt", "Kontakt"],
+] as const;
 
-const AREAS: Record<string, string> = {
-  "4000": "Roskilde",
-  "4040": "Jyllinge",
-  "4320": "Lejre",
-  "4330": "Hvalsø",
-  "4621": "Gadstrup",
-  "4130": "Viby Sj.",
-  "4600": "Køge",
-  "2640": "Hedehusene",
-  "4050": "Skibby",
-};
+const wrap = "mx-auto max-w-[1200px] px-4 sm:px-8";
+const h2 = "text-[30px] font-semibold leading-[1.1] tracking-[-0.02em] sm:text-[40px]";
+const btn = "items-center justify-center whitespace-nowrap rounded-[3px] bg-[#2E4A3B] font-semibold text-white transition-colors hover:bg-[#1F3A2C]";
+const field = "rounded-[3px] border border-[#A39B8A] bg-white px-3.5 py-3 text-base font-normal text-[#1E1C18] placeholder:text-[#8A8273]";
 
 export function TomrerSite() {
-  const [service, setService] = useState(0);
-  const [cat, setCat] = useState<Cat | "Alle">("Alle");
-  const [open, setOpen] = useState<number | null>(null);
-  const [preset, setPreset] = useState<{ service?: string }>({});
-  const [presetKey, setPresetKey] = useState(0);
-
-  const shown = GALLERY.map((g, i) => ({ ...g, i })).filter((g) => cat === "Alle" || g.cat === cat);
-  const s = SERVICES[service];
+  const [kind, setKind] = useState<(typeof KINDS)[number]>("Alle");
+  const [menu, setMenu] = useState(false);
+  const [sent, setSent] = useState(false);
 
   useEffect(() => {
-    if (open === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(null);
-      if (e.key === "ArrowRight") setOpen((o) => (o === null ? o : (o + 1) % GALLERY.length));
-      if (e.key === "ArrowLeft") setOpen((o) => (o === null ? o : (o - 1 + GALLERY.length) % GALLERY.length));
-    };
+    if (!menu) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenu(false);
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [menu]);
 
-  const order = (name: string) => {
-    setPreset({ service: name });
-    setPresetKey((k) => k + 1);
-    document.getElementById("besigtigelse")?.scrollIntoView({ behavior: "smooth" });
-  };
+  const jobs = JOBS.filter((j) => kind === "Alle" || j.kind === kind);
 
   return (
-    <div
-      className="min-h-dvh overflow-x-clip bg-[#f4efe6] font-sans text-[#221c15]"
-      style={{ "--ex-ink": "#221c15", "--ex-paper": "#fbf8f2", "--ex-accent": "#a2582a", "--ex-on-accent": "#fbf8f2" } as React.CSSProperties}
-    >
-      <DemoNote className="bg-[#221c15] text-[#f4efe6]/80" />
+    <div className="min-h-dvh overflow-x-clip bg-[#F3F0E8] font-(family-name:--font-egholm) text-[#1E1C18] [&_:focus-visible]:outline-[#2E4A3B]">
+      <DemoNote className={`bg-[#1E1C18] text-[#CFC8B8] ${mono}`} />
 
-      <header className="sticky top-0 z-40 bg-[#f4efe6]/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:gap-4 sm:px-5">
-          <a href="#top" className="shrink-0 leading-none">
-            <span className="block font-display text-2xl">Egholm</span>
-            <span className="block whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.3em] text-[#a2582a]">Tømrer &amp; Snedker</span>
+      <header className="relative z-40 border-b border-[#D8D2C4] sm:sticky sm:top-0 bg-[#F3F0E8]">
+        <div className={`${wrap} flex items-center justify-between gap-4 py-3 lg:py-4`}>
+          <a href="#top" className="flex min-w-0 flex-col gap-0.5 leading-tight">
+            <span className="whitespace-nowrap text-lg font-bold tracking-[-0.01em] sm:text-[22px]">
+              Egholm Tømrer<span className="hidden sm:inline"> &amp; Snedker</span>
+            </span>
+            <span className={`whitespace-nowrap text-[11px] text-[#5E5850] sm:text-xs ${mono}`}>Roskilde · siden 2003</span>
           </a>
-          <nav className="hidden items-center gap-8 whitespace-nowrap text-sm lg:flex">
-            <a href="#ydelser" className="hover:text-[#a2582a]">Ydelser</a>
-            <a href="#projekter" className="hover:text-[#a2582a]">Projekter</a>
-            <a href="#saadan" className="hover:text-[#a2582a]">Sådan arbejder vi</a>
+          <nav aria-label="Hovedmenu" className="hidden gap-7 whitespace-nowrap font-medium lg:flex">
+            {NAV.map(([href, label]) => (
+              <a key={href} href={href} className="hover:text-[#2E4A3B]">
+                {label}
+              </a>
+            ))}
           </nav>
-          <div className="flex items-center gap-4">
-            <a href={TEL} className="hidden items-center gap-2 whitespace-nowrap text-sm font-semibold sm:flex">
-              <Icon name="phone" className="size-4 text-[#a2582a]" /> {PHONE}
-            </a>
-            <a href="#besigtigelse" className="whitespace-nowrap rounded-md bg-[#221c15] px-4 py-2.5 text-sm font-semibold text-[#f4efe6] transition hover:bg-[#a2582a] sm:px-5">
-              Book <span className="hidden min-[400px]:inline">besigtigelse</span>
-            </a>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero */}
-      <section id="top" className="px-3 sm:px-5">
-        <div className="relative mx-auto min-h-[78svh] max-w-[90rem] overflow-hidden rounded-[2rem]">
-          <motion.div className="absolute inset-0">
-            <Img priority id="1676802037786-3697d60497ae" w={2200} alt="Hus under opførelse med træskelet" className="size-full object-cover" />
-          </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1a150f]/90 via-[#1a150f]/35 to-[#1a150f]/10" />
-          <div className="relative flex min-h-[78svh] flex-col justify-end p-7 text-[#fbf8f2] sm:p-14">
-            <motion.p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#e9b98f]">
-              Tømrermester i Roskilde siden 2003
-            </motion.p>
-            <motion.h1
-              className="mt-4 max-w-4xl font-display text-6xl leading-[0.95] sm:text-8xl"
-            >
-              Bygget ordentligt. <em className="text-[#e9b98f]">Første gang.</em>
-            </motion.h1>
-            <motion.div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <p className="max-w-md text-lg leading-relaxed text-[#fbf8f2]/80">
-                Tage, tilbygninger, terrasser og køkkener til private i Roskilde og omegn. Fast pris og 5 års garanti.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <a href="#besigtigelse" className="whitespace-nowrap rounded-md bg-[#fbf8f2] px-7 py-4 text-sm font-semibold text-[#221c15] transition hover:bg-[#e9b98f]">
-                  Book gratis besigtigelse
-                </a>
-                <a href="#projekter" className="rounded-md border border-[#fbf8f2]/40 px-7 py-4 text-sm font-semibold backdrop-blur transition hover:bg-[#fbf8f2]/10">
-                  Se projekter
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Numbers */}
-      <section className="mx-auto grid max-w-6xl grid-cols-2 gap-y-8 px-5 py-16 md:grid-cols-4">
-        {[
-          ["22 år", "som tømrermester"],
-          ["5 mand", "de samme svende i over ti år"],
-          ["5 år", "garanti på arbejdet"],
-          ["Ca. 3 uger", "ventetid lige nu"],
-        ].map(([v, l]) => (
-          <div key={l} className="border-l border-[#221c15]/15 pl-5">
-            <p className="font-display text-4xl sm:text-5xl">{v}</p>
-            <p className="mt-1 text-sm text-[#221c15]/60">{l}</p>
-          </div>
-        ))}
-      </section>
-
-      {/* Services in tabs */}
-      <section id="ydelser" className="scroll-mt-24 bg-[#26302a] py-20 text-[#f4efe6] sm:py-28">
-        <div className="mx-auto max-w-6xl px-5">
-          <h2 className="mt-3 font-display text-5xl sm:text-6xl">Hvad skal bygges?</h2>
-          <div className="mt-10 flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none]">
-            {SERVICES.map((sv, i) => (
-              <button
-                key={sv.name}
-                type="button"
-                onClick={() => setService(i)}
-                className={`shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold transition ${service === i ? "bg-[#f4efe6] text-[#221c15]" : "bg-[#f4efe6]/8 hover:bg-[#f4efe6]/15"}`}
-              >
-                {sv.name}
-              </button>
-            ))}
-          </div>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={service}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="mt-8 grid items-center gap-10 lg:grid-cols-2"
-            >
-              <div className="aspect-[4/3] overflow-hidden rounded-lg">
-                <Img id={s.id} w={1100} alt={s.name} className="size-full object-cover" />
-              </div>
-              <div>
-                <h3 className="font-display text-4xl">{s.name}</h3>
-                <p className="mt-4 text-lg leading-relaxed text-[#f4efe6]/75">{s.text}</p>
-                <ul className="mt-6 space-y-3">
-                  {s.points.map((pt) => (
-                    <li key={pt} className="flex items-center gap-3">
-                      <span className="grid size-7 place-items-center rounded-full bg-[#e9b98f] text-[#221c15]">
-                        <Icon name="check" className="size-4" />
-                      </span>
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-6 flex items-center gap-2 text-sm text-[#f4efe6]/60">
-                  <Icon name="clock" className="size-4" /> Typisk tidsramme: {s.time}
-                </p>
-                <button type="button" onClick={() => order(s.name)} className="mt-8 rounded-md bg-[#e9b98f] px-7 py-3.5 text-sm font-semibold text-[#221c15] transition hover:bg-[#f4efe6]">
-                  Få et tilbud på {s.name.toLowerCase()}
-                </button>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </section>
-
-      {/* Before / after */}
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:py-28">
-        <div className="grid items-end gap-6 lg:grid-cols-3">
-          <div>
-            <h2 className="mt-3 font-display text-5xl">Tilbygning i Himmelev</h2>
-            <p className="mt-4 leading-relaxed text-[#221c15]/65">
-              Familien manglede plads til et køkken-alrum. Vi byggede 32 m² på bagsiden af huset, med højt til loftet og store vinduer mod haven.
-            </p>
-            <p className="mt-4 text-sm text-[#221c15]/50">Træk i billedet →</p>
-          </div>
-          <BeforeAfter before="1768321917661-d4f1a89d2185" after="1648475236583-2e25a6cbf3bd" alt="Tilbygning i Himmelev" className="aspect-[4/3] rounded-lg lg:col-span-2" />
-        </div>
-      </section>
-
-      {/* Gallery */}
-      <section id="projekter" className="scroll-mt-24 border-t border-[#221c15]/10 py-20 sm:py-28">
-        <div className="mx-auto max-w-6xl px-5">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <h2 className="font-display text-5xl sm:text-6xl">Udvalgte projekter</h2>
-            <div className="flex flex-wrap gap-2">
-              {(["Alle", "Tag", "Tilbygning", "Terrasse", "Indretning"] as const).map((c) => (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => setCat(c)}
-                  className={`rounded-full px-4 py-2 text-sm transition ${cat === c ? "bg-[#221c15] text-[#f4efe6]" : "border border-[#221c15]/15 hover:border-[#221c15]/40"}`}
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
-          </div>
-          <motion.div layout className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
-            <AnimatePresence>
-              {shown.map((g) => (
-                <motion.button
-                  layout
-                  key={g.id}
-                  type="button"
-                  onClick={() => setOpen(g.i)}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
-                  className="group relative aspect-square overflow-hidden rounded-md text-left"
-                >
-                  <Img id={g.id} w={700} alt={g.title} className="size-full object-cover transition duration-700 group-hover:scale-105" />
-                  <span className="absolute inset-0 bg-gradient-to-t from-[#1a150f]/80 to-transparent to-50% opacity-90" />
-                  <span className="absolute inset-x-0 bottom-0 p-4 text-[#fbf8f2]">
-                    <span className="block text-[10px] uppercase tracking-[0.25em] text-[#e9b98f]">{g.cat}</span>
-                    <span className="block font-display text-lg leading-tight sm:text-xl">{g.title}</span>
-                  </span>
-                </motion.button>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* How we work */}
-      <section id="saadan" className="scroll-mt-24 bg-[#ebe3d6] py-20 sm:py-28">
-        <div className="mx-auto max-w-6xl px-5">
-          <h2 className="font-display text-5xl sm:text-6xl">Sådan arbejder vi</h2>
-          <ol className="mt-12 grid gap-8 md:grid-cols-4">
-            {STEPS.map((st, i) => (
-              <li key={st.title}>
-                <p className="font-display text-6xl text-[#a2582a]/60">{i + 1}</p>
-                <h3 className="mt-3 text-lg font-semibold">{st.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#221c15]/65">{st.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* Master + reviews */}
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 sm:py-28 lg:grid-cols-2">
-        <div className="relative">
-          <Img id="1595844730298-b960ff98fee0" w={1000} alt="Pladsholderfoto af en tømrer med værktøjsbælte" className="aspect-[4/5] w-full rounded-lg object-cover" />
-          <div className="absolute -bottom-6 left-6 right-6 rounded-md bg-[#fbf8f2] p-5 shadow-xl sm:left-auto sm:w-72">
-            <p className="font-display text-xl">Mads Egholm</p>
-            <p className="text-sm text-[#221c15]/60">Tømrermester. Det er mig, der kommer ud og ser på opgaven.</p>
-            <p className="mt-2 text-xs text-[#221c15]/50">Pladsholderfoto. Her kommer mesterens eget portræt.</p>
-          </div>
-        </div>
-        <div className="space-y-6 pt-8 lg:pt-0">
-          <div>
-            <h2 className="font-display text-5xl">Det siger kunderne</h2>
-            <SampleReviewsNote className="mt-2 text-[#221c15]/55" />
-          </div>
-          {REVIEWS.map((r) => (
-            <figure key={r.name} className="rounded-md border border-[#221c15]/10 bg-[#fbf8f2] p-6">
-              <Stars className="text-sm text-[#a2582a]" />
-              <blockquote className="mt-3 leading-relaxed">“{r.text}”</blockquote>
-              <figcaption className="mt-3 text-sm text-[#221c15]/55">
-                {r.name}, {r.place}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-
-      {/* Area + quote */}
-      <section id="besigtigelse" className="scroll-mt-24 bg-[#26302a] py-20 text-[#f4efe6] sm:py-28">
-        <div className="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-2">
-          <div>
-            <h2 className="font-display text-5xl sm:text-6xl">Book en gratis besigtigelse</h2>
-            <p className="mt-4 max-w-md text-lg text-[#f4efe6]/70">Vi kommer ud og ser på opgaven, uden at det koster noget. Du får et fast tilbud inden for en uge.</p>
-            <a href={TEL} className="mt-8 inline-flex items-center gap-3 text-2xl font-display">
-              <span className="grid size-12 place-items-center rounded-full bg-[#e9b98f] text-[#221c15]">
-                <Icon name="phone" />
-              </span>
+          <div className="flex shrink-0 items-center gap-4 lg:gap-5">
+            <a href={TEL} className="hidden whitespace-nowrap font-semibold hover:text-[#2E4A3B] sm:inline">
               {PHONE}
             </a>
-            <div className="mt-10 max-w-md rounded-md bg-[#f4efe6] p-6 text-[#221c15]">
-              <AreaCheck areas={AREAS} base="Roskilde" />
-            </div>
-          </div>
-          <div className="text-[#221c15]">
-            <QuoteWizard
-              key={presetKey}
-              preset={preset}
-              services={["Tag og kviste", "Tilbygning", "Terrasser", "Køkken og indretning", "Vinduer og døre", "Andet"]}
-              reply="Mads ringer dig op inden for to hverdage og aftaler en tid til besigtigelse."
-              submitLabel="Book besigtigelse"
-            />
+            <a href="#kontakt" className={`${btn} hidden px-5 py-3 md:inline-flex`}>
+              Book besigtigelse
+            </a>
+            <button
+              type="button"
+              aria-label={menu ? "Luk menu" : "Åbn menu"}
+              aria-expanded={menu}
+              aria-controls="egholm-menu"
+              onClick={() => setMenu((m) => !m)}
+              className="grid size-11 place-items-center rounded-[3px] border border-[#BDB5A4] lg:hidden"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+                {menu ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+              </svg>
+            </button>
           </div>
         </div>
-      </section>
+        {menu && (
+          <nav id="egholm-menu" aria-label="Menu" className="border-t border-[#D8D2C4] lg:hidden">
+            <ul className={`${wrap} py-2`}>
+              {NAV.map(([href, label]) => (
+                <li key={href}>
+                  <a href={href} onClick={() => setMenu(false)} className="block border-b border-[#D8D2C4] py-3.5 text-lg font-medium">
+                    {label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href={TEL} className="block py-3.5 text-lg font-semibold">
+                  Ring {PHONE}
+                </a>
+              </li>
+            </ul>
+          </nav>
+        )}
+      </header>
 
-      <footer className="px-5 pb-28 pt-12 text-sm text-[#221c15]/55 sm:pb-12">
-        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-4 sm:flex-row">
-          <p className="font-display text-xl text-[#221c15]">Egholm Tømrer &amp; Snedker</p>
-          <p>Håndværkervej 8, 4000 Roskilde · Tlf. {PHONE}</p>
+      <main>
+        {/* Hero: the photo of a real-looking job comes first on the phone, beside the text on a computer */}
+        <section id="top" className={`${wrap} grid items-end gap-6 pb-10 sm:gap-10 sm:pt-10 lg:grid-cols-2 lg:gap-14 lg:pb-[88px] lg:pt-[72px]`}>
+          <div className="flex flex-col gap-5 sm:gap-7">
+            <h1 className="text-[40px] font-semibold leading-[1.04] tracking-[-0.025em] sm:text-[56px] lg:text-[clamp(52px,5.4vw,68px)] lg:leading-[1.02]">
+              Tømrer i Roskilde siden 2003.
+            </h1>
+            <p className="max-w-[34ch] text-[17px] leading-[1.55] sm:text-xl">
+              Tag, tilbygninger, terrasser og køkkener. Det er Jens og de fire svende, der kommer ud og kigger på opgaven, og det er også dem, der laver den.
+            </p>
+            <div className="hidden flex-wrap items-center gap-x-5 gap-y-3 sm:flex">
+              <a href="#kontakt" className={`${btn} inline-flex px-[26px] py-4 text-lg`}>
+                Book en besigtigelse
+              </a>
+              <p className="text-[#5E5850]">
+                eller ring på{" "}
+                <a href={TEL} className="whitespace-nowrap font-semibold text-[#1E1C18] underline underline-offset-2">
+                  {PHONE}
+                </a>
+                .<br />
+                Jens tager telefonen kl. 7–16.
+              </p>
+            </div>
+            <p className="max-w-[46ch] border-t border-[#D8D2C4] pt-4 text-sm leading-normal text-[#5E5850] sm:pt-5 sm:text-[15px]">
+              Besigtigelse koster 750 kr. inkl. moms i Roskilde Kommune. Siger du ja til tilbuddet, trækker vi beløbet fra.
+            </p>
+          </div>
+          <figure className="-mx-4 flex flex-col gap-2 max-sm:order-first sm:mx-0 sm:gap-2.5">
+            <Img
+              priority
+              id="1773430272653-375174373c4f"
+              w={1400}
+              alt="Tre tømrere lægger strøer til et nyt terrassedæk bag et træhus"
+              className="aspect-[3/2] w-full object-cover sm:rounded-[2px]"
+            />
+            <figcaption className={`flex flex-wrap justify-between gap-x-3 px-4 text-[11px] text-[#5E5850] sm:px-0 sm:text-[13px] ${mono}`}>
+              <span>Terrassedæk, Himmelev</span>
+              <span>Maj 2026 · 42 m² · 6 arbejdsdage</span>
+            </figcaption>
+          </figure>
+        </section>
+
+        {/* The job log */}
+        <section id="opgaver" className="scroll-mt-20 border-y border-[#D8D2C4] bg-[#FBFAF6]">
+          <div className={`${wrap} py-12 sm:py-20`}>
+            <div className="mb-7 flex flex-wrap items-end justify-between gap-6 sm:mb-9">
+              <div className="flex max-w-[560px] flex-col gap-2.5">
+                <h2 className={h2}>Seneste opgaver</h2>
+                <p className="text-base leading-[1.55] text-[#5E5850] sm:text-[17px]">
+                  Sted, måned og størrelse står ved hver opgave. Skriv, hvis du vil se en af dem i virkeligheden. De fleste kunder siger gerne ja.
+                </p>
+              </div>
+              <div role="group" aria-label="Vis opgaver" className="flex flex-wrap gap-2">
+                {KINDS.map((k) => (
+                  <button
+                    key={k}
+                    type="button"
+                    aria-pressed={kind === k}
+                    onClick={() => setKind(k)}
+                    className={`whitespace-nowrap rounded-[3px] border px-4 py-2.5 text-[15px] transition-colors ${
+                      kind === k ? "border-[#1E1C18] bg-[#1E1C18] text-[#F3F0E8]" : "border-[#BDB5A4] hover:border-[#1E1C18]"
+                    }`}
+                  >
+                    {k}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <ol className="border-t border-[#1E1C18]" aria-live="polite">
+              {jobs.map((j) => (
+                <li key={j.title} className="grid grid-cols-[112px_minmax(0,1fr)] gap-x-4 border-b border-[#D8D2C4] py-4 sm:grid-cols-[200px_minmax(0,1fr)] sm:items-center sm:gap-x-6 sm:py-[22px] lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-x-10">
+                  {j.photo ? (
+                    <Img id={j.photo} w={700} alt={j.alt} className="aspect-[4/3] w-full rounded-[2px] object-cover" />
+                  ) : (
+                    <div className={`grid aspect-[4/3] w-full place-items-center rounded-[2px] border border-dashed border-[#BDB5A4] p-2 text-center text-[11px] text-[#5E5850] sm:text-xs ${mono}`}>
+                      Intet foto
+                    </div>
+                  )}
+                  <div className="flex min-w-0 flex-col gap-1 sm:gap-2">
+                    <p className={`text-[11px] text-[#5E5850] sm:text-[13px] ${mono}`}>
+                      {j.place} · {j.when}
+                      <span className="hidden sm:inline"> · {j.size}</span>
+                    </p>
+                    <h3 className="text-[17px] font-semibold leading-tight sm:text-2xl">{j.title}</h3>
+                    <p className="text-sm text-[#3D3832] sm:hidden">{j.size}</p>
+                    <p className="hidden max-w-[52ch] leading-[1.55] text-[#3D3832] sm:block">{j.text}</p>
+                  </div>
+                  <p className="col-span-2 mt-3 text-[15px] leading-[1.55] text-[#3D3832] sm:hidden">{j.text}</p>
+                </li>
+              ))}
+            </ol>
+            <p className={`mt-5 text-xs text-[#5E5850] ${mono}`}>
+              Fotos fra Unsplash som pladsholdere. På din side bruger vi dine egne billeder fra pladsen.
+            </p>
+          </div>
+        </section>
+
+        {/* The master */}
+        <section id="om" className={`${wrap} grid scroll-mt-20 items-start gap-6 py-12 sm:gap-10 sm:py-[88px] lg:grid-cols-[minmax(0,460px)_minmax(0,1fr)] lg:gap-14`}>
+          <figure className="flex items-end gap-3 sm:max-w-[460px] sm:flex-col sm:items-stretch sm:gap-2.5">
+            <Img
+              id="1661447133325-a4a73386b9e4"
+              w={900}
+              alt="Pladsholderfoto af en ældre håndværker i et værksted"
+              className="aspect-square w-[140px] shrink-0 rounded-[2px] object-cover object-top sm:w-full"
+            />
+            <figcaption className={`text-[11px] leading-snug text-[#5E5850] sm:text-[13px] ${mono}`}>
+              Pladsholderfoto · her kommer mesterens eget portræt fra værkstedet
+            </figcaption>
+          </figure>
+          <div className="flex max-w-[560px] flex-col gap-4 sm:gap-[22px]">
+            <h2 className={h2}>Jens Egholm, tømrermester</h2>
+            <p className="text-base leading-[1.6] sm:text-lg">
+              Jeg startede firmaet i 2003 med en varebil og en rundsav. I dag er vi fem, og Kasper og Mads har været med i over ti år. Vi tager ikke flere opgaver, end vi selv kan nå. Derfor kan der være et par ugers ventetid om sommeren.
+            </p>
+            <p className="text-base leading-[1.6] sm:text-lg">
+              Murer, elektriker og VVS&apos;er er de samme, vi har brugt i mange år. Du har én at ringe til hele vejen, og det er mig.
+            </p>
+            <dl className="mt-2 grid grid-cols-[max-content_minmax(0,1fr)] gap-x-6 gap-y-2.5 border-t border-[#D8D2C4] pt-5 text-[15px]">
+              <dt className="text-[#5E5850]">Adresse</dt>
+              <dd>{ADDRESS}</dd>
+              <dt className="text-[#5E5850]">Telefon</dt>
+              <dd>Man–fre kl. 7–16</dd>
+              <dt className="text-[#5E5850]">CVR</dt>
+              <dd className={mono}>00 00 00 00 (eksempel)</dd>
+              <dt className="text-[#5E5850]">Garanti</dt>
+              <dd>
+                Byg Garanti <span className={`text-[13px] text-[#5E5850] ${mono}`}>(eksempel)</span>
+              </dd>
+              <dt className="text-[#5E5850]">Ventetid nu</dt>
+              <dd>Ca. 3 uger til opstart</dd>
+            </dl>
+          </div>
+        </section>
+
+        {/* Prices */}
+        <section id="priser" className="scroll-mt-20 bg-[#1E1C18] text-[#F3F0E8] [&_:focus-visible]:outline-[#F3F0E8]">
+          <div className={`${wrap} grid gap-8 py-12 sm:gap-14 sm:py-[88px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]`}>
+            <div className="flex max-w-[460px] flex-col gap-4">
+              <h2 className={h2}>Hvad koster det?</h2>
+              <p className="leading-[1.6] text-[#CFC8B8] sm:text-[17px]">
+                Hver opgave får en fast pris efter besigtigelsen. Tallene her er, hvad vi typisk ender på, så du har en idé om niveauet, før du ringer.
+              </p>
+            </div>
+            <table className="w-full border-collapse sm:text-base">
+              <caption className={`pb-3 text-left text-xs text-[#A39B8A] ${mono}`}>Vejledende priser inkl. moms, oktober 2026</caption>
+              <tbody>
+                {PRICES.map((p) => (
+                  <tr key={p.what} className="border-y border-[#4A443B]">
+                    <th scope="row" className="py-3.5 pr-4 text-left align-top font-medium">
+                      {p.what}
+                      {p.note && <span className="block text-sm font-normal text-[#A39B8A]">{p.note}</span>}
+                    </th>
+                    <td className={`whitespace-nowrap py-3.5 text-right align-top text-sm sm:text-base ${p.price.includes("kr") ? mono : "text-[#CFC8B8]"}`}>{p.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Reviews */}
+        <section className={`${wrap} py-12 sm:py-[88px]`}>
+          <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 sm:mb-8">
+            <h2 className={h2}>Hvad kunderne skriver</h2>
+            <SampleReviewsNote className={`text-[13px]! text-[#5E5850] ${mono}`} />
+          </div>
+          <div className="grid gap-x-12 md:grid-cols-2">
+            {REVIEWS.map((r) => (
+              <figure key={r.name} className="flex flex-col gap-2.5 border-t border-[#D8D2C4] py-6">
+                <p className={`flex flex-wrap items-center gap-x-3 text-[13px] text-[#5E5850] ${mono}`}>
+                  <Stars n={r.stars} className="text-[#2E4A3B]" />
+                  <span>{r.date}</span>
+                </p>
+                <blockquote className="text-base leading-[1.6] sm:text-[17px]">{r.text}</blockquote>
+                <figcaption className="text-[15px] text-[#5E5850]">{r.name}</figcaption>
+                {r.reply && (
+                  <p className="mt-1.5 border-l-2 border-[#BDB5A4] pl-3.5 text-[15px] leading-[1.55] text-[#3D3832]">
+                    <b className="font-semibold">Svar fra Jens:</b> {r.reply}
+                  </p>
+                )}
+              </figure>
+            ))}
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section id="kontakt" className="scroll-mt-20 border-t border-[#D8D2C4] bg-[#FBFAF6]">
+          <div className={`${wrap} grid gap-10 py-12 sm:gap-14 sm:py-[88px] lg:grid-cols-2`}>
+            <div className="flex max-w-[440px] flex-col gap-4 sm:gap-[18px]">
+              <h2 className={h2}>Skal vi komme ud og kigge?</h2>
+              <p className="text-base leading-[1.6] sm:text-lg">
+                Ring direkte, hvis det haster. Skriv, hvis opgaven er større, og fortæl gerne lidt om huset. Vi svarer samme dag på hverdage.
+              </p>
+              <p className="text-[28px] font-semibold">
+                <a href={TEL} className="whitespace-nowrap hover:text-[#2E4A3B]">
+                  {PHONE}
+                </a>
+              </p>
+              <p className={`text-[13px] text-[#5E5850] ${mono}`}>Man–fre kl. 7–16 · {ADDRESS}</p>
+            </div>
+            <form
+              className="flex max-w-[520px] flex-col gap-4"
+              onSubmit={(e) => {
+                e.preventDefault();
+                setSent(true);
+                e.currentTarget.reset();
+              }}
+            >
+              {sent && (
+                <p role="status" className="rounded-[3px] bg-[#E4ECE6] p-4 text-[#1F3A2C]">
+                  Tak. På en rigtig side ville Jens ringe dig op i dag eller i morgen formiddag. Dette er et eksempel, så der er ikke sendt noget.
+                </p>
+              )}
+              <label className="flex flex-col gap-1.5 text-[15px] font-medium">
+                Navn
+                <input required name="navn" type="text" autoComplete="name" className={field} />
+              </label>
+              <label className="flex flex-col gap-1.5 text-[15px] font-medium">
+                Telefon
+                <input required name="telefon" type="tel" autoComplete="tel" inputMode="tel" pattern="[0-9 +]{8,}" title="Skriv et telefonnummer på mindst 8 cifre" className={field} />
+              </label>
+              <label className="flex flex-col gap-1.5 text-[15px] font-medium">
+                Hvad drejer det sig om?
+                <textarea required name="opgave" rows={4} placeholder="Fx nyt tag på et parcelhus fra 1972 i Svogerslev" className={`${field} resize-y`} />
+              </label>
+              <button type="submit" className={`${btn} inline-flex self-start px-6 py-[15px] text-[17px]`}>
+                Send forespørgsel
+              </button>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-[#1E1C18] pb-24 text-[#CFC8B8] sm:pb-0">
+        <div className={`${wrap} flex flex-wrap justify-between gap-x-8 gap-y-3 py-10 text-sm`}>
+          <span className="font-semibold text-[#F3F0E8]">Egholm Tømrer &amp; Snedker</span>
+          <span>{ADDRESS}</span>
+          <span className={mono}>CVR 00 00 00 00 (eksempel)</span>
+          <a href={TEL} className="text-[#F3F0E8] underline underline-offset-2">
+            {PHONE}
+          </a>
         </div>
       </footer>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {open !== null && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#1a150f]/90 p-4 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setOpen(null)}
-          >
-            <motion.figure
-              key={open}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-4xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Img id={GALLERY[open].id} w={1600} alt={GALLERY[open].title} className="max-h-[75dvh] w-full rounded-md object-cover" />
-              <figcaption className="mt-4 flex items-center justify-between gap-4 text-[#fbf8f2]">
-                <span>
-                  <span className="block font-display text-2xl">{GALLERY[open].title}</span>
-                  <span className="text-sm text-[#fbf8f2]/60">{GALLERY[open].place}</span>
-                </span>
-                <span className="flex gap-2">
-                  <button type="button" aria-label="Forrige" onClick={() => setOpen((open - 1 + GALLERY.length) % GALLERY.length)} className="grid size-11 place-items-center rounded-full border border-[#fbf8f2]/30">
-                    ←
-                  </button>
-                  <button type="button" aria-label="Næste" onClick={() => setOpen((open + 1) % GALLERY.length)} className="grid size-11 place-items-center rounded-full border border-[#fbf8f2]/30">
-                    →
-                  </button>
-                  <button type="button" aria-label="Luk" onClick={() => setOpen(null)} className="grid size-11 place-items-center rounded-full bg-[#fbf8f2] text-[#221c15]">
-                    ×
-                  </button>
-                </span>
-              </figcaption>
-            </motion.figure>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Phone action bar */}
-      <div className="fixed inset-x-3 bottom-3 z-30 grid grid-cols-2 gap-2 sm:hidden">
-        <a href={TEL} className="flex items-center justify-center gap-2 rounded-full bg-[#221c15] py-4 text-sm font-semibold text-[#f4efe6] shadow-2xl">
-          <Icon name="phone" className="size-4" /> Ring
+      {/* Phone: call or book, always within thumb's reach */}
+      <div className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-2 gap-2.5 border-t border-[#D8D2C4] bg-[#F3F0E8] px-4 pb-4 pt-3 sm:hidden">
+        <a href={TEL} className="grid h-[52px] place-items-center whitespace-nowrap rounded-[3px] border border-[#1E1C18] font-semibold">
+          Ring til Jens
         </a>
-        <a href="#besigtigelse" className="flex items-center justify-center rounded-full bg-[#a2582a] py-4 text-sm font-semibold text-[#fbf8f2] shadow-2xl">
-          Få et tilbud
+        <a href="#kontakt" className={`${btn} flex h-[52px]`}>
+          <span className="min-[360px]:hidden">Book tid</span>
+          <span className="hidden min-[360px]:inline">Book besigtigelse</span>
         </a>
       </div>
     </div>
